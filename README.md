@@ -37,6 +37,8 @@ Import in a bundler:
 
 ```js
 import 'xylem-css'
+// or explicitly:
+import 'xylem-css/dist/xylem.css'
 ```
 
 Via CDN:
@@ -165,7 +167,7 @@ Dark mode follows `prefers-color-scheme` automatically. To override manually:
 
 ## Size
 
-~25 KB minified, ~5 KB gzipped.
+~26 KB minified, ~5 KB gzipped.
 
 ## Browser Support
 
@@ -173,4 +175,4 @@ Chrome 105+, Firefox 121+, Safari 15.4+.
 
 ## License
 
-MIT
+MIT — see [CHANGELOG](CHANGELOG.md) for version history.
