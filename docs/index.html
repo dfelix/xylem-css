@@ -1,0 +1,2163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xylem CSS — Reference</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="../dist/xylem.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/lucide-static@latest/font/lucide.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+  <style>
+    .demo-section { padding: 2rem 0; border-bottom: 1px solid var(--xy-color-border-light); }
+    .demo-section:last-child { border-bottom: none; }
+
+    /* Reusable demo helpers */
+    .demo-bg { background: var(--xy-color-bg-subtle); }
+    .demo-rounded { border-radius: var(--xy-radius); }
+    .demo-swatch { flex: 1; min-width: 6rem; }
+    .demo-swatch-lg { flex: 1; min-width: 10rem; }
+    .demo-preview { border: 1px solid var(--xy-color-border-light); border-radius: var(--xy-radius); overflow: hidden; }
+    .demo-pill { background: var(--xy-color-primary); color: var(--xy-color-bg); }
+    .demo-color-primary { background: var(--xy-color-primary); color: var(--xy-color-bg); }
+    .demo-color-success { background: var(--xy-color-success); color: var(--xy-color-bg); }
+    .demo-color-danger { background: var(--xy-color-danger); color: var(--xy-color-bg); }
+    .demo-color-warning { background: var(--xy-color-warning); color: var(--xy-color-text); }
+    .demo-color-info { background: var(--xy-color-info); color: var(--xy-color-bg); }
+    .demo-color-border { background: var(--xy-color-border); }
+    .demo-color-border-light { background: var(--xy-color-border-light); }
+    .demo-card-narrow { max-width: 18rem; }
+    .demo-bordered { border: 1px solid var(--xy-color-border-light); }
+    .demo-shadow-sm { box-shadow: var(--xy-shadow-sm); }
+    .demo-shadow-md { box-shadow: var(--xy-shadow-md); }
+    .demo-sidebar-wrap { height: 20rem; }
+    .demo-sidebar-wrap .sidebar { position: relative; height: auto; }
+    .demo-sidebar-content { flex: 1; }
+    .demo-ml-2 { margin-left: var(--xy-space-2); }
+    .demo-logo { width: 5rem; height: auto; }
+
+    /* Code toggle */
+    .code-block {
+      position: relative;
+    }
+    .code-block pre {
+      margin-bottom: 0;
+    }
+    .code-toggle {
+      margin-top: 0.75rem;
+      border: 1px solid var(--xy-color-border-light);
+      border-radius: var(--xy-radius);
+      overflow: hidden;
+    }
+    .code-toggle summary {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--xy-color-primary);
+      cursor: pointer;
+      user-select: none;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .code-toggle summary::-webkit-details-marker { display: none; }
+    .code-toggle summary::before {
+      content: "";
+      display: inline-block;
+      width: 0.4rem;
+      height: 0.4rem;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(-45deg);
+      transition: transform 0.15s;
+    }
+    .code-toggle[open] summary::before {
+      transform: rotate(45deg);
+    }
+    .code-toggle .code-block {
+      border-top: 1px solid var(--xy-color-border-light);
+    }
+    .code-toggle pre[class*="language-"] {
+      margin: 0;
+      border-radius: 0;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.7rem;
+      letter-spacing: 0;
+      text-transform: none;
+      margin-bottom: 0;
+      background: var(--xy-color-bg);
+      color: var(--xy-color-muted);
+      border: 1px solid var(--xy-color-border);
+      border-radius: var(--xy-radius);
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.15s;
+    }
+    .copy-btn:hover { opacity: 1; }
+    .copy-btn.copied {
+      opacity: 1;
+      color: var(--xy-color-success);
+      border-color: var(--xy-color-success);
+    }
+
+    /* Prism overrides — syntax colors for light & dark */
+    :root {
+      --prism-bg: #f5fafa;
+      --prism-text: #3c4d4d;
+      --prism-tag: #007070;
+      --prism-attr-name: #b85430;
+      --prism-attr-value: #2a7a5a;
+      --prism-string: #2a7a5a;
+      --prism-keyword: #8b4ec0;
+      --prism-comment: #8a9e9e;
+      --prism-punctuation: #5a7070;
+      --prism-function: #c06030;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --prism-bg: #1c2828;
+        --prism-text: #d4e0e0;
+        --prism-tag: #6ed4d4;
+        --prism-attr-name: #f0a878;
+        --prism-attr-value: #70d0a0;
+        --prism-string: #70d0a0;
+        --prism-keyword: #c8a0f0;
+        --prism-comment: #708888;
+        --prism-punctuation: #90a8a8;
+        --prism-function: #f0b878;
+      }
+    }
+
+    code[class*="language-"],
+    pre[class*="language-"] {
+      font-family: var(--xy-font-mono);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--prism-text);
+      background: var(--prism-bg);
+      text-shadow: none;
+    }
+    pre[class*="language-"] {
+      background: var(--prism-bg);
+    }
+    .token.tag,
+    .token.selector { color: var(--prism-tag); }
+    .token.attr-name,
+    .token.property { color: var(--prism-attr-name); }
+    .token.attr-value,
+    .token.string { color: var(--prism-attr-value); }
+    .token.keyword { color: var(--prism-keyword); }
+    .token.function { color: var(--prism-function); }
+    .token.punctuation { color: var(--prism-punctuation); }
+    .token.comment { color: var(--prism-comment); font-style: italic; }
+    .token.boolean,
+    .token.number { color: var(--prism-keyword); }
+    .token.operator { color: var(--prism-punctuation); }
+    .token.class-name { color: var(--prism-tag); }
+
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Navbar with mobile toggle -->
+  <nav class="navbar navbar-bordered navbar-sticky">
+    <a class="navbar-brand" href="#"><img src="assets/logo.svg" alt="Xylem" height="28"> Xylem</a>
+    <input type="checkbox" id="nav-toggle" class="navbar-toggle" aria-hidden="true">
+    <label for="nav-toggle" class="navbar-toggler" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </label>
+    <ul class="navbar-nav navbar-collapse">
+      <li class="dropdown">
+        <button class="dropdown-toggle">Base</button>
+        <ul class="dropdown-menu">
+          <li><a href="#typography">Typography</a></li>
+          <li><a href="#lists">Lists</a></li>
+          <li><a href="#code">Code</a></li>
+          <li><a href="#tables">Tables</a></li>
+          <li><a href="#hr">Horizontal Rule</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <button class="dropdown-toggle">Components</button>
+        <ul class="dropdown-menu">
+          <li><a href="#buttons">Buttons</a></li>
+          <li><a href="#badges">Badges</a></li>
+          <li><a href="#forms">Forms</a></li>
+          <li><a href="#cards">Cards</a></li>
+          <li><a href="#hero">Hero</a></li>
+          <li><a href="#navbar">Navbar</a></li>
+          <li><a href="#dropdown">Dropdown</a></li>
+          <li><a href="#sidebar">Sidebar</a></li>
+          <li><a href="#progress">Progress</a></li>
+          <li><a href="#switch">Switch</a></li>
+          <li><a href="#avatar">Avatar</a></li>
+          <li><a href="#footer">Footer</a></li>
+          <li><a href="#divider">Divider</a></li>
+          <li><a href="#pagination">Pagination</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <button class="dropdown-toggle">Utilities</button>
+        <ul class="dropdown-menu">
+          <li><a href="#layout">Layout</a></li>
+          <li><a href="#spacing">Spacing</a></li>
+          <li><a href="#display">Display</a></li>
+          <li><a href="#flex">Flex</a></li>
+          <li><a href="#responsive">Responsive</a></li>
+          <li><a href="#text-utilities">Text</a></li>
+          <li><a href="#tokens">Design Tokens</a></li>
+          <li><a href="#sr-only">Screen Reader Only</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <button class="dropdown-toggle">Examples</button>
+        <ul class="dropdown-menu">
+          <li><a href="examples/dashboard.html">Dashboard</a></li>
+          <li><a href="examples/landing.html">Landing Page</a></li>
+          <li><a href="examples/blog.html">Blog</a></li>
+          <li><a href="examples/login.html">Login</a></li>
+          <li><a href="examples/ecommerce.html">E-commerce</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container stack-lg">
+
+    <!-- Hero -->
+    <section class="hero hero-lg demo-bg">
+      <img src="assets/logo.svg" alt="Xylem CSS logo" class="demo-logo">
+      <h1>Xylem CSS</h1>
+      <p>A very lightweight CSS framework. No JavaScript. No complexity. Just clean, composable CSS utilities.</p>
+      <div class="row row-center mt-2">
+        <a class="button button-primary" href="#typography">Explore</a>
+        <a class="button" href="#layout">Layout</a>
+        <a class="button" href="examples/landing.html">Examples</a>
+      </div>
+    </section>
+
+    <!-- ============================================
+         BASE ELEMENTS
+         ============================================ -->
+
+    <!-- Typography -->
+    <section id="typography" class="demo-section stack">
+      <h2>Typography</h2>
+      <h1>Heading 1</h1>
+      <h2>Heading 2</h2>
+      <h3>Heading 3</h3>
+      <h4>Heading 4</h4>
+      <h5>Heading 5</h5>
+      <h6>Heading 6</h6>
+      <p>This is a paragraph. Xylem CSS provides sensible typographic defaults so your content looks good out of the box. It uses <code>system-ui</code> fonts for fast rendering and familiar feel.</p>
+      <p>Here is a <a href="#">link example</a> within body text.</p>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;h1&gt;Heading 1&lt;/h1&gt;
+&lt;h2&gt;Heading 2&lt;/h2&gt;
+&lt;h3&gt;Heading 3&lt;/h3&gt;
+&lt;p&gt;Body text with a &lt;a href="#"&gt;link&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Inline &lt;code&gt;code&lt;/code&gt; example.&lt;/p&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Lists -->
+    <section id="lists" class="demo-section stack">
+      <h2>Lists</h2>
+      <div class="row">
+        <div>
+          <h4>Unordered</h4>
+          <ul>
+            <li>Item one</li>
+            <li>Item two
+              <ul>
+                <li>Nested item</li>
+                <li>Nested item</li>
+              </ul>
+            </li>
+            <li>Item three</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Ordered</h4>
+          <ol>
+            <li>First</li>
+            <li>Second</li>
+            <li>Third</li>
+          </ol>
+        </div>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;ul&gt;
+  &lt;li&gt;Item one&lt;/li&gt;
+  &lt;li&gt;Item two
+    &lt;ul&gt;
+      &lt;li&gt;Nested&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;First&lt;/li&gt;
+  &lt;li&gt;Second&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- Unstyled --&gt;
+&lt;ul class="list-unstyled"&gt;
+  &lt;li&gt;No bullets&lt;/li&gt;
+  &lt;li&gt;No indentation&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>Unstyled</h4>
+      <ul class="list-unstyled">
+        <li>No bullets</li>
+        <li>No indentation</li>
+        <li>No bottom margin on items</li>
+      </ul>
+
+      <h4>Divided</h4>
+      <ul class="list-unstyled list-divided">
+        <li>Item with separator</li>
+        <li>Another item</li>
+        <li>Last item (no border)</li>
+      </ul>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;ul class="list-unstyled list-divided"&gt;
+  &lt;li&gt;Item with separator&lt;/li&gt;
+  &lt;li&gt;Another item&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Works on any parent/children --&gt;
+&lt;div class="list-divided"&gt;
+  &lt;div&gt;First&lt;/div&gt;
+  &lt;div&gt;Second&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Code -->
+    <section id="code" class="demo-section stack">
+      <h2>Code</h2>
+      <p>Inline code: <code>.container</code>, <code>.row</code>, <code>.stack</code></p>
+      <pre><code class="language-html">function hello() {
+  console.log("Hello");
+}</code></pre>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;p&gt;Inline: &lt;code&gt;.container&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function hello() {
+  console.log("Hello");
+}
+&lt;/code&gt;&lt;/pre&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Tables -->
+    <section id="tables" class="demo-section stack">
+      <h2>Tables</h2>
+      <table class="w-full">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alice</td>
+            <td>Designer</td>
+            <td>Active</td>
+          </tr>
+          <tr>
+            <td>Bob</td>
+            <td>Developer</td>
+            <td>Active</td>
+          </tr>
+          <tr>
+            <td>Carol</td>
+            <td>Manager</td>
+            <td>Away</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;table class="w-full"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Role&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Alice&lt;/td&gt;
+      &lt;td&gt;Designer&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>Striped</h4>
+      <table class="w-full table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alice</td>
+            <td>Designer</td>
+            <td>Active</td>
+          </tr>
+          <tr>
+            <td>Bob</td>
+            <td>Developer</td>
+            <td>Active</td>
+          </tr>
+          <tr>
+            <td>Carol</td>
+            <td>Manager</td>
+            <td>Away</td>
+          </tr>
+          <tr>
+            <td>Dave</td>
+            <td>Intern</td>
+            <td>Active</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;table class="table-striped"&gt;
+  ...
+&lt;/table&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>Hover</h4>
+      <table class="w-full table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alice</td>
+            <td>Designer</td>
+            <td>Active</td>
+          </tr>
+          <tr>
+            <td>Bob</td>
+            <td>Developer</td>
+            <td>Active</td>
+          </tr>
+          <tr>
+            <td>Carol</td>
+            <td>Manager</td>
+            <td>Away</td>
+          </tr>
+          <tr>
+            <td>Dave</td>
+            <td>Intern</td>
+            <td>Active</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;table class="table-hover"&gt;
+  ...
+&lt;/table&gt;
+
+&lt;!-- Combine both --&gt;
+&lt;table class="table-striped table-hover"&gt;
+  ...
+&lt;/table&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- HR -->
+    <section id="hr" class="demo-section stack">
+      <h2>Horizontal Rule</h2>
+      <p>Content above the rule.</p>
+      <hr>
+      <p>Content below the rule.</p>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;hr&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- ============================================
+         COMPONENTS
+         ============================================ -->
+
+    <!-- Buttons -->
+    <section id="buttons" class="demo-section stack">
+      <h2>Buttons</h2>
+      <p>Bare <code>&lt;button&gt;</code> elements only inherit font and cursor — no decorative styles. Add <code>.button</code> to opt in to the styled appearance.</p>
+      <h4>Filled</h4>
+      <div class="row">
+        <button class="button">Default</button>
+        <button class="button button-primary">Primary</button>
+        <button class="button button-success">Success</button>
+        <button class="button button-danger">Danger</button>
+        <button class="button button-warning">Warning</button>
+        <button class="button button-info">Info</button>
+        <a class="button" href="#">Anchor</a>
+        <input type="submit" value="submit input">
+        <input type="button" value="button input">
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;button class="button"&gt;Default&lt;/button&gt;
+&lt;button class="button button-primary"&gt;Primary&lt;/button&gt;
+&lt;button class="button button-success"&gt;Success&lt;/button&gt;
+&lt;button class="button button-danger"&gt;Danger&lt;/button&gt;
+&lt;button class="button button-warning"&gt;Warning&lt;/button&gt;
+&lt;button class="button button-info"&gt;Info&lt;/button&gt;
+&lt;a class="button" href="#"&gt;Anchor&lt;/a&gt;
+&lt;input type="submit" value="submit input"&gt;
+&lt;input type="button" value="button input"&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>Outline</h4>
+      <div class="row">
+        <button class="button button-outline-primary">Primary</button>
+        <button class="button button-outline-success">Success</button>
+        <button class="button button-outline-danger">Danger</button>
+        <button class="button button-outline-warning">Warning</button>
+        <button class="button button-outline-info">Info</button>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;button class="button button-outline-primary"&gt;Primary&lt;/button&gt;
+&lt;button class="button button-outline-success"&gt;Success&lt;/button&gt;
+&lt;button class="button button-outline-danger"&gt;Danger&lt;/button&gt;
+&lt;button class="button button-outline-warning"&gt;Warning&lt;/button&gt;
+&lt;button class="button button-outline-info"&gt;Info&lt;/button&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>Disabled</h4>
+      <div class="row">
+        <button class="button" disabled>Disabled</button>
+        <button class="button button-primary" disabled>Disabled Primary</button>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;button class="button" disabled&gt;Disabled&lt;/button&gt;
+&lt;button class="button button-primary" disabled&gt;Disabled Primary&lt;/button&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>With icons</h4>
+      <p>Add <code>.button-icon</code> for proper icon alignment. Works with any icon font — examples below use <a href="https://phosphoricons.com">Phosphor</a> and <a href="https://lucide.dev">Lucide</a>.</p>
+
+      <p class="text-sm text-muted">Phosphor Icons</p>
+      <div class="row">
+        <button class="button button-icon button-primary">
+          <i class="ph ph-plus"></i> New item
+        </button>
+        <button class="button button-icon button-success">
+          <i class="ph ph-check"></i> Save
+        </button>
+        <button class="button button-icon button-danger">
+          <i class="ph ph-trash"></i> Delete
+        </button>
+        <button class="button button-icon">
+          <i class="ph ph-download-simple"></i> Download
+        </button>
+        <button class="button button-icon button-outline-primary">
+          Settings <i class="ph ph-gear"></i>
+        </button>
+      </div>
+
+      <p class="text-sm text-muted">Lucide Icons</p>
+      <div class="row">
+        <button class="button button-icon button-primary">
+          <i class="icon-plus"></i> New item
+        </button>
+        <button class="button button-icon button-success">
+          <i class="icon-check"></i> Save
+        </button>
+        <button class="button button-icon button-danger">
+          <i class="icon-trash-2"></i> Delete
+        </button>
+        <button class="button button-icon">
+          <i class="icon-download"></i> Download
+        </button>
+        <button class="button button-icon button-outline-primary">
+          Settings <i class="icon-settings"></i>
+        </button>
+      </div>
+
+      <h4>Icon-only</h4>
+      <p>Add <code>.button-sq</code> for square icon-only buttons. Always include <code>aria-label</code>.</p>
+      <div class="row">
+        <button class="button button-icon button-sq button-primary" aria-label="Add">
+          <i class="ph ph-plus"></i>
+        </button>
+        <button class="button button-icon button-sq" aria-label="Edit">
+          <i class="ph ph-pencil-simple"></i>
+        </button>
+        <button class="button button-icon button-sq button-outline-danger" aria-label="Delete">
+          <i class="icon-trash-2"></i>
+        </button>
+        <button class="button button-icon button-sq button-outline-primary" aria-label="Search">
+          <i class="icon-search"></i>
+        </button>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;!-- Phosphor Icons --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"&gt;
+
+&lt;button class="button button-icon button-primary"&gt;
+  &lt;i class="ph ph-plus"&gt;&lt;/i&gt; New item
+&lt;/button&gt;
+
+&lt;!-- Lucide Icons --&gt;
+&lt;link rel="stylesheet" href="https://unpkg.com/lucide-static@latest/font/lucide.css"&gt;
+
+&lt;button class="button button-icon button-primary"&gt;
+  &lt;i class="icon-plus"&gt;&lt;/i&gt; New item
+&lt;/button&gt;
+
+&lt;!-- Icon on the right --&gt;
+&lt;button class="button button-icon button-outline-primary"&gt;
+  Settings &lt;i class="icon-settings"&gt;&lt;/i&gt;
+&lt;/button&gt;
+
+&lt;!-- Icon-only (always add aria-label) --&gt;
+&lt;button class="button button-icon button-sq button-primary" aria-label="Add"&gt;
+  &lt;i class="icon-plus"&gt;&lt;/i&gt;
+&lt;/button&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>Small</h4>
+      <div class="row">
+        <button class="button button-sm">Small</button>
+        <button class="button button-primary button-sm">Small Primary</button>
+        <button class="button button-outline-danger button-sm">Small Danger</button>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;button class="button button-sm"&gt;Small&lt;/button&gt;
+&lt;button class="button button-primary button-sm"&gt;Small Primary&lt;/button&gt;
+&lt;button class="button button-outline-danger button-sm"&gt;Small Danger&lt;/button&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Badges -->
+    <section id="badges" class="demo-section stack">
+      <h2>Badges</h2>
+
+      <div class="row">
+        <span class="badge">Default</span>
+        <span class="badge badge-primary">Primary</span>
+        <span class="badge badge-success">Success</span>
+        <span class="badge badge-danger">Danger</span>
+        <span class="badge badge-warning">Warning</span>
+        <span class="badge badge-info">Info</span>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;span class="badge"&gt;Default&lt;/span&gt;
+&lt;span class="badge badge-primary"&gt;Primary&lt;/span&gt;
+&lt;span class="badge badge-success"&gt;Success&lt;/span&gt;
+&lt;span class="badge badge-danger"&gt;Danger&lt;/span&gt;
+&lt;span class="badge badge-warning"&gt;Warning&lt;/span&gt;
+&lt;span class="badge badge-info"&gt;Info&lt;/span&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>Badges in context</h4>
+      <table class="w-full table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Deploy v2.1</td>
+            <td><span class="badge badge-success">Done</span></td>
+          </tr>
+          <tr>
+            <td>Fix login bug</td>
+            <td><span class="badge badge-danger">Urgent</span></td>
+          </tr>
+          <tr>
+            <td>Update docs</td>
+            <td><span class="badge badge-warning">Pending</span></td>
+          </tr>
+          <tr>
+            <td>Research SSR</td>
+            <td><span class="badge badge-info">Planning</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;td&gt;&lt;span class="badge badge-success"&gt;Done&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class="badge badge-danger"&gt;Urgent&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class="badge badge-warning"&gt;Pending&lt;/span&gt;&lt;/td&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Forms -->
+    <section id="forms" class="demo-section stack">
+      <h2>Forms</h2>
+      <form>
+        <div class="row">
+          <div class="stack-sm w-full">
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="John Doe" class="w-full">
+          </div>
+          <div class="stack-sm w-full">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="john@example.com" class="w-full">
+          </div>
+        </div>
+        <div class="stack-sm">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Your message…" class="w-full"></textarea>
+        </div>
+        <div class="stack-sm">
+          <label>Terms</label>
+          <div class="row">
+            <label><input type="checkbox"> I agree to the terms</label>
+            <label><input type="checkbox" checked disabled> Disabled checkbox</label>
+          </div>
+        </div>
+        <div class="stack-sm">
+          <label>Plan</label>
+          <div class="row">
+            <label><input type="radio" name="plan"> Free</label>
+            <label><input type="radio" name="plan"> Pro</label>
+            <label><input type="radio" name="disabled-plan" checked disabled> Disabled radio</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="stack-sm w-full">
+            <label for="role">Role</label>
+            <select id="role" class="w-full">
+              <option>Designer</option>
+              <option>Developer</option>
+              <option>Manager</option>
+            </select>
+          </div>
+          <div class="stack-sm w-full">
+            <label>Disabled select</label>
+            <select disabled class="w-full">
+              <option>Disabled select</option>
+            </select>
+          </div>
+        </div>
+
+        <h4>Switch</h4>
+        <div class="row">
+          <label>
+            <span class="switch"><input type="checkbox" role="switch"><span class="switch-track"></span></span> Notifications
+          </label>
+          <label>
+            <span class="switch"><input type="checkbox" role="switch" checked><span class="switch-track"></span></span> Dark mode
+          </label>
+          <label>
+            <span class="switch"><input type="checkbox" role="switch" disabled><span class="switch-track"></span></span> Disabled
+          </label>
+          <label>
+            <span class="switch"><input type="checkbox" role="switch" checked disabled><span class="switch-track"></span></span> Disabled on
+          </label>
+        </div>
+
+        <h4>Disabled inputs</h4>
+        <div class="row">
+          <div class="stack-sm w-full">
+            <label>Disabled text</label>
+            <input type="text" value="Disabled input" disabled class="w-full">
+          </div>
+          <div class="stack-sm w-full">
+            <label>Disabled email</label>
+            <input type="email" value="disabled@example.com" disabled class="w-full">
+          </div>
+        </div>
+        <div class="stack-sm">
+          <label>Disabled textarea</label>
+          <textarea disabled class="w-full">Disabled textarea</textarea>
+        </div>
+
+        <div class="row">
+          <button type="submit" class="button button-primary">Submit</button>
+          <button class="button" disabled>Disabled</button>
+          <button class="button button-primary" disabled>Disabled Primary</button>
+        </div>
+      </form>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;form&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="stack-sm w-full"&gt;
+      &lt;label&gt;Name&lt;/label&gt;
+      &lt;input type="text" class="w-full"&gt;
+    &lt;/div&gt;
+    &lt;div class="stack-sm w-full"&gt;
+      &lt;label&gt;Email&lt;/label&gt;
+      &lt;input type="email" class="w-full"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="stack-sm"&gt;
+    &lt;label&gt;Message&lt;/label&gt;
+    &lt;textarea class="w-full"&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+  &lt;!-- Checkboxes --&gt;
+  &lt;div class="stack-sm"&gt;
+    &lt;label&gt;Terms&lt;/label&gt;
+    &lt;div class="row"&gt;
+      &lt;label&gt;&lt;input type="checkbox"&gt; I agree to the terms&lt;/label&gt;
+      &lt;label&gt;&lt;input type="checkbox" checked disabled&gt; Disabled&lt;/label&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Radio buttons --&gt;
+  &lt;div class="stack-sm"&gt;
+    &lt;label&gt;Plan&lt;/label&gt;
+    &lt;div class="row"&gt;
+      &lt;label&gt;&lt;input type="radio" name="plan"&gt; Free&lt;/label&gt;
+      &lt;label&gt;&lt;input type="radio" name="plan"&gt; Pro&lt;/label&gt;
+      &lt;label&gt;&lt;input type="radio" checked disabled&gt; Disabled&lt;/label&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="stack-sm w-full"&gt;
+      &lt;label&gt;Select&lt;/label&gt;
+      &lt;select class="w-full"&gt;...&lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class="stack-sm w-full"&gt;
+      &lt;label&gt;Disabled select&lt;/label&gt;
+      &lt;select disabled class="w-full"&gt;...&lt;/select&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Switch --&gt;
+  &lt;label&gt;
+    &lt;span class="switch"&gt;
+      &lt;input type="checkbox" role="switch"&gt;
+      &lt;span class="switch-track"&gt;&lt;/span&gt;
+    &lt;/span&gt; Notifications
+  &lt;/label&gt;
+  &lt;label&gt;
+    &lt;span class="switch"&gt;
+      &lt;input type="checkbox" role="switch" checked disabled&gt;
+      &lt;span class="switch-track"&gt;&lt;/span&gt;
+    &lt;/span&gt; Disabled on
+  &lt;/label&gt;
+
+  &lt;!-- Disabled inputs --&gt;
+  &lt;input type="text" value="Disabled" disabled&gt;
+  &lt;textarea disabled&gt;Disabled&lt;/textarea&gt;
+
+  &lt;!-- Buttons --&gt;
+  &lt;button class="button button-primary"&gt;Submit&lt;/button&gt;
+  &lt;button class="button" disabled&gt;Disabled&lt;/button&gt;
+  &lt;button class="button button-primary" disabled&gt;Disabled Primary&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Cards -->
+    <section id="cards" class="demo-section stack">
+      <h2>Cards</h2>
+
+      <div class="row">
+        <div class="card demo-card-narrow">
+          <img class="card-img" src="https://picsum.photos/seed/xylem1/400/200" alt="Placeholder">
+          <div class="card-body">
+            <h3 class="card-title">Card with image</h3>
+            <p class="card-text">A simple card with an image on top and body content below.</p>
+            <a class="button button-primary" href="#">Read more</a>
+          </div>
+        </div>
+
+        <div class="card demo-card-narrow">
+          <div class="card-body">
+            <h3 class="card-title">Simple card</h3>
+            <p class="card-text">A text-only card without an image. Clean and minimal.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Updated 2 days ago</small>
+          </div>
+        </div>
+
+        <div class="card card-shadow demo-card-narrow">
+          <div class="card-body">
+            <h3 class="card-title">Shadow card</h3>
+            <p class="card-text">Use <code>.card-shadow</code> for an elevated look with no border.</p>
+            <a href="#">Learn more</a>
+          </div>
+        </div>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;!-- Card with image --&gt;
+&lt;div class="card"&gt;
+  &lt;img class="card-img" src="image.jpg" alt="..."&gt;
+  &lt;div class="card-body"&gt;
+    &lt;h3 class="card-title"&gt;Title&lt;/h3&gt;
+    &lt;p class="card-text"&gt;Description text.&lt;/p&gt;
+    &lt;a class="button button-primary" href="#"&gt;Action&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Card with footer --&gt;
+&lt;div class="card"&gt;
+  &lt;div class="card-body"&gt;
+    &lt;h3 class="card-title"&gt;Title&lt;/h3&gt;
+    &lt;p class="card-text"&gt;Description text.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="card-footer"&gt;Footer content&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Shadow card --&gt;
+&lt;div class="card card-shadow"&gt;
+  &lt;div class="card-body"&gt;
+    &lt;h3 class="card-title"&gt;Title&lt;/h3&gt;
+    &lt;p class="card-text"&gt;Elevated card.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Hero -->
+    <section id="hero" class="demo-section stack">
+      <h2>Hero</h2>
+
+      <h4>Default</h4>
+      <div class="hero demo-bg demo-rounded">
+        <h1>Small Hero</h1>
+        <p>Use <code>.hero</code> for standard size or add <code>.hero-lg</code> for more vertical space.</p>
+        <button class="button button-primary">Get Started</button>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;section class="hero"&gt;
+  &lt;h1&gt;Welcome&lt;/h1&gt;
+  &lt;p&gt;Your tagline here.&lt;/p&gt;
+  &lt;a class="button button-primary" href="#"&gt;Get Started&lt;/a&gt;
+&lt;/section&gt;
+
+&lt;!-- Large variant --&gt;
+&lt;section class="hero hero-lg"&gt;
+  &lt;h1&gt;Big Hero&lt;/h1&gt;
+  &lt;p&gt;More vertical space.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Navbar -->
+    <section id="navbar" class="demo-section stack">
+      <h2>Navbar</h2>
+
+      <h4>Default</h4>
+      <nav class="navbar navbar-bordered demo-rounded">
+        <a class="navbar-brand" href="#">Brand</a>
+        <ul class="navbar-nav">
+          <li><a href="#" class="active">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;nav class="navbar navbar-bordered"&gt;
+  &lt;a class="navbar-brand" href="#"&gt;Brand&lt;/a&gt;
+  &lt;ul class="navbar-nav"&gt;
+    &lt;li&gt;&lt;a href="#" class="active"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>With mobile toggle</h4>
+      <p>Add a hidden checkbox + <code>.navbar-toggler</code> and wrap nav items in <code>.navbar-collapse</code>. Resize the browser to see it.</p>
+      <nav class="navbar navbar-bordered demo-rounded">
+        <a class="navbar-brand" href="#">Brand</a>
+        <input type="checkbox" id="demo-nav-toggle" class="navbar-toggle" aria-hidden="true">
+        <label for="demo-nav-toggle" class="navbar-toggler" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </label>
+        <ul class="navbar-nav navbar-collapse">
+          <li><a href="#" class="active">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;nav class="navbar navbar-bordered"&gt;
+  &lt;a class="navbar-brand" href="#"&gt;Brand&lt;/a&gt;
+  &lt;input type="checkbox" id="nav-toggle" class="navbar-toggle" aria-hidden="true"&gt;
+  &lt;label for="nav-toggle" class="navbar-toggler" aria-label="Toggle navigation"&gt;
+    &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+  &lt;/label&gt;
+  &lt;ul class="navbar-nav navbar-collapse"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>With logo + button</h4>
+      <nav class="navbar navbar-bordered demo-rounded">
+        <a class="navbar-brand" href="#"><img src="assets/logo.svg" alt="Brand" height="24"> Brand</a>
+        <ul class="navbar-nav">
+          <li><a href="#">Docs</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><button class="button button-primary m-0">Sign Up</button></li>
+        </ul>
+      </nav>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;nav class="navbar navbar-bordered"&gt;
+  &lt;a class="navbar-brand" href="#"&gt;
+    &lt;img src="logo.svg" alt="Brand" height="24"&gt; Xylem
+  &lt;/a&gt;
+  &lt;ul class="navbar-nav"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Docs&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Pricing&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;button class="button button-primary m-0"&gt;Sign Up&lt;/button&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>With dropdown</h4>
+      <nav class="navbar navbar-bordered demo-rounded">
+        <a class="navbar-brand" href="#"><img src="assets/logo.svg" alt="Brand" height="24"></a>
+        <ul class="navbar-nav">
+          <li><a href="#" class="active">Home</a></li>
+          <li class="dropdown">
+            <button class="dropdown-toggle">Products</button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Analytics</a></li>
+              <li><a href="#">Automation</a></li>
+              <li><a href="#">Integrations</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <button class="dropdown-toggle">Company</button>
+            <ul class="dropdown-menu">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Careers</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Pricing</a></li>
+        </ul>
+      </nav>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;nav class="navbar navbar-bordered"&gt;
+  &lt;a class="navbar-brand" href="#"&gt;Brand&lt;/a&gt;
+  &lt;ul class="navbar-nav"&gt;
+    &lt;li&gt;&lt;a href="#" class="active"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="dropdown"&gt;
+      &lt;button class="dropdown-toggle"&gt;Products&lt;/button&gt;
+      &lt;ul class="dropdown-menu"&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Analytics&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Automation&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Pricing&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- Sticky navbar --&gt;
+&lt;nav class="navbar navbar-bordered navbar-sticky"&gt;...&lt;/nav&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>With user avatar</h4>
+      <nav class="navbar navbar-bordered demo-rounded">
+        <a class="navbar-brand" href="#"><img src="assets/logo.svg" alt="Brand" height="24"></a>
+        <ul class="navbar-nav">
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Projects</a></li>
+          <li class="dropdown">
+            <button class="avatar-toggle">
+              <img class="avatar" src="https://i.pravatar.cc/64?img=11" alt="User">
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a href="#">Sign out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;nav class="navbar navbar-bordered"&gt;
+  &lt;a class="navbar-brand" href="#"&gt;Brand&lt;/a&gt;
+  &lt;ul class="navbar-nav"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Dashboard&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Projects&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="dropdown"&gt;
+      &lt;button class="avatar-toggle"&gt;
+        &lt;img class="avatar" src="https://i.pravatar.cc/64?img=11" alt="User"&gt;
+      &lt;/button&gt;
+      &lt;ul class="dropdown-menu"&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Profile&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Settings&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;hr class="dropdown-divider"&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Sign out&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Dropdown -->
+    <section id="dropdown" class="demo-section stack">
+      <h2>Dropdown</h2>
+      <p>CSS-only dropdowns using <code>:focus-within</code>. No JavaScript required. Wrap a <code>.dropdown-toggle</code> button and a <code>.dropdown-menu</code> list inside a <code>.dropdown</code> container.</p>
+
+      <h4>Default</h4>
+      <div class="dropdown">
+        <button class="dropdown-toggle">Options</button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Edit</a></li>
+          <li><a href="#">Duplicate</a></li>
+          <li><a href="#">Archive</a></li>
+        </ul>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;div class="dropdown"&gt;
+  &lt;button class="dropdown-toggle"&gt;Options&lt;/button&gt;
+  &lt;ul class="dropdown-menu"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Edit&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Duplicate&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Archive&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>With divider</h4>
+      <p>Use <code>&lt;hr class="dropdown-divider"&gt;</code> to separate groups of actions.</p>
+      <div class="dropdown">
+        <button class="dropdown-toggle">Actions</button>
+        <ul class="dropdown-menu">
+          <li><a href="#">New file</a></li>
+          <li><a href="#">New folder</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a href="#">Import</a></li>
+          <li><a href="#">Export</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a href="#">Delete</a></li>
+        </ul>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;div class="dropdown"&gt;
+  &lt;button class="dropdown-toggle"&gt;Actions&lt;/button&gt;
+  &lt;ul class="dropdown-menu"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;New file&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;New folder&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;hr class="dropdown-divider"&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Import&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Export&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;hr class="dropdown-divider"&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Delete&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+
+      <p class="text-sm text-muted mt-2"><strong>Note:</strong> Dropdowns use <code>:focus-within</code> and close when focus leaves the container. Inside a navbar, the last dropdown automatically right-aligns to stay within the viewport. For keyboard <code>Escape</code> support and <code>aria-expanded</code> state, add JavaScript.</p>
+    </section>
+
+    <!-- Sidebar -->
+    <section id="sidebar" class="demo-section stack">
+      <h2>Sidebar</h2>
+      <p>A fixed-height sidebar with navigation groups. Hides automatically below 768px — pair with the navbar mobile toggle for responsive layouts. See the <a href="examples/dashboard.html">Dashboard example</a>.</p>
+
+      <div class="demo-preview d-flex demo-sidebar-wrap">
+        <aside class="sidebar">
+          <a class="sidebar-brand" href="#">Brand</a>
+          <nav>
+            <ul class="sidebar-nav">
+              <li><a href="#" class="active">Dashboard</a></li>
+              <li><a href="#">Analytics</a></li>
+              <li><a href="#">Projects</a></li>
+            </ul>
+          </nav>
+          <div class="sidebar-section">Settings</div>
+          <nav>
+            <ul class="sidebar-nav">
+              <li><a href="#">Account</a></li>
+              <li><a href="#">Billing</a></li>
+            </ul>
+          </nav>
+        </aside>
+        <div class="p-3 d-flex text-muted row-center demo-sidebar-content">
+          Main content area
+        </div>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;div style="display: flex; min-height: 100vh"&gt;
+  &lt;aside class="sidebar"&gt;
+    &lt;a class="sidebar-brand" href="#"&gt;Brand&lt;/a&gt;
+
+    &lt;nav&gt;
+      &lt;ul class="sidebar-nav"&gt;
+        &lt;li&gt;&lt;a href="#" class="active"&gt;Dashboard&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Analytics&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Projects&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+
+    &lt;div class="sidebar-section"&gt;Settings&lt;/div&gt;
+    &lt;nav&gt;
+      &lt;ul class="sidebar-nav"&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Account&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Billing&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/aside&gt;
+
+  &lt;main style="flex: 1"&gt;
+    &lt;!-- Content --&gt;
+  &lt;/main&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Progress -->
+    <section id="progress" class="demo-section stack">
+      <h2>Progress</h2>
+
+      <div class="stack">
+        <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div></div>
+        <div class="progress progress-success"><div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div>
+        <div class="progress progress-warning"><div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%;"></div></div>
+        <div class="progress progress-danger"><div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;"></div></div>
+        <div class="progress progress-info"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div></div>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;!-- Default (primary) --&gt;
+&lt;div class="progress"&gt;
+  &lt;div class="progress-bar" role="progressbar"
+       aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+       style="width: 75%"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Color variants --&gt;
+&lt;div class="progress progress-success"&gt;
+  &lt;div class="progress-bar" role="progressbar"
+       aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+       style="width: 100%"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="progress progress-warning"&gt;
+  &lt;div class="progress-bar" role="progressbar"
+       aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
+       style="width: 45%"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="progress progress-danger"&gt;
+  &lt;div class="progress-bar" role="progressbar"
+       aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+       style="width: 20%"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="progress progress-info"&gt;
+  &lt;div class="progress-bar" role="progressbar"
+       aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+       style="width: 60%"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Switch -->
+    <section id="switch" class="demo-section stack">
+      <h2>Switch</h2>
+      <p>CSS-only toggle switch. Wrap a checkbox inside <code>.switch</code> with a <code>.switch-track</code> sibling.</p>
+
+      <div class="row">
+        <label>
+          <span class="switch">
+            <input type="checkbox" role="switch">
+            <span class="switch-track"></span>
+          </span> Default
+        </label>
+        <label>
+          <span class="switch">
+            <input type="checkbox" role="switch" checked>
+            <span class="switch-track"></span>
+          </span> Checked
+        </label>
+        <label>
+          <span class="switch">
+            <input type="checkbox" role="switch" disabled>
+            <span class="switch-track"></span>
+          </span> Disabled
+        </label>
+        <label>
+          <span class="switch">
+            <input type="checkbox" role="switch" checked disabled>
+            <span class="switch-track"></span>
+          </span> Disabled on
+        </label>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;label&gt;
+  &lt;span class="switch"&gt;
+    &lt;input type="checkbox" role="switch"&gt;
+    &lt;span class="switch-track"&gt;&lt;/span&gt;
+  &lt;/span&gt; Label text
+&lt;/label&gt;
+
+&lt;!-- Checked --&gt;
+&lt;span class="switch"&gt;
+  &lt;input type="checkbox" role="switch" checked&gt;
+  &lt;span class="switch-track"&gt;&lt;/span&gt;
+&lt;/span&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;span class="switch"&gt;
+  &lt;input type="checkbox" role="switch" disabled&gt;
+  &lt;span class="switch-track"&gt;&lt;/span&gt;
+&lt;/span&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Avatar -->
+    <section id="avatar" class="demo-section stack">
+      <h2>Avatar</h2>
+      <p>Circular avatar images with size variants and an interactive toggle for dropdowns.</p>
+
+      <h4>Sizes</h4>
+      <div class="row row-center">
+        <img class="avatar-sm avatar" src="https://i.pravatar.cc/80?img=11" alt="Small avatar">
+        <img class="avatar" src="https://i.pravatar.cc/80?img=23" alt="Default avatar">
+        <img class="avatar-lg avatar" src="https://i.pravatar.cc/80?img=53" alt="Large avatar">
+      </div>
+
+      <h4>Avatar toggle</h4>
+      <p>Use <code>.avatar-toggle</code> as a button wrapper — adds a caret and focus ring. Pairs with <code>.dropdown</code>.</p>
+      <div class="dropdown">
+        <button class="avatar-toggle">
+          <img class="avatar" src="https://i.pravatar.cc/80?img=45" alt="User">
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Settings</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a href="#">Sign out</a></li>
+        </ul>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;!-- Sizes --&gt;
+&lt;img class="avatar-sm avatar" src="https://i.pravatar.cc/64?img=11" alt="User"&gt;
+&lt;img class="avatar" src="https://i.pravatar.cc/64?img=11" alt="User"&gt;
+&lt;img class="avatar-lg avatar" src="https://i.pravatar.cc/64?img=11" alt="User"&gt;
+
+&lt;!-- Avatar toggle (pairs with .dropdown) --&gt;
+&lt;div class="dropdown"&gt;
+  &lt;button class="avatar-toggle"&gt;
+    &lt;img class="avatar" src="https://i.pravatar.cc/64?img=11" alt="User"&gt;
+  &lt;/button&gt;
+  &lt;ul class="dropdown-menu"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Profile&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Sign out&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Footer -->
+    <section id="footer" class="demo-section stack">
+      <h2>Footer</h2>
+
+      <h4>Default</h4>
+      <footer class="footer demo-rounded">
+        <div class="row row-between">
+          <span>Xylem CSS v0.2.0</span>
+          <nav class="row">
+            <a href="#">Docs</a>
+            <a href="https://github.com/dfelix/xylem-css">GitHub</a>
+            <a href="#">License</a>
+          </nav>
+        </div>
+      </footer>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;footer class="footer"&gt;
+  &lt;div class="row row-between"&gt;
+    &lt;span&gt;&amp;copy; 2026 Brand&lt;/span&gt;
+    &lt;nav class="row"&gt;
+      &lt;a href="#"&gt;Docs&lt;/a&gt;
+      &lt;a href="https://github.com/dfelix/xylem-css"&gt;GitHub&lt;/a&gt;
+      &lt;a href="#"&gt;License&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>Dark</h4>
+      <footer class="footer footer-dark demo-rounded">
+        <div class="container">
+          <div class="row row-between">
+            <span>Xylem CSS v0.2.0</span>
+            <nav class="row">
+              <a href="#">Docs</a>
+              <a href="https://github.com/dfelix/xylem-css">GitHub</a>
+              <a href="#">License</a>
+            </nav>
+          </div>
+        </div>
+      </footer>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;footer class="footer footer-dark"&gt;
+  &lt;div class="container"&gt;
+    &lt;div class="row row-between"&gt;
+      &lt;span&gt;&amp;copy; 2026 Brand&lt;/span&gt;
+      &lt;nav class="row"&gt;
+        &lt;a href="#"&gt;Docs&lt;/a&gt;
+        &lt;a href="https://github.com/dfelix/xylem-css"&gt;GitHub&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Divider -->
+    <section id="divider" class="demo-section stack">
+      <h2>Divider</h2>
+      <p>A horizontal rule with optional inline text, commonly used for "or" separators in forms.</p>
+
+      <div class="stack">
+        <div class="divider">or</div>
+        <div class="divider">continue with</div>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;div class="divider"&gt;or&lt;/div&gt;
+&lt;div class="divider"&gt;continue with&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Pagination -->
+    <section id="pagination" class="demo-section stack">
+      <h2>Pagination</h2>
+      <p>Page navigation with active state. Wrap in a <code>&lt;nav&gt;</code> with <code>aria-label</code> for accessibility.</p>
+
+      <nav aria-label="Pagination example">
+        <ul class="pagination">
+          <li><a href="#">&laquo;</a></li>
+          <li><span class="active">1</span></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">&raquo;</a></li>
+        </ul>
+      </nav>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;nav aria-label="Pagination"&gt;
+  &lt;ul class="pagination"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;&amp;laquo;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span class="active"&gt;1&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;3&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;&amp;raquo;&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- ============================================
+         LAYOUT & UTILITIES
+         ============================================ -->
+
+    <!-- Layout -->
+    <section id="layout" class="demo-section stack">
+      <h2>Layout</h2>
+
+      <h4>Container</h4>
+      <p>Centered wrapper, max-width 960px.</p>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;div class="container"&gt;
+  &lt;!-- Centered, max-width 960px --&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>Row (flex, with gap)</h4>
+      <div class="row">
+        <div class="p-3 demo-bg">One</div>
+        <div class="p-3 demo-bg">Two</div>
+        <div class="p-3 demo-bg">Three</div>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;div class="row"&gt;
+  &lt;div&gt;One&lt;/div&gt;
+  &lt;div&gt;Two&lt;/div&gt;
+  &lt;div&gt;Three&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Modifiers --&gt;
+&lt;div class="row row-center"&gt;...&lt;/div&gt;
+&lt;div class="row row-between"&gt;...&lt;/div&gt;
+&lt;div class="row row-nowrap"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>Row with <code>.row-between</code></h4>
+      <div class="row row-between">
+        <div class="p-3 demo-bg">Left</div>
+        <div class="p-3 demo-bg">Right</div>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;div class="row row-between"&gt;
+  &lt;div&gt;Left&lt;/div&gt;
+  &lt;div&gt;Right&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>Grid (auto-fill)</h4>
+      <p>Responsive grid that auto-fills columns. Override <code>--xy-grid-min</code> to change minimum column width (default 16rem).</p>
+      <div class="grid">
+        <div class="p-3 demo-bg text-center">A</div>
+        <div class="p-3 demo-bg text-center">B</div>
+        <div class="p-3 demo-bg text-center">C</div>
+        <div class="p-3 demo-bg text-center">D</div>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;div class="grid"&gt;...&lt;/div&gt;
+
+&lt;!-- Custom column width --&gt;
+&lt;div class="grid" style="--xy-grid-min: 10rem;"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4>Stack (vertical, with gap)</h4>
+      <div class="stack-sm">
+        <div class="p-2 demo-bg">First</div>
+        <div class="p-2 demo-bg">Second</div>
+        <div class="p-2 demo-bg">Third</div>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;div class="stack"&gt;...&lt;/div&gt;
+&lt;div class="stack-sm"&gt;...&lt;/div&gt;
+&lt;div class="stack-lg"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Spacing -->
+    <section id="spacing" class="demo-section stack">
+      <h2>Spacing Utilities</h2>
+      <div class="row">
+        <div class="p-1 demo-bg"><code>.p-1</code></div>
+        <div class="p-2 demo-bg"><code>.p-2</code></div>
+        <div class="p-3 demo-bg"><code>.p-3</code></div>
+        <div class="p-4 demo-bg"><code>.p-4</code></div>
+        <div class="p-5 demo-bg"><code>.p-5</code></div>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;!-- Margin --&gt;
+&lt;div class="m-0"&gt;...&lt;/div&gt;  &lt;!-- 0 --&gt;
+&lt;div class="m-1"&gt;...&lt;/div&gt;  &lt;!-- 0.25rem --&gt;
+&lt;div class="m-2"&gt;...&lt;/div&gt;  &lt;!-- 0.5rem --&gt;
+&lt;div class="m-3"&gt;...&lt;/div&gt;  &lt;!-- 1rem --&gt;
+&lt;div class="m-4"&gt;...&lt;/div&gt;  &lt;!-- 1.5rem --&gt;
+&lt;div class="m-5"&gt;...&lt;/div&gt;  &lt;!-- 2rem --&gt;
+
+&lt;!-- Padding --&gt;
+&lt;div class="p-0 .. p-5"&gt;...&lt;/div&gt;
+
+&lt;!-- Directional (mt, mb, ml, mr, pt, pb, pl, pr) --&gt;
+&lt;div class="mt-3"&gt;...&lt;/div&gt;  &lt;!-- margin-top --&gt;
+&lt;div class="mb-2"&gt;...&lt;/div&gt;  &lt;!-- margin-bottom --&gt;
+&lt;div class="ml-3"&gt;...&lt;/div&gt;  &lt;!-- margin-left --&gt;
+&lt;div class="mr-3"&gt;...&lt;/div&gt;  &lt;!-- margin-right --&gt;
+&lt;div class="pt-3"&gt;...&lt;/div&gt;  &lt;!-- padding-top --&gt;
+&lt;div class="pb-2"&gt;...&lt;/div&gt;  &lt;!-- padding-bottom --&gt;
+&lt;div class="pl-3"&gt;...&lt;/div&gt;  &lt;!-- padding-left --&gt;
+&lt;div class="pr-3"&gt;...&lt;/div&gt;  &lt;!-- padding-right --&gt;
+&lt;div class="mx-auto"&gt;...&lt;/div&gt;  &lt;!-- center --&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Display Utilities -->
+    <section id="display" class="demo-section stack">
+      <h2>Display Utilities</h2>
+
+      <div class="stack-sm">
+        <div><code>.d-none</code> — <code>display: none</code></div>
+        <div><code>.d-block</code> — <code>display: block</code></div>
+        <div><code>.d-flex</code> — <code>display: flex</code></div>
+        <div><code>.d-inline</code> — <code>display: inline</code></div>
+        <div><code>.d-inline-block</code> — <code>display: inline-block</code></div>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;div class="d-none"&gt;Hidden&lt;/div&gt;
+&lt;div class="d-block"&gt;Block&lt;/div&gt;
+&lt;div class="d-flex"&gt;Flex container&lt;/div&gt;
+&lt;span class="d-inline-block"&gt;Inline block&lt;/span&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Flex Utilities -->
+    <section id="flex" class="demo-section stack">
+      <h2>Flex Utilities</h2>
+
+      <h4>Flex grow</h4>
+      <div class="d-flex gap-3">
+        <div class="flex-1 p-2 demo-bg text-center"><code>.flex-1</code></div>
+        <div class="flex-auto p-2 demo-bg text-center"><code>.flex-auto</code></div>
+        <div class="flex-none p-2 demo-bg text-center"><code>.flex-none</code></div>
+      </div>
+
+      <h4>Alignment</h4>
+      <div class="stack-sm">
+        <div><code>.items-start</code>, <code>.items-center</code>, <code>.items-end</code>, <code>.items-stretch</code></div>
+        <div><code>.justify-start</code>, <code>.justify-center</code>, <code>.justify-end</code>, <code>.justify-between</code></div>
+      </div>
+
+      <h4>Gap</h4>
+      <div class="d-flex gap-1 demo-bg p-2 demo-rounded">
+        <div class="p-2 demo-rounded demo-pill">A</div>
+        <div class="p-2 demo-rounded demo-pill">B</div>
+        <div class="p-2 demo-rounded demo-pill">C</div>
+      </div>
+      <p class="text-sm text-muted">Above: <code>.gap-1</code> (0.25rem). Available: <code>.gap-0</code> through <code>.gap-5</code>.</p>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;!-- Flex grow --&gt;
+&lt;div class="d-flex gap-3"&gt;
+  &lt;div class="flex-1"&gt;Equal share&lt;/div&gt;
+  &lt;div class="flex-auto"&gt;Natural size, grows&lt;/div&gt;
+  &lt;div class="flex-none"&gt;Fixed&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Alignment --&gt;
+&lt;div class="d-flex items-center justify-between"&gt;
+  &lt;div&gt;Left&lt;/div&gt;
+  &lt;div&gt;Right&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Gap --&gt;
+&lt;div class="d-flex gap-2"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Responsive Utilities -->
+    <section id="responsive" class="demo-section stack">
+      <h2>Responsive Utilities</h2>
+      <p>All display and spacing utilities support <code>-sm</code> (≥576px), <code>-md</code> (≥768px), and <code>-lg</code> (≥1024px) breakpoint variants.</p>
+
+      <h4>Display</h4>
+      <table class="w-full">
+        <thead>
+          <tr><th>Class</th><th>Applies at</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>.d-sm-none</code></td><td>≥ 576px</td></tr>
+          <tr><td><code>.d-md-block</code></td><td>≥ 768px</td></tr>
+          <tr><td><code>.d-lg-flex</code></td><td>≥ 1024px</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Spacing</h4>
+      <table class="w-full">
+        <thead>
+          <tr><th>Class</th><th>Applies at</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>.p-sm-{0-5}</code>, <code>.m-sm-{0-5}</code></td><td>≥ 576px</td></tr>
+          <tr><td><code>.p-md-{0-5}</code>, <code>.m-md-{0-5}</code></td><td>≥ 768px</td></tr>
+          <tr><td><code>.p-lg-{0-5}</code>, <code>.m-lg-{0-5}</code></td><td>≥ 1024px</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Example: hide on mobile, show on desktop</h4>
+      <div class="p-3 demo-bg">
+        <span class="d-none d-md-inline-block p-2 demo-rounded demo-pill">Visible ≥ 768px</span>
+        <span class="d-md-none text-muted">Resize your browser — element appears at ≥ 768px</span>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;!-- Hidden on mobile, visible from md breakpoint --&gt;
+&lt;div class="d-none d-md-block"&gt;Desktop only&lt;/div&gt;
+
+&lt;!-- Visible on mobile, hidden from md breakpoint --&gt;
+&lt;div class="d-md-none"&gt;Mobile only&lt;/div&gt;
+
+&lt;!-- Responsive spacing --&gt;
+&lt;div class="p-2 p-md-3 p-lg-4"&gt;
+  Padding grows with screen size
+&lt;/div&gt;
+
+&lt;!-- Responsive margin --&gt;
+&lt;div class="m-1 m-sm-2 m-lg-4"&gt;
+  Margin grows with screen size
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Text Utilities -->
+    <section id="text-utilities" class="demo-section stack">
+      <h2>Text Utilities</h2>
+
+      <h4>Size</h4>
+      <div class="stack-sm">
+        <p class="text-xs">.text-xs — 0.7rem</p>
+        <p class="text-sm">.text-sm — 0.85rem</p>
+        <p class="text-md">.text-md — 0.9rem</p>
+        <p class="text-base">.text-base (default) — 1rem</p>
+        <p class="text-lg">.text-lg — 1.15rem</p>
+      </div>
+
+      <h4>Color</h4>
+      <div class="stack-sm">
+        <p class="text-muted m-0">.text-muted</p>
+        <p class="text-primary m-0">.text-primary</p>
+        <p class="text-success m-0">.text-success</p>
+        <p class="text-danger m-0">.text-danger</p>
+        <p class="text-warning m-0">.text-warning</p>
+        <p class="text-info m-0">.text-info</p>
+      </div>
+
+      <h4>Font Weight</h4>
+      <div class="stack-sm">
+        <p class="font-light m-0">.font-light (300)</p>
+        <p class="font-semibold m-0">.font-semibold (600)</p>
+      </div>
+
+      <h4>Section Label / Overline</h4>
+      <p class="section-label">Uppercase muted label</p>
+
+      <h4>Display Number</h4>
+      <div class="display-number">4,200+</div>
+      <p class="text-sm text-muted">Large, light-weight number for stats and pricing.</p>
+
+      <h4>Background</h4>
+      <div class="bg-subtle p-3 text-center">.bg-subtle — subtle background with border-radius</div>
+
+      <h4>Meta</h4>
+      <div class="meta">
+        <span>Ana Moreira</span>
+        <span>&middot;</span>
+        <span>7 Mar 2026</span>
+        <span>&middot;</span>
+        <span class="badge badge-primary">Featured</span>
+      </div>
+      <p class="text-sm text-muted mt-1">Inline flex row for metadata (dates, authors, badges).</p>
+
+      <h4>Alignment</h4>
+      <div class="stack-sm demo-bg p-3">
+        <p class="text-left">.text-left</p>
+        <p class="text-center">.text-center</p>
+        <p class="text-right">.text-right</p>
+      </div>
+
+      <h4>Width</h4>
+      <p>Use <code>.w-full</code> for <code>width: 100%</code> and <code>.max-w-full</code> for <code>max-width: 100%</code>.</p>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;!-- Size --&gt;
+&lt;p class="text-xs"&gt;Extra small&lt;/p&gt;
+&lt;p class="text-sm"&gt;Small&lt;/p&gt;
+&lt;p class="text-md"&gt;Medium&lt;/p&gt;
+&lt;p class="text-base"&gt;Base (default)&lt;/p&gt;
+&lt;p class="text-lg"&gt;Large&lt;/p&gt;
+
+&lt;!-- Color --&gt;
+&lt;p class="text-muted"&gt;Muted&lt;/p&gt;
+&lt;p class="text-primary"&gt;Primary&lt;/p&gt;
+&lt;p class="text-success"&gt;Success&lt;/p&gt;
+&lt;p class="text-danger"&gt;Danger&lt;/p&gt;
+&lt;p class="text-warning"&gt;Warning&lt;/p&gt;
+&lt;p class="text-info"&gt;Info&lt;/p&gt;
+
+&lt;!-- Font weight --&gt;
+&lt;p class="font-light"&gt;Light (300)&lt;/p&gt;
+&lt;p class="font-semibold"&gt;Semibold (600)&lt;/p&gt;
+
+&lt;!-- Section label / overline --&gt;
+&lt;p class="section-label"&gt;Section heading&lt;/p&gt;
+&lt;p class="overline"&gt;Overline text&lt;/p&gt;
+
+&lt;!-- Display number --&gt;
+&lt;div class="display-number"&gt;4,200+&lt;/div&gt;
+
+&lt;!-- Subtle background --&gt;
+&lt;div class="bg-subtle p-3"&gt;Highlighted section&lt;/div&gt;
+
+&lt;!-- Meta row --&gt;
+&lt;div class="meta"&gt;
+  &lt;span&gt;Author&lt;/span&gt;
+  &lt;span&gt;&amp;middot;&lt;/span&gt;
+  &lt;span&gt;Date&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Alignment --&gt;
+&lt;p class="text-left"&gt;Left&lt;/p&gt;
+&lt;p class="text-center"&gt;Center&lt;/p&gt;
+&lt;p class="text-right"&gt;Right&lt;/p&gt;
+
+&lt;!-- Width --&gt;
+&lt;input class="w-full"&gt;
+&lt;img class="max-w-full"&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Design Tokens -->
+    <section id="tokens" class="demo-section stack">
+      <h2>Design Tokens</h2>
+      <p>Override any <code>--xy-*</code> custom property in your own CSS to theme the entire framework.</p>
+
+      <h4>Colors</h4>
+      <div class="row">
+        <div class="p-3 text-center text-sm demo-swatch demo-rounded demo-color-primary">primary</div>
+        <div class="p-3 text-center text-sm demo-swatch demo-rounded demo-color-success">success</div>
+        <div class="p-3 text-center text-sm demo-swatch demo-rounded demo-color-danger">danger</div>
+        <div class="p-3 text-center text-sm demo-swatch demo-rounded demo-color-warning">warning</div>
+        <div class="p-3 text-center text-sm demo-swatch demo-rounded demo-color-info">info</div>
+      </div>
+      <div class="row">
+        <div class="p-3 text-center text-sm demo-swatch demo-rounded demo-bg demo-bordered">bg-subtle</div>
+        <div class="p-3 text-center text-sm demo-swatch demo-rounded demo-color-border">border</div>
+        <div class="p-3 text-center text-sm demo-swatch demo-rounded demo-color-border-light">border-light</div>
+        <div class="p-3 text-center text-sm text-muted demo-swatch demo-rounded demo-bordered">muted</div>
+      </div>
+
+      <h4>Spacing</h4>
+      <table class="w-full">
+        <thead>
+          <tr><th>Token</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>--xy-space-1</code></td><td>0.25rem (4px)</td></tr>
+          <tr><td><code>--xy-space-2</code></td><td>0.5rem (8px)</td></tr>
+          <tr><td><code>--xy-space-3</code></td><td>1rem (16px)</td></tr>
+          <tr><td><code>--xy-space-4</code></td><td>1.5rem (24px)</td></tr>
+          <tr><td><code>--xy-space-5</code></td><td>2rem (32px)</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Typography</h4>
+      <table class="w-full">
+        <thead>
+          <tr><th>Token</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>--xy-text-xs</code></td><td>0.7rem</td></tr>
+          <tr><td><code>--xy-text-sm</code></td><td>0.85rem</td></tr>
+          <tr><td><code>--xy-text-md</code></td><td>0.9rem</td></tr>
+          <tr><td><code>--xy-text-base</code></td><td>1rem</td></tr>
+          <tr><td><code>--xy-text-lg</code></td><td>1.15rem</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Shadows</h4>
+      <div class="row">
+        <div class="p-4 text-center text-sm demo-swatch-lg demo-rounded demo-shadow-sm">--xy-shadow-sm</div>
+        <div class="p-4 text-center text-sm demo-swatch-lg demo-rounded demo-shadow-md">--xy-shadow-md</div>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-css">/* Override tokens to theme the framework */
+:root {
+  --xy-color-primary: #6366f1;
+  --xy-color-primary-hover: #4f46e5;
+  --xy-radius: 8px;
+  --xy-container-width: 1200px;
+}
+
+/* All components automatically pick up the new values */</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Screen Reader Only -->
+    <section id="sr-only" class="demo-section stack">
+      <h2>Screen Reader Only</h2>
+      <p>Use <code>.sr-only</code> to visually hide content while keeping it accessible to screen readers.</p>
+
+      <div class="p-3 demo-bg">
+        <button class="button button-primary">
+          Menu <span class="sr-only">— open navigation</span>
+        </button>
+        <span class="text-sm text-muted demo-ml-2">The button has hidden text: "— open navigation"</span>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;!-- Hidden label for screen readers --&gt;
+&lt;button class="button button-primary"&gt;
+  Menu &lt;span class="sr-only"&gt;— open navigation&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;!-- Skip to content link --&gt;
+&lt;a href="#main" class="sr-only"&gt;Skip to main content&lt;/a&gt;
+
+&lt;!-- Icon-only button with accessible label --&gt;
+&lt;button class="button"&gt;
+  &amp;times; &lt;span class="sr-only"&gt;Close&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+  </div>
+
+  <!-- Site footer -->
+  <footer class="footer text-center stack-sm">
+    <p>Xylem CSS v0.2.0</p>
+    <p class="text-xs text-muted">This documentation uses
+      <a href="https://phosphoricons.com" target="_blank" rel="noopener">Phosphor Icons</a>,
+      <a href="https://lucide.dev" target="_blank" rel="noopener">Lucide Icons</a>,
+      <a href="https://prismjs.com" target="_blank" rel="noopener">Prism.js</a>,
+      <a href="https://pravatar.cc" target="_blank" rel="noopener">Pravatar</a>, and
+      <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> images.
+    </p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup.min.js"></script>
+  <script>
+    function copyCode(btn) {
+      var code = btn.parentElement.querySelector('code');
+      var text = code.textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1500);
+      });
+    }
+
+    // Re-highlight when a details block opens (Prism may miss hidden code)
+    document.querySelectorAll('.code-toggle').forEach(function (el) {
+      el.addEventListener('toggle', function () {
+        if (el.open) {
+          el.querySelectorAll('code[class*="language-"]').forEach(function (code) {
+            Prism.highlightElement(code);
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

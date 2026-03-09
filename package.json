@@ -1,0 +1,33 @@
+{
+  "name": "xylem-css",
+  "version": "0.2.0",
+  "description": "A very lightweight CSS framework with simple utilities and layout helpers.",
+  "author": "Xylem CSS Contributors",
+  "homepage": "https://github.com/dfelix/xylem-css",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dfelix/xylem-css.git"
+  },
+  "main": "dist/xylem.css",
+  "style": "dist/xylem.css",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node build/build.js",
+    "watch": "node build/build.js --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "css",
+    "framework",
+    "lightweight",
+    "utilities",
+    "flexbox",
+    "components"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "lightningcss": "^1.32.0"
+  }
+}

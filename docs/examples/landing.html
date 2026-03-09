@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roots — Xylem CSS Example</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+  <link rel="stylesheet" href="../../dist/xylem.css">
+  <style>
+    /* Landing-specific layout */
+
+    .feature-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: var(--xy-space-2);
+      flex-shrink: 0;
+      background: var(--xy-color-bg-subtle);
+    }
+
+    .pricing-card {
+      flex: 1;
+      min-width: 16rem;
+      text-align: center;
+    }
+
+    .pricing-price {
+      font-size: 2.5rem;
+      margin-bottom: var(--xy-space-1);
+    }
+
+    .pricing-period {
+      font-size: var(--xy-text-sm);
+      color: var(--xy-color-muted);
+    }
+
+    .pricing-features {
+      text-align: left;
+    }
+
+    .pricing-features li {
+      font-size: var(--xy-text-md);
+    }
+
+    .pricing-highlight {
+      border: 2px solid var(--xy-color-primary);
+    }
+
+    .testimonial-card {
+      flex: 1;
+      min-width: 16rem;
+    }
+
+    .testimonial-text {
+      font-size: 0.95rem;
+      font-style: italic;
+      line-height: 1.7;
+      margin-bottom: var(--xy-space-3);
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: var(--xy-space-2);
+    }
+
+    .testimonial-name {
+      font-weight: 600;
+      font-size: var(--xy-text-md);
+    }
+
+    .testimonial-role {
+      font-size: var(--xy-text-xs);
+      color: var(--xy-color-muted);
+    }
+
+    .stats-row {
+      text-align: center;
+      flex: 1;
+      min-width: 8rem;
+    }
+
+    .stats-label {
+      margin-top: var(--xy-space-1);
+    }
+
+    .logo-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: var(--xy-space-5);
+      opacity: 0.45;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.06rem;
+      color: var(--xy-color-muted);
+    }
+
+    .cta-section {
+      text-align: center;
+      padding: var(--xy-space-5) var(--xy-space-3);
+    }
+
+    .step-item {
+      flex: 1;
+      min-width: 12rem;
+    }
+
+    .step-number {
+      color: var(--xy-color-primary);
+      margin-bottom: var(--xy-space-2);
+    }
+
+    .step-text {
+      font-size: var(--xy-text-md);
+      color: var(--xy-color-muted);
+    }
+
+    .faq-question {
+      font-weight: 600;
+      margin-bottom: var(--xy-space-1);
+    }
+
+
+    .faq-answer {
+      font-size: var(--xy-text-md);
+      color: var(--xy-color-muted);
+      line-height: 1.7;
+    }
+
+
+    .landing-section {
+      padding: var(--xy-space-5) 0;
+    }
+
+    .faq-container {
+      max-width: 40rem;
+      margin: 0 auto;
+    }
+
+    .icon-primary { color: var(--xy-color-primary); }
+    .icon-success { color: var(--xy-color-success); }
+    .icon-info    { color: var(--xy-color-info); }
+    .icon-warning { color: var(--xy-color-warning); }
+    .icon-danger  { color: var(--xy-color-danger); }
+
+    .section-intro {
+      color: var(--xy-color-muted);
+      max-width: 36rem;
+      margin: 0 auto;
+    }
+
+    .section-intro-sm {
+      color: var(--xy-color-muted);
+      max-width: 30rem;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      margin-bottom: var(--xy-space-2);
+    }
+
+    .footer-tagline {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-bordered navbar-sticky">
+    <a class="navbar-brand" href="#">
+      <img src="../assets/logo.svg" alt="Roots" height="24"> Roots
+    </a>
+    <input type="checkbox" id="nav-toggle" class="navbar-toggle" aria-hidden="true">
+    <label for="nav-toggle" class="navbar-toggler" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </label>
+    <ul class="navbar-nav navbar-collapse">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><button class="button button-primary m-0">Start Growing</button></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero hero-lg bg-subtle">
+    <h1>Grow soil,<br>not just crops.</h1>
+    <p>Because apparently, dumping chemicals on dead dirt and hoping for the best wasn't a long-term strategy. Who knew.</p>
+    <div class="row row-center mt-2">
+      <a class="button button-primary" href="#pricing">Start free trial</a>
+      <a class="button" href="#features">See how it works</a>
+    </div>
+  </section>
+
+  <div class="container stack-lg">
+
+    <!-- Trust bar -->
+    <section class="p-3">
+      <p class="text-center mb-3 section-label">Used by farms that got tired of buying soil in a bag</p>
+      <div class="logo-bar">
+        <span>Herdade do Fresco</span>
+        <span>TerraVaga</span>
+        <span>Quinta do Talvez</span>
+        <span>Monte da Boa Sorte</span>
+        <span>Sol &amp; Só</span>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="p-3">
+      <div class="row row-center">
+        <div class="stats-row">
+          <div class="display-number text-primary">4,200+</div>
+          <div class="section-label stats-label">Farms</div>
+        </div>
+        <div class="stats-row">
+          <div class="display-number text-primary">180k ha</div>
+          <div class="section-label stats-label">Land managed</div>
+        </div>
+        <div class="stats-row">
+          <div class="display-number text-primary">+34%</div>
+          <div class="section-label stats-label">Avg. soil organic matter</div>
+        </div>
+        <div class="stats-row">
+          <div class="display-number text-primary">12</div>
+          <div class="section-label stats-label">Countries</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="landing-section stack">
+      <div class="text-center mb-3">
+        <h2>Tools your grandparents didn't need, but you do</h2>
+        <p class="section-intro">They had intuition and 40 years of experience. You have a subscription and a smartphone. Let's make it work.</p>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-body stack-sm">
+            <div class="feature-icon icon-primary">&#9778;</div>
+            <h4 class="card-title">Soil health tracking</h4>
+            <p class="card-text">Finally, proof that your soil is alive — not just a convenient place to hold plants upright.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body stack-sm">
+            <div class="feature-icon icon-success">&#127793;</div>
+            <h4 class="card-title">Cover crop planner</h4>
+            <p class="card-text">Design multi-species mixes so your fields actually do something useful between harvests, instead of sitting there eroding.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body stack-sm">
+            <div class="feature-icon icon-info">&#127777;</div>
+            <h4 class="card-title">Carbon measurement</h4>
+            <p class="card-text">Turn "trust me, my soil is great" into actual numbers. Auditors love numbers. So do carbon credit buyers.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body stack-sm">
+            <div class="feature-icon icon-warning">&#9733;</div>
+            <h4 class="card-title">Grazing management</h4>
+            <p class="card-text">Move the cows before they turn your pasture into a car park. Revolutionary concept, apparently.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body stack-sm">
+            <div class="feature-icon icon-danger">&#128202;</div>
+            <h4 class="card-title">Financial insights</h4>
+            <p class="card-text">See exactly how much you're saving by not buying fertiliser you never needed. Spoiler: it's a lot.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body stack-sm">
+            <div class="feature-icon icon-primary">&#127758;</div>
+            <h4 class="card-title">Biodiversity logging</h4>
+            <p class="card-text">Count the bugs. Yes, you want bugs now. Welcome to regenerative farming, where earthworms are the real employees.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="landing-section stack">
+      <div class="text-center mb-3">
+        <h2>Three steps. Less effort than ploughing.</h2>
+        <p class="text-muted">Which, by the way, you should probably stop doing.</p>
+      </div>
+
+      <div class="row row-center gap-5">
+        <div class="text-center step-item">
+          <div class="display-number step-number">1</div>
+          <h4>Map your fields</h4>
+          <p class="step-text">Draw boundaries, define zones. Yes, it's basically colouring in, but for adults with land titles.</p>
+        </div>
+        <div class="text-center step-item">
+          <div class="display-number step-number">2</div>
+          <h4>Log your practices</h4>
+          <p class="step-text">Record what you planted, where you composted, and what you stopped doing. The "stopping" part is the hard bit.</p>
+        </div>
+        <div class="text-center step-item">
+          <div class="display-number step-number">3</div>
+          <h4>Measure the impact</h4>
+          <p class="step-text">Watch your soil get better while your neighbour's blows away. Try not to look too smug at the market.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="landing-section stack">
+      <div class="text-center mb-3">
+        <h2>Don't take our word for it. We sell software.</h2>
+      </div>
+
+      <div class="row items-start">
+        <div class="card testimonial-card">
+          <div class="card-body">
+            <p class="testimonial-text">"My neighbours thought I was mad for planting things I wasn't going to sell. Two seasons later, my soil organic matter went from 1.8% to 2.6% and they've stopped laughing."</p>
+            <div class="testimonial-author">
+              <img class="avatar" src="https://i.pravatar.cc/80?img=12" alt="Manuel Rocha">
+              <div>
+                <div class="testimonial-name">Manuel Rocha</div>
+                <div class="testimonial-role">Cereal farmer, Alentejo, Portugal</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card testimonial-card">
+          <div class="card-body">
+            <p class="testimonial-text">"I now get paid to not destroy my soil. The carbon credits cover the entire transition cost. If only someone had thought of this 50 years ago."</p>
+            <div class="testimonial-author">
+              <img class="avatar" src="https://i.pravatar.cc/80?img=32" alt="Katrin Huber">
+              <div>
+                <div class="testimonial-name">Katrin Huber</div>
+                <div class="testimonial-role">Mixed farm manager, Bavaria, Germany</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card testimonial-card">
+          <div class="card-body">
+            <p class="testimonial-text">"1,200 hectares and we were still managing grazing with a notebook and gut feeling. Roots cut our feed costs by 40%. Turns out data beats vibes."</p>
+            <div class="testimonial-author">
+              <img class="avatar" src="https://i.pravatar.cc/80?img=47" alt="Giulia Ferretti">
+              <div>
+                <div class="testimonial-name">Giulia Ferretti</div>
+                <div class="testimonial-role">Estate director, Tuscany, Italy</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="landing-section stack">
+      <div class="text-center mb-3">
+        <h2>Cheaper than fertiliser. More useful too.</h2>
+        <p class="text-muted">No hidden fees, no lock-in. Unlike that agrochemical contract you signed in 2019.</p>
+      </div>
+
+      <div class="row row-center items-stretch">
+        <div class="card pricing-card">
+          <div class="card-body stack">
+            <div>
+              <h4>Smallholder</h4>
+              <p class="pricing-period">For farms up to 50 ha</p>
+            </div>
+            <div>
+              <div class="display-number pricing-price">&euro;19</div>
+              <div class="pricing-period">per month</div>
+            </div>
+            <ul class="pricing-features list-unstyled list-divided">
+              <li>Up to 50 hectares</li>
+              <li>Soil health tracking</li>
+              <li>Cover crop planner</li>
+              <li>Basic reporting</li>
+              <li>Email support</li>
+            </ul>
+            <button class="button w-full m-0">Start free trial</button>
+          </div>
+        </div>
+
+        <div class="card pricing-card pricing-highlight">
+          <div class="card-body stack">
+            <div>
+              <div class="row row-center gap-2">
+                <h4 class="m-0">Professional</h4>
+                <span class="badge badge-primary">Popular</span>
+              </div>
+              <p class="pricing-period">For growing operations</p>
+            </div>
+            <div>
+              <div class="display-number pricing-price">&euro;59</div>
+              <div class="pricing-period">per month</div>
+            </div>
+            <ul class="pricing-features list-unstyled list-divided">
+              <li>Up to 500 hectares</li>
+              <li>Everything in Smallholder</li>
+              <li>Carbon measurement</li>
+              <li>Grazing management</li>
+              <li>Financial insights</li>
+              <li>Biodiversity logging</li>
+              <li>Priority support</li>
+            </ul>
+            <button class="button button-primary w-full m-0">Start free trial</button>
+          </div>
+        </div>
+
+        <div class="card pricing-card">
+          <div class="card-body stack">
+            <div>
+              <h4>Estate</h4>
+              <p class="pricing-period">For large landholdings</p>
+            </div>
+            <div>
+              <div class="display-number pricing-price">&euro;149</div>
+              <div class="pricing-period">per month</div>
+            </div>
+            <ul class="pricing-features list-unstyled list-divided">
+              <li>Unlimited hectares</li>
+              <li>Everything in Professional</li>
+              <li>Carbon credit exports</li>
+              <li>API access</li>
+              <li>Multi-farm management</li>
+              <li>Dedicated agronomist</li>
+              <li>Custom integrations</li>
+            </ul>
+            <button class="button w-full m-0">Contact us</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="landing-section stack">
+      <div class="text-center mb-3">
+        <h2>Questions we get at every farm show</h2>
+      </div>
+
+      <div class="faq-container list-divided">
+        <div class="faq-item">
+          <div class="faq-question">What is regenerative farming?</div>
+          <div class="faq-answer">It's farming the way nature intended before we decided we knew better. Cover crops, composting, rotational grazing, less tillage — basically, working with the soil instead of against it. Radical stuff.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Do I need soil lab results to get started?</div>
+          <div class="faq-answer">Nope. Start with a spade and your eyes — visual assessments work fine. Upload lab results later when you have them. We support all major European labs, even the slow ones.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How are carbon credits calculated?</div>
+          <div class="faq-answer">With maths, not wishful thinking. We use verified methodologies aligned with EU carbon farming standards. Soil samples vs. baseline, per hectare per year. Reports formatted for voluntary carbon registries — the ones that actually pay.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I use Roots alongside my existing farm management software?</div>
+          <div class="faq-answer">Yes — we play nicely with others. Roots handles the soil and regenerative side. Your existing tools can keep doing whatever it is they do. Estate plan includes API access if you want them talking to each other.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Is there a long-term contract?</div>
+          <div class="faq-answer">No. Month-to-month, cancel whenever. We're confident enough in the product to not trap you. Annual billing saves 20% if you're into commitment.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section bg-subtle stack">
+      <h2>Your soil isn't going to fix itself.</h2>
+      <p class="section-intro-sm">Well, technically it will — but it'll take about 500 years. Roots is faster. Join 4,200+ farms who decided not to wait.</p>
+      <div class="row row-center mt-2">
+        <a class="button button-primary" href="#">Start free trial</a>
+        <a class="button" href="#">Talk to an agronomist</a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer footer-dark mt-4">
+    <div class="row row-between">
+      <div>
+        <div class="footer-brand">Roots</div>
+        <div class="footer-tagline">Regenerative farming, rooted in data.</div>
+      </div>
+      <nav class="row gap-5">
+        <div class="stack-sm">
+          <div class="section-label">Product</div>
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#">Changelog</a>
+        </div>
+        <div class="stack-sm">
+          <div class="section-label">Resources</div>
+          <a href="#">Soil guides</a>
+          <a href="#">Blog</a>
+          <a href="#">Research</a>
+        </div>
+        <div class="stack-sm">
+          <div class="section-label">Support</div>
+          <a href="#faq">FAQ</a>
+          <a href="#">Contact</a>
+          <a href="#">Community</a>
+        </div>
+      </nav>
+    </div>
+    <hr class="footer-divider">
+    <div class="row row-between section-label footer-bottom">
+      <span>&copy; 2026 Roots. All rights reserved.</span>
+      <div class="row gap-3">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm Dashboard — Xylem CSS Example</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+  <link rel="stylesheet" href="../../dist/xylem.css">
+  <style>
+    /* Dashboard-specific layout */
+    .dashboard {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Stat cards */
+    .stat-card {
+      padding: 1.25rem;
+    }
+
+    .stat-value {
+      margin-bottom: var(--xy-space-1);
+    }
+
+    .stat-change {
+      font-size: var(--xy-text-xs);
+      font-weight: 500;
+    }
+
+    .stat-up { color: var(--xy-color-success); }
+    .stat-down { color: var(--xy-color-danger); }
+
+    /* Activity feed */
+    .activity-item {
+      display: flex;
+      gap: var(--xy-space-3);
+      font-size: var(--xy-text-md);
+    }
+
+    .activity-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: var(--xy-color-primary);
+      margin-top: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .activity-time {
+      font-size: var(--xy-text-xs);
+      color: var(--xy-color-muted);
+    }
+
+    .activity-dot-danger  { background: var(--xy-color-danger); }
+    .activity-dot-success { background: var(--xy-color-success); }
+    .activity-dot-warning { background: var(--xy-color-warning); }
+    .activity-dot-info    { background: var(--xy-color-info); }
+
+    .sidebar-footer { margin-top: auto; }
+    .sidebar-user   { font-weight: 600; }
+    .stat-min       { min-width: 10rem; }
+    .panel-wide     { flex: 2; min-width: 20rem; }
+    .panel          { min-width: 16rem; }
+    .progress-cell  { min-width: 8rem; }
+    .avatar-cell    { width: 2.5rem; }
+
+    /* Responsive */
+    @media (max-width: 767.98px) {
+      .mobile-header {
+        display: flex;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .mobile-header {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <a class="sidebar-brand" href="#">
+        <img src="../assets/logo.svg" alt="Xylem" height="22"> Xylem
+      </a>
+
+      <nav>
+        <ul class="sidebar-nav">
+          <li><a href="#" class="active">Dashboard</a></li>
+          <li><a href="#">Fields</a></li>
+          <li><a href="#">Crops</a></li>
+          <li><a href="#">Harvest</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-section">Operations</div>
+      <nav>
+        <ul class="sidebar-nav">
+          <li><a href="#">Equipment</a></li>
+          <li><a href="#">Inventory</a></li>
+          <li><a href="#">Workers</a></li>
+          <li><a href="#">Settings</a></li>
+        </ul>
+      </nav>
+
+      <!-- Push to bottom -->
+      <div class="sidebar-footer">
+        <div class="row gap-2 items-center p-2">
+          <img class="avatar-sm avatar" src="https://i.pravatar.cc/80?img=45" alt="User">
+          <div>
+            <div class="text-sm sidebar-user">Maria Silva</div>
+            <div class="text-xs text-muted">Farm Manager</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="main">
+      <!-- Mobile header with navigation -->
+      <nav class="navbar navbar-bordered mobile-header">
+        <a class="navbar-brand" href="#">
+          <img src="../assets/logo.svg" alt="Xylem" height="22"> Xylem
+        </a>
+        <input type="checkbox" id="mobile-nav-toggle" class="navbar-toggle" aria-hidden="true">
+        <label for="mobile-nav-toggle" class="navbar-toggler" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </label>
+        <ul class="navbar-nav navbar-collapse">
+          <li><a href="#" class="active">Dashboard</a></li>
+          <li><a href="#">Fields</a></li>
+          <li><a href="#">Crops</a></li>
+          <li><a href="#">Harvest</a></li>
+          <li><a href="#">Equipment</a></li>
+          <li><a href="#">Inventory</a></li>
+          <li><a href="#">Workers</a></li>
+        </ul>
+      </nav>
+
+      <header class="navbar navbar-bordered">
+        <div>
+          <h4 class="mb-0">Farm Overview</h4>
+        </div>
+        <div class="row gap-2 items-center">
+          <button class="button button-primary m-0">New Crop Plan</button>
+          <div class="dropdown dropdown-end">
+            <button class="avatar-toggle">
+              <img class="avatar" src="https://i.pravatar.cc/80?img=45" alt="User">
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a href="#">Sign out</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard content -->
+      <div class="p-3 stack-lg">
+
+        <!-- Stat cards -->
+        <div class="row">
+          <div class="card stat-card flex-1 stat-min">
+            <div class="section-label mb-1">Harvest Revenue</div>
+            <div class="display-number stat-value">&euro;62.4k</div>
+            <div class="stat-change stat-up">+9.3% from last season</div>
+          </div>
+          <div class="card stat-card flex-1 stat-min">
+            <div class="section-label mb-1">Active Fields</div>
+            <div class="display-number stat-value">24</div>
+            <div class="stat-change stat-up">+3 from last season</div>
+          </div>
+          <div class="card stat-card flex-1 stat-min">
+            <div class="section-label mb-1">Yield (tonnes)</div>
+            <div class="display-number stat-value">1,280</div>
+            <div class="stat-change stat-down">-4.1% from last season</div>
+          </div>
+          <div class="card stat-card flex-1 stat-min">
+            <div class="section-label mb-1">Soil Health</div>
+            <div class="display-number stat-value">82%</div>
+            <div class="stat-change stat-up">+2.5% avg. improvement</div>
+          </div>
+        </div>
+
+        <!-- Two-column: Projects table + Activity -->
+        <div class="row items-start">
+
+          <!-- Crop cycles table -->
+          <div class="card panel-wide">
+            <div class="card-body">
+              <div class="row row-between items-center mb-3">
+                <h4 class="mb-0">Crop Cycles</h4>
+                <a href="#" class="text-sm">View all</a>
+              </div>
+              <table class="w-full table-hover" >
+                <thead>
+                  <tr>
+                    <th>Crop</th>
+                    <th>Status</th>
+                    <th>Growth</th>
+                    <th class="text-right">Harvest</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Winter Wheat</strong></td>
+                    <td><span class="badge badge-success">Growing</span></td>
+                    <td class="progress-cell">
+                      <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: 72%;"></div></div>
+                    </td>
+                    <td class="text-right text-sm text-muted">Jul 15</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Sunflower</strong></td>
+                    <td><span class="badge badge-info">Seeded</span></td>
+                    <td>
+                      <div class="progress progress-info"><div class="progress-bar" role="progressbar" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100" style="width: 18%;"></div></div>
+                    </td>
+                    <td class="text-right text-sm text-muted">Sep 20</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Olive Grove</strong></td>
+                    <td><span class="badge badge-success">Growing</span></td>
+                    <td>
+                      <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" style="width: 55%;"></div></div>
+                    </td>
+                    <td class="text-right text-sm text-muted">Oct 30</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Barley</strong></td>
+                    <td><span class="badge badge-warning">Needs Water</span></td>
+                    <td>
+                      <div class="progress progress-warning"><div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;"></div></div>
+                    </td>
+                    <td class="text-right text-sm text-muted">Jun 28</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Vineyard (Sec. B)</strong></td>
+                    <td><span class="badge badge-danger">Pest Alert</span></td>
+                    <td>
+                      <div class="progress progress-danger"><div class="progress-bar" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" style="width: 62%;"></div></div>
+                    </td>
+                    <td class="text-right text-sm text-muted">Aug 15</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Activity feed -->
+          <div class="card flex-1 panel">
+            <div class="card-body">
+              <div class="row row-between items-center mb-2">
+                <h4 class="mb-0">Farm Log</h4>
+                <a href="#" class="text-sm">View all</a>
+              </div>
+
+              <div class="list-divided">
+                <div class="activity-item">
+                  <div class="activity-dot activity-dot-danger"></div>
+                  <div>
+                    <div><strong>Sensor alert:</strong> pest detected in Vineyard Sec. B</div>
+                    <div class="activity-time">12 minutes ago</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot"></div>
+                  <div>
+                    <div><strong>Luca</strong> completed irrigation on Field 7</div>
+                    <div class="activity-time">45 minutes ago</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot activity-dot-success"></div>
+                  <div>
+                    <div><strong>Ana</strong> recorded soil sample for Olive Grove</div>
+                    <div class="activity-time">2 hours ago</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot activity-dot-warning"></div>
+                  <div>
+                    <div><strong>Weather:</strong> low rainfall forecast next 5 days</div>
+                    <div class="activity-time">3 hours ago</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot activity-dot-info"></div>
+                  <div>
+                    <div><strong>Marco</strong> scheduled tractor maintenance</div>
+                    <div class="activity-time">6 hours ago</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team + Quick actions -->
+        <div class="row items-start">
+
+          <!-- Workers -->
+          <div class="card flex-1 panel">
+            <div class="card-body stack">
+              <div class="row row-between items-center">
+                <h4 class="mb-0">Workers</h4>
+                <button class="button m-0">Add Worker</button>
+              </div>
+
+              <table class="w-full table-hover" >
+                <tbody>
+                  <tr>
+                    <td class="avatar-cell"><img class="avatar" src="https://i.pravatar.cc/80?img=11" alt="Luca"></td>
+                    <td>
+                      <div><strong>Luca Ferreira</strong></div>
+                      <div class="text-xs text-muted">Irrigation Technician</div>
+                    </td>
+                    <td class="text-right"><span class="badge badge-success">In Field</span></td>
+                  </tr>
+                  <tr>
+                    <td><img class="avatar" src="https://i.pravatar.cc/80?img=23" alt="Ana"></td>
+                    <td>
+                      <div><strong>Ana Costa</strong></div>
+                      <div class="text-xs text-muted">Agronomist</div>
+                    </td>
+                    <td class="text-right"><span class="badge badge-success">In Field</span></td>
+                  </tr>
+                  <tr>
+                    <td><img class="avatar" src="https://i.pravatar.cc/80?img=53" alt="Marco"></td>
+                    <td>
+                      <div><strong>Marco Oliveira</strong></div>
+                      <div class="text-xs text-muted">Equipment Operator</div>
+                    </td>
+                    <td class="text-right"><span class="badge badge-warning">Break</span></td>
+                  </tr>
+                  <tr>
+                    <td><img class="avatar" src="https://i.pravatar.cc/80?img=38" alt="Sofia"></td>
+                    <td>
+                      <div><strong>Sofia Mendes</strong></div>
+                      <div class="text-xs text-muted">Harvest Supervisor</div>
+                    </td>
+                    <td class="text-right"><span class="badge badge-danger">Off Duty</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Quick field task form -->
+          <div class="card flex-1 panel">
+            <div class="card-body stack">
+              <h4>Log Field Task</h4>
+              <form class="stack">
+                <div class="stack-sm">
+                  <label for="task-title">Task</label>
+                  <input type="text" id="task-title" placeholder="e.g. Apply fertiliser to Field 3" class="w-full">
+                </div>
+                <div class="stack-sm">
+                  <label for="task-assignee">Assign to</label>
+                  <select id="task-assignee" class="w-full">
+                    <option>Luca Ferreira</option>
+                    <option>Ana Costa</option>
+                    <option>Marco Oliveira</option>
+                    <option>Sofia Mendes</option>
+                  </select>
+                </div>
+                <div class="stack-sm">
+                  <label for="task-priority">Priority</label>
+                  <div class="row">
+                    <label><input type="radio" name="priority" checked> Normal</label>
+                    <label><input type="radio" name="priority"> High</label>
+                    <label><input type="radio" name="priority"> Urgent</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <label>
+                    <span class="switch">
+                      <input type="checkbox" role="switch">
+                      <span class="switch-track"></span>
+                    </span> Notify workers
+                  </label>
+                </div>
+                <div class="row">
+                  <button type="submit" class="button button-primary m-0">Log Task</button>
+                  <button type="reset" class="button m-0">Clear</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="row row-between">
+          <span>Xylem CSS v0.2.0</span>
+          <nav class="row">
+            <a href="index.html">Docs</a>
+            <a href="https://github.com/dfelix/xylem-css">GitHub</a>
+            <a href="#">License</a>
+          </nav>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+</body>
+</html>

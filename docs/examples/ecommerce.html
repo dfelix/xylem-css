@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Understory Supply — Xylem CSS Example</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+  <link rel="stylesheet" href="../../dist/xylem.css">
+  <style>
+    /* E-commerce-specific layout */
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-price {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--xy-color-primary);
+    }
+
+    .product-price-old {
+      font-size: var(--xy-text-sm);
+      color: var(--xy-color-muted);
+      text-decoration: line-through;
+    }
+
+    .product-detail-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--xy-space-4);
+    }
+
+    @media (min-width: 768px) {
+      .product-detail-layout {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .product-detail-img {
+      width: 100%;
+      border-radius: var(--xy-radius);
+      display: block;
+    }
+
+    .quantity-input {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1px solid var(--xy-color-border);
+      border-radius: var(--xy-radius);
+      width: fit-content;
+    }
+
+    .quantity-input button {
+      padding: 0.4rem 0.75rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--xy-color-text);
+      margin: 0;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .quantity-input button:hover {
+      background: var(--xy-color-bg-subtle);
+    }
+
+    .quantity-input input {
+      width: 3rem;
+      text-align: center;
+      border: none;
+      border-left: 1px solid var(--xy-color-border);
+      border-right: 1px solid var(--xy-color-border);
+      border-radius: 0;
+      padding: 0.4rem 0;
+      margin: 0;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: var(--xy-space-3);
+    }
+
+    .cart-item-img {
+      width: 5rem;
+      height: 5rem;
+      object-fit: cover;
+      border-radius: var(--xy-radius);
+      flex-shrink: 0;
+    }
+
+    .cart-summary {
+      padding: var(--xy-space-3);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--xy-space-2) 0;
+      font-size: var(--xy-text-md);
+    }
+
+    .summary-row.total {
+      border-top: 2px solid var(--xy-color-border);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--xy-space-2);
+      padding: var(--xy-space-3) 0;
+      border-bottom: 1px solid var(--xy-color-border-light);
+    }
+
+    .stars {
+      color: var(--xy-color-warning);
+      font-size: var(--xy-text-sm);
+      letter-spacing: 0.05rem;
+    }
+
+    .review-count {
+      font-size: var(--xy-text-xs);
+      color: var(--xy-color-muted);
+    }
+
+
+    .sort-select {
+      width: auto;
+      padding: 0.3rem 0.5rem;
+      font-size: var(--xy-text-sm);
+    }
+
+    .product-detail-price {
+      font-size: 1.75rem;
+    }
+
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--xy-space-4);
+    }
+
+    @media (min-width: 768px) {
+      .cart-layout {
+        grid-template-columns: 1fr 16rem;
+      }
+    }
+
+
+    .footer-brand {
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-bordered navbar-sticky">
+    <a class="navbar-brand" href="#">
+      <img src="../assets/logo.svg" alt="Understory Supply" height="24"> Understory Supply
+    </a>
+    <input type="checkbox" id="nav-toggle" class="navbar-toggle" aria-hidden="true">
+    <label for="nav-toggle" class="navbar-toggler" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </label>
+    <ul class="navbar-nav navbar-collapse">
+      <li><a href="#catalogue" class="active">Shop</a></li>
+      <li><a href="#product-detail">Products</a></li>
+      <li><a href="#cart">Cart</a></li>
+      <li><button class="button button-primary m-0">Account</button></li>
+    </ul>
+  </nav>
+
+  <div class="container stack-lg mt-4 mb-5">
+
+    <!-- Hero banner -->
+    <section class="hero bg-subtle">
+      <h1>Grow better, buy less.</h1>
+      <p>Tools, seeds, and supplies for farmers who've decided the soil matters. Free shipping over &euro;75.</p>
+      <a class="button button-primary" href="#catalogue">Browse catalogue</a>
+    </section>
+
+    <!-- Category badges -->
+    <section>
+      <div class="row row-center gap-2">
+        <span class="badge badge-primary">All</span>
+        <span class="badge">Seeds</span>
+        <span class="badge">Soil amendments</span>
+        <span class="badge">Tools</span>
+        <span class="badge">Compost</span>
+        <span class="badge">Books</span>
+        <span class="badge">Equipment</span>
+      </div>
+    </section>
+
+    <!-- Product catalogue -->
+    <section id="catalogue" class="stack">
+      <div class="row row-between items-center">
+        <h2 class="m-0">Catalogue</h2>
+        <div class="row items-center gap-2">
+          <label class="text-sm text-muted m-0">Sort by:</label>
+          <select class="sort-select">
+            <option>Popularity</option>
+            <option>Price: low to high</option>
+            <option>Price: high to low</option>
+            <option>Newest</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid" style="--xy-grid-min: 14rem;">
+        <div class="card product-card">
+          <img class="card-img" src="https://images.unsplash.com/photo-1618139482617-2254e52c0d78?w=400&h=300&fit=crop" alt="Cover crop seed mix">
+          <div class="card-body stack-sm">
+            <h4 class="card-title m-0">Cover Crop Mix — Mediterranean</h4>
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733; <span class="review-count">(42)</span></div>
+            <p class="card-text">12-species blend designed for dry Mediterranean climates. 10 kg bag.</p>
+            <div class="row items-center row-between mt-2">
+              <span class="product-price">&euro;34</span>
+              <button class="button button-primary m-0">Add to cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card product-card">
+          <img class="card-img" src="https://images.unsplash.com/photo-1682187150385-474c7d9eb7ab?w=400&h=300&fit=crop" alt="Broadfork">
+          <div class="card-body stack-sm">
+            <h4 class="card-title m-0">Broadfork — 5 tine</h4>
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9734; <span class="review-count">(28)</span></div>
+            <p class="card-text">Aerate without inverting. Ash wood handle, forged steel tines. Made in Portugal.</p>
+            <div class="row items-center row-between mt-2">
+              <span class="product-price">&euro;89</span>
+              <button class="button button-primary m-0">Add to cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card product-card">
+          <img class="card-img" src="https://images.unsplash.com/photo-1618212624319-3cd9681707e2?w=400&h=300&fit=crop" alt="Compost inoculant">
+          <div class="card-body stack-sm">
+            <h4 class="card-title m-0">Compost Inoculant</h4>
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733; <span class="review-count">(67)</span></div>
+            <p class="card-text">Thermophilic bacteria blend to kickstart your compost pile. 500g treats 2 cubic metres.</p>
+            <div class="row items-center row-between mt-2">
+              <span class="product-price">&euro;18</span>
+              <button class="button button-primary m-0">Add to cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card product-card">
+          <img class="card-img" src="https://images.unsplash.com/photo-1725452119938-53add0b0814a?w=400&h=300&fit=crop" alt="Soil health book">
+          <div class="card-body stack-sm">
+            <div class="row items-center gap-2">
+              <h4 class="card-title m-0">Dirt to Soil</h4>
+              <span class="badge badge-danger">Sale</span>
+            </div>
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733; <span class="review-count">(134)</span></div>
+            <p class="card-text">Gabe Brown's journey from conventional to regenerative. The book that started it for many.</p>
+            <div class="row items-center row-between mt-2">
+              <div>
+                <span class="product-price">&euro;14</span>
+                <span class="product-price-old">&euro;22</span>
+              </div>
+              <button class="button button-primary m-0">Add to cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card product-card">
+          <img class="card-img" src="https://images.unsplash.com/photo-1632787955081-7b2b401f0d45?w=400&h=300&fit=crop" alt="Rock dust">
+          <div class="card-body stack-sm">
+            <h4 class="card-title m-0">Basalt Rock Dust — 25 kg</h4>
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9734; <span class="review-count">(19)</span></div>
+            <p class="card-text">Slow-release mineral amendment. Improves CEC, feeds soil biology, lasts for years.</p>
+            <div class="row items-center row-between mt-2">
+              <span class="product-price">&euro;28</span>
+              <button class="button button-primary m-0">Add to cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card product-card">
+          <img class="card-img" src="https://images.unsplash.com/photo-1630032616803-f1153793c2ba?w=400&h=300&fit=crop" alt="Clover seed">
+          <div class="card-body stack-sm">
+            <h4 class="card-title m-0">White Clover Seed</h4>
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733; <span class="review-count">(53)</span></div>
+            <p class="card-text">Living mulch and nitrogen fixer. Perennial, low-growing, livestock-friendly. 5 kg bag.</p>
+            <div class="row items-center row-between mt-2">
+              <span class="product-price">&euro;42</span>
+              <button class="button button-primary m-0">Add to cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Product detail -->
+    <section id="product-detail" class="stack">
+      <p class="text-sm text-muted">Shop &rsaquo; Seeds &rsaquo; Cover Crop Mix</p>
+
+      <div class="product-detail-layout">
+        <div>
+          <img class="product-detail-img" src="https://images.unsplash.com/photo-1618139482617-2254e52c0d78?w=800&h=600&fit=crop" alt="Cover crop seed mix">
+        </div>
+        <div class="stack">
+          <div>
+            <h2 class="m-0">Cover Crop Mix — Mediterranean</h2>
+            <div class="stars mt-1">&#9733;&#9733;&#9733;&#9733;&#9733; <span class="review-count">(42 reviews)</span></div>
+          </div>
+
+          <div class="product-price product-detail-price">&euro;34</div>
+
+          <p class="text-muted">A carefully balanced 12-species mix designed for hot, dry Mediterranean climates. Includes legumes for nitrogen fixation, grasses for biomass, and brassicas for biofumigation. Sow after first autumn rains.</p>
+
+          <table>
+            <tr>
+              <td class="text-muted">Weight</td>
+              <td>10 kg</td>
+            </tr>
+            <tr>
+              <td class="text-muted">Coverage</td>
+              <td>0.5 &ndash; 1 hectare</td>
+            </tr>
+            <tr>
+              <td class="text-muted">Sowing window</td>
+              <td>September &ndash; November</td>
+            </tr>
+            <tr>
+              <td class="text-muted">Shipping</td>
+              <td>Free over &euro;75</td>
+            </tr>
+          </table>
+
+          <div class="row items-center gap-3">
+            <div class="quantity-input">
+              <button type="button">-</button>
+              <input type="text" value="1" aria-label="Quantity">
+              <button type="button">+</button>
+            </div>
+            <button class="button button-primary m-0">Add to cart</button>
+            <button class="button m-0">Wishlist</button>
+          </div>
+
+          <div class="stack-sm">
+            <div class="badge badge-success">In stock</div>
+            <p class="text-sm text-muted m-0">Usually ships within 2 business days.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Cart -->
+    <section id="cart" class="stack">
+      <h2>Shopping Cart <span class="badge">3 items</span></h2>
+
+      <div class="cart-layout">
+        <div class="list-divided">
+          <div class="cart-item">
+            <img class="cart-item-img" src="https://images.unsplash.com/photo-1618139482617-2254e52c0d78?w=200&h=200&fit=crop" alt="Cover crop seed mix">
+            <div class="flex-1 stack-sm">
+              <div class="row row-between">
+                <h4 class="m-0">Cover Crop Mix — Mediterranean</h4>
+                <span class="product-price">&euro;34</span>
+              </div>
+              <p class="text-sm text-muted m-0">10 kg bag</p>
+              <div class="row items-center gap-3">
+                <div class="quantity-input">
+                  <button type="button">-</button>
+                  <input type="text" value="2" aria-label="Quantity">
+                  <button type="button">+</button>
+                </div>
+                <button class="button button-outline-danger button-sm m-0">Remove</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="cart-item">
+            <img class="cart-item-img" src="https://images.unsplash.com/photo-1618212624319-3cd9681707e2?w=200&h=200&fit=crop" alt="Compost inoculant">
+            <div class="flex-1 stack-sm">
+              <div class="row row-between">
+                <h4 class="m-0">Compost Inoculant</h4>
+                <span class="product-price">&euro;18</span>
+              </div>
+              <p class="text-sm text-muted m-0">500g</p>
+              <div class="row items-center gap-3">
+                <div class="quantity-input">
+                  <button type="button">-</button>
+                  <input type="text" value="1" aria-label="Quantity">
+                  <button type="button">+</button>
+                </div>
+                <button class="button button-outline-danger button-sm m-0">Remove</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="cart-item">
+            <img class="cart-item-img" src="https://images.unsplash.com/photo-1725452119938-53add0b0814a?w=200&h=200&fit=crop" alt="Dirt to Soil book">
+            <div class="flex-1 stack-sm">
+              <div class="row row-between">
+                <h4 class="m-0">Dirt to Soil</h4>
+                <div>
+                  <span class="product-price">&euro;14</span>
+                  <span class="product-price-old">&euro;22</span>
+                </div>
+              </div>
+              <p class="text-sm text-muted m-0">Paperback</p>
+              <div class="row items-center gap-3">
+                <div class="quantity-input">
+                  <button type="button">-</button>
+                  <input type="text" value="1" aria-label="Quantity">
+                  <button type="button">+</button>
+                </div>
+                <button class="button button-outline-danger button-sm m-0">Remove</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="cart-summary bg-subtle stack-sm">
+            <h3 class="m-0">Order Summary</h3>
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span>&euro;100</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping</span>
+              <span class="text-success">Free</span>
+            </div>
+            <div class="summary-row">
+              <span>Tax (23% IVA)</span>
+              <span>&euro;23</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total</span>
+              <span>&euro;123</span>
+            </div>
+            <button class="button button-primary w-full m-0">Proceed to checkout</button>
+            <p class="text-xs text-muted text-center m-0">Free shipping on orders over &euro;75</p>
+          </div>
+
+          <div class="mt-3 stack-sm">
+            <h4>Have a promo code?</h4>
+            <form class="row" onsubmit="return false;">
+              <input type="text" placeholder="Enter code" class="flex-1">
+              <button class="button m-0">Apply</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer footer-dark">
+    <div class="container">
+      <div class="row row-between">
+        <div class="stack-sm">
+          <div class="footer-brand">Understory Supply</div>
+          <p class="m-0">Tools and seeds for regenerative farmers.</p>
+        </div>
+        <div class="row gap-5">
+          <div class="stack-sm">
+            <strong>Shop</strong>
+            <a href="#">Seeds</a>
+            <a href="#">Tools</a>
+            <a href="#">Amendments</a>
+            <a href="#">Books</a>
+          </div>
+          <div class="stack-sm">
+            <strong>Help</strong>
+            <a href="#">Shipping</a>
+            <a href="#">Returns</a>
+            <a href="#">FAQ</a>
+            <a href="#">Contact</a>
+          </div>
+        </div>
+      </div>
+      <hr class="footer-divider">
+      <div class="row row-between text-sm footer-bottom">
+        <span>&copy; 2026 Understory Supply</span>
+        <div class="row gap-3">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

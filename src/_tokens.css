@@ -1,0 +1,101 @@
+/* Xylem CSS v0.2.0 — A very lightweight CSS framework */
+
+/*
+ * CSS Layers ensure framework styles don't override user or third-party CSS.
+ * Unlayered CSS always wins over layered CSS, so any custom styles you write
+ * will naturally take precedence over Xylem without specificity battles.
+ *
+ * Within the framework: utilities > components > base (last layer wins).
+ *
+ * NOTE: The @layer order declaration is prepended by build.js — do not
+ * duplicate it here.
+ */
+
+/* === Design Tokens === */
+
+:root {
+  /* Typography */
+  --xy-font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --xy-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+  /* Type scale */
+  --xy-text-xs: 0.7rem;
+  --xy-text-sm: 0.85rem;
+  --xy-text-md: 0.9rem;
+  --xy-text-base: 1rem;
+  --xy-text-lg: 1.15rem;
+
+  /* Spacing scale */
+  --xy-space-1: 0.25rem;
+  --xy-space-2: 0.5rem;
+  --xy-space-3: 1rem;
+  --xy-space-4: 1.5rem;
+  --xy-space-5: 2rem;
+
+  /* Colors */
+  --xy-color-text: #222;
+  --xy-color-primary: #008080;
+  --xy-color-primary-hover: #006666;
+  --xy-color-success: #2a7a5a;
+  --xy-color-success-hover: #1f5e44;
+  --xy-color-danger: #c0392b;
+  --xy-color-danger-hover: #962d22;
+  --xy-color-warning: #f0ad4e;
+  --xy-color-warning-hover: #d9963a;
+  --xy-color-warning-text: #956400;
+  --xy-color-info: #2678ae;
+  --xy-color-info-hover: #1f6692;
+  --xy-color-border: #cfd8d8;
+  --xy-color-border-light: #e6eeee;
+  --xy-color-bg-subtle: #f2f8f8;
+  --xy-color-muted: #555;
+  --xy-color-bg: #fff;
+
+  /* Shadows */
+  --xy-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --xy-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+  /* Layout */
+  --xy-container-width: 960px;
+  --xy-sidebar-width: 240px;
+
+  /* Footer dark */
+  --xy-color-footer-dark-bg: #1a1a1a;
+  --xy-color-footer-dark-text: #aab4b4;
+  --xy-color-footer-dark-hover: #fff;
+
+  /* Misc */
+  --xy-radius: 4px;
+}
+
+/*
+ * Dark mode tokens — defined once, expanded by build.js into:
+ *   1. @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { ... } }
+ *   2. :root[data-theme="dark"] { ... }
+ */
+/* DARK_TOKENS_START */
+  --xy-color-text: #e0e0e0;
+  --xy-color-primary: #4db8b8;
+  --xy-color-primary-hover: #6fd4d4;
+  --xy-color-success: #3da87a;
+  --xy-color-success-hover: #4fc492;
+  --xy-color-danger: #e05a4f;
+  --xy-color-danger-hover: #e8776e;
+  --xy-color-warning: #f5c16c;
+  --xy-color-warning-hover: #f7ce88;
+  --xy-color-warning-text: #f5c16c;
+  --xy-color-info: #4da3d9;
+  --xy-color-info-hover: #6db8e4;
+  --xy-color-border: #3a4a4a;
+  --xy-color-border-light: #2c3838;
+  --xy-color-bg-subtle: #1a2424;
+  --xy-color-muted: #aaa;
+  --xy-color-bg: #141c1c;
+
+  --xy-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --xy-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  --xy-color-footer-dark-bg: #0e1414;
+  --xy-color-footer-dark-text: #8a9494;
+  --xy-color-footer-dark-hover: #e0e0e0;
+/* DARK_TOKENS_END */
