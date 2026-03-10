@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/logo.svg" alt="Xylem CSS" width="80">
+  <a href="https://dfelix.github.io/xylem-css/"><img src="docs/assets/logo.svg" alt="Xylem CSS" width="80"></a>
 </p>
 
 <h1 align="center">Xylem CSS</h1>
@@ -11,7 +11,7 @@
 
 A very lightweight CSS framework with simple utilities, layout helpers, and minimal components. No JavaScript. No complex tooling. Just CSS.
 
-[GitHub](https://github.com/dfelix/xylem-css) · [npm](https://www.npmjs.com/package/xylem-css)
+[Documentation](https://dfelix.github.io/xylem-css/) · [GitHub](https://github.com/dfelix/xylem-css) · [npm](https://www.npmjs.com/package/xylem-css)
 
 ## Install
 
