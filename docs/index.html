@@ -792,13 +792,23 @@
       <h2>Forms</h2>
       <form>
         <div class="row">
-          <div class="stack-sm w-full">
+          <div class="stack-sm flex-1">
             <label for="name">Name</label>
             <input type="text" id="name" placeholder="John Doe" class="w-full">
           </div>
-          <div class="stack-sm w-full">
+          <div class="stack-sm flex-1">
             <label for="email">Email</label>
             <input type="email" id="email" placeholder="john@example.com" class="w-full">
+          </div>
+        </div>
+        <div class="row">
+          <div class="stack-sm flex-1">
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" placeholder="1" min="0" max="100" class="w-full">
+          </div>
+          <div class="stack-sm flex-1">
+            <label for="price">Price</label>
+            <input type="number" id="price" placeholder="9.99" step="0.01" min="0" class="w-full">
           </div>
         </div>
         <div class="stack-sm">
@@ -821,7 +831,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="stack-sm w-full">
+          <div class="stack-sm flex-1">
             <label for="role">Role</label>
             <select id="role" class="w-full">
               <option>Designer</option>
@@ -829,7 +839,7 @@
               <option>Manager</option>
             </select>
           </div>
-          <div class="stack-sm w-full">
+          <div class="stack-sm flex-1">
             <label>Disabled select</label>
             <select disabled class="w-full">
               <option>Disabled select</option>
@@ -855,11 +865,11 @@
 
         <h4>Disabled inputs</h4>
         <div class="row">
-          <div class="stack-sm w-full">
+          <div class="stack-sm flex-1">
             <label>Disabled text</label>
             <input type="text" value="Disabled input" disabled class="w-full">
           </div>
-          <div class="stack-sm w-full">
+          <div class="stack-sm flex-1">
             <label>Disabled email</label>
             <input type="email" value="disabled@example.com" disabled class="w-full">
           </div>
@@ -882,13 +892,23 @@
           <button class="copy-btn" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-html">&lt;form&gt;
   &lt;div class="row"&gt;
-    &lt;div class="stack-sm w-full"&gt;
+    &lt;div class="stack-sm flex-1"&gt;
       &lt;label&gt;Name&lt;/label&gt;
       &lt;input type="text" class="w-full"&gt;
     &lt;/div&gt;
-    &lt;div class="stack-sm w-full"&gt;
+    &lt;div class="stack-sm flex-1"&gt;
       &lt;label&gt;Email&lt;/label&gt;
       &lt;input type="email" class="w-full"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="stack-sm flex-1"&gt;
+      &lt;label&gt;Quantity&lt;/label&gt;
+      &lt;input type="number" placeholder="1" min="0" max="100" class="w-full"&gt;
+    &lt;/div&gt;
+    &lt;div class="stack-sm flex-1"&gt;
+      &lt;label&gt;Price&lt;/label&gt;
+      &lt;input type="number" placeholder="9.99" step="0.01" min="0" class="w-full"&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class="stack-sm"&gt;
@@ -914,11 +934,11 @@
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class="row"&gt;
-    &lt;div class="stack-sm w-full"&gt;
+    &lt;div class="stack-sm flex-1"&gt;
       &lt;label&gt;Select&lt;/label&gt;
       &lt;select class="w-full"&gt;...&lt;/select&gt;
     &lt;/div&gt;
-    &lt;div class="stack-sm w-full"&gt;
+    &lt;div class="stack-sm flex-1"&gt;
       &lt;label&gt;Disabled select&lt;/label&gt;
       &lt;select disabled class="w-full"&gt;...&lt;/select&gt;
     &lt;/div&gt;
@@ -939,8 +959,20 @@
   &lt;/label&gt;
 
   &lt;!-- Disabled inputs --&gt;
-  &lt;input type="text" value="Disabled" disabled&gt;
-  &lt;textarea disabled&gt;Disabled&lt;/textarea&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="stack-sm flex-1"&gt;
+      &lt;label&gt;Disabled text&lt;/label&gt;
+      &lt;input type="text" value="Disabled input" disabled class="w-full"&gt;
+    &lt;/div&gt;
+    &lt;div class="stack-sm flex-1"&gt;
+      &lt;label&gt;Disabled email&lt;/label&gt;
+      &lt;input type="email" value="disabled@example.com" disabled class="w-full"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="stack-sm"&gt;
+    &lt;label&gt;Disabled textarea&lt;/label&gt;
+    &lt;textarea disabled class="w-full"&gt;Disabled textarea&lt;/textarea&gt;
+  &lt;/div&gt;
 
   &lt;!-- Buttons --&gt;
   &lt;button class="button button-primary"&gt;Submit&lt;/button&gt;
@@ -1023,10 +1055,16 @@
       <h2>Hero</h2>
 
       <h4>Default</h4>
-      <div class="hero demo-bg demo-rounded">
+      <div class="hero">
         <h1>Small Hero</h1>
         <p>Use <code>.hero</code> for standard size or add <code>.hero-lg</code> for more vertical space.</p>
         <button class="button button-primary">Get Started</button>
+      </div>
+
+      <h4>With bg-subtle</h4>
+      <div class="hero bg-subtle">
+        <h1>Build Something Great</h1>
+        <p>A <code>.bg-subtle</code> class helps the hero stand out from the rest of the page.</p>        
       </div>
 
       <details class="code-toggle">
@@ -1034,15 +1072,21 @@
         <div class="code-block">
           <button class="copy-btn" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-html">&lt;section class="hero"&gt;
-  &lt;h1&gt;Welcome&lt;/h1&gt;
-  &lt;p&gt;Your tagline here.&lt;/p&gt;
-  &lt;a class="button button-primary" href="#"&gt;Get Started&lt;/a&gt;
+  &lt;h1&gt;Small Hero&lt;/h1&gt;
+  &lt;p&gt;Use .hero for standard size or add .hero-lg for more vertical space.&lt;/p&gt;
+  &lt;button class="button button-primary"&gt;Get Started&lt;/button&gt;
 &lt;/section&gt;
 
 &lt;!-- Large variant --&gt;
 &lt;section class="hero hero-lg"&gt;
   &lt;h1&gt;Big Hero&lt;/h1&gt;
   &lt;p&gt;More vertical space.&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;!-- With subtle background --&gt;
+&lt;section class="hero bg-subtle"&gt;
+  &lt;h1&gt;Build Something Great&lt;/h1&gt;
+  &lt;p&gt;A .bg-subtle class helps the hero stand out from the rest of the page.&lt;/p&gt;
 &lt;/section&gt;</code></pre>
         </div>
       </details>
