@@ -1,8 +1,8 @@
 {
   "name": "xylem-css",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A very lightweight CSS framework with simple utilities and layout helpers.",
-  "author": "Xylem CSS Contributors",
+  "author": "David Felix <dfelix@live.com.pt>",
   "homepage": "https://github.com/dfelix/xylem-css",
   "repository": {
     "type": "git",
