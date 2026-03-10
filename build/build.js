@@ -4,6 +4,7 @@ const { transform } = require("lightningcss");
 
 const srcDir = path.join(__dirname, "..", "src");
 const dist = path.join(__dirname, "..", "dist");
+const docsDist = path.join(__dirname, "..", "docs", "dist");
 const out = path.join(dist, "xylem.css");
 const outMin = path.join(dist, "xylem.min.css");
 const outMap = path.join(dist, "xylem.min.css.map");
@@ -96,6 +97,13 @@ function build() {
     if (minified.map) {
       fs.writeFileSync(outMap, minified.map);
     }
+
+    /* Copy to docs/dist/ for local preview and Pages deployment */
+    if (!fs.existsSync(docsDist)) {
+      fs.mkdirSync(docsDist, { recursive: true });
+    }
+    fs.writeFileSync(path.join(docsDist, "xylem.css"), layerOrder + readable.code);
+    fs.writeFileSync(path.join(docsDist, "xylem.min.css"), layerOrder + minified.code);
 
     const size = (Buffer.byteLength(readable.code) / 1024).toFixed(1);
     const minSize = (Buffer.byteLength(minified.code) / 1024).toFixed(1);
