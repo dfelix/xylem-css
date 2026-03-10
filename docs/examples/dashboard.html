@@ -6,7 +6,9 @@
   <title>Farm Dashboard — Xylem CSS Example</title>
   <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
   <link rel="stylesheet" href="../../dist/xylem.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css">
   <style>
+    #theme-toggle { border-color: transparent; }
     /* Dashboard-specific layout */
     .dashboard {
       display: flex;
@@ -150,6 +152,7 @@
           <h4 class="mb-0">Farm Overview</h4>
         </div>
         <div class="row gap-2 items-center">
+          <button id="theme-toggle" class="button button-sm" aria-label="Toggle dark mode"><i class="ph ph-moon"></i></button>
           <button class="button button-primary m-0">New Crop Plan</button>
           <div class="dropdown dropdown-end">
             <button class="avatar-toggle">
@@ -415,5 +418,28 @@
     </div>
   </div>
 
+  <script>
+    (function () {
+      var toggle = document.getElementById('theme-toggle');
+      var icon = toggle.querySelector('i');
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        icon.className = 'ph ph-sun';
+      }
+      toggle.addEventListener('click', function () {
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+          document.documentElement.removeAttribute('data-theme');
+          icon.className = 'ph ph-moon';
+          localStorage.setItem('theme', 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          icon.className = 'ph ph-sun';
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

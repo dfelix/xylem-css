@@ -501,7 +501,7 @@ input[type="button"]:disabled {
 }
 
 .dropdown-end .dropdown-menu,
-.navbar-nav > :last-child > .dropdown-menu {
+.navbar-nav > .dropdown:not(:has(~ .dropdown)) > .dropdown-menu {
   left: auto;
   right: 0;
 }
