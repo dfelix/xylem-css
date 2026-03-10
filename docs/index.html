@@ -13,6 +13,9 @@
     .demo-section { padding: 2rem 0; border-bottom: 1px solid var(--xy-color-border-light); }
     .demo-section:last-child { border-bottom: none; }
 
+    /* Theme toggle */
+    #theme-toggle { border-color: transparent; }
+
     /* Reusable demo helpers */
     .demo-bg { background: var(--xy-color-bg-subtle); }
     .demo-rounded { border-radius: var(--xy-radius); }
@@ -227,6 +230,7 @@
           <li><a href="examples/ecommerce.html">E-commerce</a></li>
         </ul>
       </li>
+      <li><button id="theme-toggle" class="button button-sm" aria-label="Toggle dark mode"><i class="ph ph-moon"></i></button></li>
     </ul>
   </nav>
 
@@ -239,7 +243,7 @@
       <p>A very lightweight CSS framework. No JavaScript. No complexity. Just clean, composable CSS utilities.</p>
       <div class="row row-center mt-2">
         <a class="button button-primary" href="#typography">Explore</a>
-        <a class="button" href="examples/landing.html">Examples</a>
+        <a class="button" href="./examples">Examples</a>
         <a class="button button-icon" href="https://github.com/dfelix/xylem-css"><i class="ph ph-github-logo"></i> GitHub</a>
       </div>
     </section>
@@ -2146,6 +2150,29 @@
         }, 1500);
       });
     }
+
+    // Dark mode toggle
+    (function () {
+      var toggle = document.getElementById('theme-toggle');
+      var icon = toggle.querySelector('i');
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        icon.className = 'ph ph-sun';
+      }
+      toggle.addEventListener('click', function () {
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+          document.documentElement.removeAttribute('data-theme');
+          icon.className = 'ph ph-moon';
+          localStorage.setItem('theme', 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          icon.className = 'ph ph-sun';
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+    })();
 
     // Re-highlight when a details block opens (Prism may miss hidden code)
     document.querySelectorAll('.code-toggle').forEach(function (el) {
