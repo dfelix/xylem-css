@@ -25,7 +25,6 @@ jobs:
           node-version-file: '.nvmrc'
       - run: npm ci
       - run: npm run build
-      - run: cp -r dist docs/dist
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
