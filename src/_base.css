@@ -196,6 +196,17 @@ select:disabled {
   cursor: not-allowed;
 }
 
+/* Dark mode: switch color-scheme so native controls match */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
 /* === Lists === */
 
 ul { list-style: disc outside; }

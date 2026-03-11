@@ -14,7 +14,7 @@
 /* === Design Tokens === */
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
   /* Typography */
   --xy-font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;

@@ -2207,7 +2207,7 @@
       toggle.addEventListener('click', function () {
         var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         if (isDark) {
-          document.documentElement.removeAttribute('data-theme');
+          document.documentElement.setAttribute('data-theme', 'light');
           icon.className = 'ph ph-moon';
           localStorage.setItem('theme', 'light');
         } else {
