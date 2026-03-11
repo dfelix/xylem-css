@@ -101,3 +101,14 @@
   --xy-color-footer-dark-text: #8a9494;
   --xy-color-footer-dark-hover: #e0e0e0;
 /* DARK_TOKENS_END */
+
+/* Dark mode: switch color-scheme so native controls match */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}

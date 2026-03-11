@@ -194,6 +194,9 @@
           <li><a href="#buttons">Buttons</a></li>
           <li><a href="#badges">Badges</a></li>
           <li><a href="#forms">Forms</a></li>
+          <li><a href="#switch">Switch</a></li>
+          <li><a href="#date-time">Date &amp; Time</a></li>
+          <li><a href="#native-controls">Native Controls</a></li>
           <li><a href="#cards">Cards</a></li>
           <li><a href="#hero">Hero</a></li>
           <li><a href="#navbar">Navbar</a></li>
@@ -803,31 +806,22 @@
         </div>
         <div class="row">
           <div class="stack-sm flex-1">
-            <label for="quantity">Quantity</label>
-            <input type="number" id="quantity" placeholder="1" min="0" max="100" class="w-full">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="••••••••" class="w-full">
           </div>
           <div class="stack-sm flex-1">
-            <label for="price">Price</label>
-            <input type="number" id="price" placeholder="9.99" step="0.01" min="0" class="w-full">
+            <label for="search">Search</label>
+            <input type="search" id="search" placeholder="Search…" class="w-full">
           </div>
         </div>
-        <div class="stack-sm">
-          <label for="message">Message</label>
-          <textarea id="message" placeholder="Your message…" class="w-full"></textarea>
-        </div>
-        <div class="stack-sm">
-          <label>Terms</label>
-          <div class="row">
-            <label><input type="checkbox"> I agree to the terms</label>
-            <label><input type="checkbox" checked disabled> Disabled checkbox</label>
+        <div class="row">
+          <div class="stack-sm flex-1">
+            <label for="tel">Phone</label>
+            <input type="tel" id="tel" placeholder="+1 (555) 000-0000" class="w-full">
           </div>
-        </div>
-        <div class="stack-sm">
-          <label>Plan</label>
-          <div class="row">
-            <label><input type="radio" name="plan"> Free</label>
-            <label><input type="radio" name="plan"> Pro</label>
-            <label><input type="radio" name="disabled-plan" checked disabled> Disabled radio</label>
+          <div class="stack-sm flex-1">
+            <label for="url">URL</label>
+            <input type="url" id="url" placeholder="https://example.com" class="w-full">
           </div>
         </div>
         <div class="row">
@@ -846,40 +840,27 @@
             </select>
           </div>
         </div>
-
-        <h4>Switch</h4>
-        <div class="row">
-          <label>
-            <span class="switch"><input type="checkbox" role="switch"><span class="switch-track"></span></span> Notifications
-          </label>
-          <label>
-            <span class="switch"><input type="checkbox" role="switch" checked><span class="switch-track"></span></span> Dark mode
-          </label>
-          <label>
-            <span class="switch"><input type="checkbox" role="switch" disabled><span class="switch-track"></span></span> Disabled
-          </label>
-          <label>
-            <span class="switch"><input type="checkbox" role="switch" checked disabled><span class="switch-track"></span></span> Disabled on
-          </label>
-        </div>
-
-        <h4>Disabled inputs</h4>
-        <div class="row">
-          <div class="stack-sm flex-1">
-            <label>Disabled text</label>
-            <input type="text" value="Disabled input" disabled class="w-full">
-          </div>
-          <div class="stack-sm flex-1">
-            <label>Disabled email</label>
-            <input type="email" value="disabled@example.com" disabled class="w-full">
+        <div class="stack-sm">
+          <label>Plan</label>
+          <div class="row">
+            <label><input type="radio" name="plan"> Free</label>
+            <label><input type="radio" name="plan"> Pro</label>
+            <label><input type="radio" name="disabled-plan" checked disabled> Disabled radio</label>
           </div>
         </div>
         <div class="stack-sm">
-          <label>Disabled textarea</label>
-          <textarea disabled class="w-full">Disabled textarea</textarea>
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Your message…" class="w-full"></textarea>
+        </div>
+        <div class="stack-sm">
+          <label>Terms</label>
+          <div class="row">
+            <label><input type="checkbox"> I agree to the terms</label>
+            <label><input type="checkbox" checked disabled> Disabled checkbox</label>
+          </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-4">
           <button type="submit" class="button button-primary">Submit</button>
           <button class="button" disabled>Disabled</button>
           <button class="button button-primary" disabled>Disabled Primary</button>
@@ -903,82 +884,257 @@
   &lt;/div&gt;
   &lt;div class="row"&gt;
     &lt;div class="stack-sm flex-1"&gt;
-      &lt;label&gt;Quantity&lt;/label&gt;
-      &lt;input type="number" placeholder="1" min="0" max="100" class="w-full"&gt;
+      &lt;label&gt;Password&lt;/label&gt;
+      &lt;input type="password" class="w-full"&gt;
     &lt;/div&gt;
     &lt;div class="stack-sm flex-1"&gt;
-      &lt;label&gt;Price&lt;/label&gt;
-      &lt;input type="number" placeholder="9.99" step="0.01" min="0" class="w-full"&gt;
+      &lt;label&gt;Search&lt;/label&gt;
+      &lt;input type="search" class="w-full"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="stack-sm flex-1"&gt;
+      &lt;label&gt;Phone&lt;/label&gt;
+      &lt;input type="tel" class="w-full"&gt;
+    &lt;/div&gt;
+    &lt;div class="stack-sm flex-1"&gt;
+      &lt;label&gt;URL&lt;/label&gt;
+      &lt;input type="url" class="w-full"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="stack-sm flex-1"&gt;
+      &lt;label&gt;Role&lt;/label&gt;
+      &lt;select class="w-full"&gt;
+        &lt;option&gt;Designer&lt;/option&gt;
+        &lt;option&gt;Developer&lt;/option&gt;
+        &lt;option&gt;Manager&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class="stack-sm flex-1"&gt;
+      &lt;label&gt;Disabled select&lt;/label&gt;
+      &lt;select disabled class="w-full"&gt;
+        &lt;option&gt;Disabled select&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="stack-sm"&gt;
+    &lt;label&gt;Plan&lt;/label&gt;
+    &lt;div class="row"&gt;
+      &lt;label&gt;&lt;input type="radio" name="plan"&gt; Free&lt;/label&gt;
+      &lt;label&gt;&lt;input type="radio" name="plan"&gt; Pro&lt;/label&gt;
+      &lt;label&gt;&lt;input type="radio" checked disabled&gt; Disabled radio&lt;/label&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class="stack-sm"&gt;
     &lt;label&gt;Message&lt;/label&gt;
     &lt;textarea class="w-full"&gt;&lt;/textarea&gt;
   &lt;/div&gt;
-  &lt;!-- Checkboxes --&gt;
   &lt;div class="stack-sm"&gt;
     &lt;label&gt;Terms&lt;/label&gt;
     &lt;div class="row"&gt;
       &lt;label&gt;&lt;input type="checkbox"&gt; I agree to the terms&lt;/label&gt;
-      &lt;label&gt;&lt;input type="checkbox" checked disabled&gt; Disabled&lt;/label&gt;
+      &lt;label&gt;&lt;input type="checkbox" checked disabled&gt; Disabled checkbox&lt;/label&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-
-  &lt;!-- Radio buttons --&gt;
-  &lt;div class="stack-sm"&gt;
-    &lt;label&gt;Plan&lt;/label&gt;
-    &lt;div class="row"&gt;
-      &lt;label&gt;&lt;input type="radio" name="plan"&gt; Free&lt;/label&gt;
-      &lt;label&gt;&lt;input type="radio" name="plan"&gt; Pro&lt;/label&gt;
-      &lt;label&gt;&lt;input type="radio" checked disabled&gt; Disabled&lt;/label&gt;
-    &lt;/div&gt;
+  &lt;div class="row mt-4"&gt;
+    &lt;button type="submit" class="button button-primary"&gt;Submit&lt;/button&gt;
+    &lt;button class="button" disabled&gt;Disabled&lt;/button&gt;
+    &lt;button class="button button-primary" disabled&gt;Disabled Primary&lt;/button&gt;
   &lt;/div&gt;
-  &lt;div class="row"&gt;
-    &lt;div class="stack-sm flex-1"&gt;
-      &lt;label&gt;Select&lt;/label&gt;
-      &lt;select class="w-full"&gt;...&lt;/select&gt;
-    &lt;/div&gt;
-    &lt;div class="stack-sm flex-1"&gt;
-      &lt;label&gt;Disabled select&lt;/label&gt;
-      &lt;select disabled class="w-full"&gt;...&lt;/select&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-
-  &lt;!-- Switch --&gt;
-  &lt;label&gt;
-    &lt;span class="switch"&gt;
-      &lt;input type="checkbox" role="switch"&gt;
-      &lt;span class="switch-track"&gt;&lt;/span&gt;
-    &lt;/span&gt; Notifications
-  &lt;/label&gt;
-  &lt;label&gt;
-    &lt;span class="switch"&gt;
-      &lt;input type="checkbox" role="switch" checked disabled&gt;
-      &lt;span class="switch-track"&gt;&lt;/span&gt;
-    &lt;/span&gt; Disabled on
-  &lt;/label&gt;
-
-  &lt;!-- Disabled inputs --&gt;
-  &lt;div class="row"&gt;
-    &lt;div class="stack-sm flex-1"&gt;
-      &lt;label&gt;Disabled text&lt;/label&gt;
-      &lt;input type="text" value="Disabled input" disabled class="w-full"&gt;
-    &lt;/div&gt;
-    &lt;div class="stack-sm flex-1"&gt;
-      &lt;label&gt;Disabled email&lt;/label&gt;
-      &lt;input type="email" value="disabled@example.com" disabled class="w-full"&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-  &lt;div class="stack-sm"&gt;
-    &lt;label&gt;Disabled textarea&lt;/label&gt;
-    &lt;textarea disabled class="w-full"&gt;Disabled textarea&lt;/textarea&gt;
-  &lt;/div&gt;
-
-  &lt;!-- Buttons --&gt;
-  &lt;button class="button button-primary"&gt;Submit&lt;/button&gt;
-  &lt;button class="button" disabled&gt;Disabled&lt;/button&gt;
-  &lt;button class="button button-primary" disabled&gt;Disabled Primary&lt;/button&gt;
 &lt;/form&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Switch -->
+    <section id="switch" class="demo-section stack">
+      <h2>Switch</h2>
+      <div class="row">
+        <label>
+          <span class="switch"><input type="checkbox" role="switch"><span class="switch-track"></span></span> Notifications
+        </label>
+        <label>
+          <span class="switch"><input type="checkbox" role="switch" checked><span class="switch-track"></span></span> Dark mode
+        </label>
+        <label>
+          <span class="switch"><input type="checkbox" role="switch" disabled><span class="switch-track"></span></span> Disabled
+        </label>
+        <label>
+          <span class="switch"><input type="checkbox" role="switch" checked disabled><span class="switch-track"></span></span> Disabled on
+        </label>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;label&gt;
+  &lt;span class="switch"&gt;
+    &lt;input type="checkbox" role="switch"&gt;
+    &lt;span class="switch-track"&gt;&lt;/span&gt;
+  &lt;/span&gt; Notifications
+&lt;/label&gt;
+
+&lt;!-- Checked --&gt;
+&lt;label&gt;
+  &lt;span class="switch"&gt;
+    &lt;input type="checkbox" role="switch" checked&gt;
+    &lt;span class="switch-track"&gt;&lt;/span&gt;
+  &lt;/span&gt; Dark mode
+&lt;/label&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;label&gt;
+  &lt;span class="switch"&gt;
+    &lt;input type="checkbox" role="switch" disabled&gt;
+    &lt;span class="switch-track"&gt;&lt;/span&gt;
+  &lt;/span&gt; Disabled
+&lt;/label&gt;
+
+&lt;!-- Disabled on --&gt;
+&lt;label&gt;
+  &lt;span class="switch"&gt;
+    &lt;input type="checkbox" role="switch" checked disabled&gt;
+    &lt;span class="switch-track"&gt;&lt;/span&gt;
+  &lt;/span&gt; Disabled on
+&lt;/label&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Date & Time -->
+    <section id="date-time" class="demo-section stack">
+      <h2>Date &amp; Time</h2>
+      <form>
+        <div class="row">
+          <div class="stack-sm flex-1">
+            <label for="date">Date</label>
+            <input type="date" id="date" class="w-full">
+          </div>
+          <div class="stack-sm flex-1">
+            <label for="datetime">Date &amp; Time</label>
+            <input type="datetime-local" id="datetime" class="w-full">
+          </div>
+        </div>
+        <div class="row">
+          <div class="stack-sm flex-1">
+            <label for="time">Time</label>
+            <input type="time" id="time" class="w-full">
+          </div>
+          <div class="stack-sm flex-1">
+            <label for="month">Month</label>
+            <input type="month" id="month" class="w-full">
+          </div>
+          <div class="stack-sm flex-1">
+            <label for="week">Week</label>
+            <input type="week" id="week" class="w-full">
+          </div>
+        </div>
+      </form>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;div class="row"&gt;
+  &lt;div class="stack-sm flex-1"&gt;
+    &lt;label&gt;Date&lt;/label&gt;
+    &lt;input type="date" class="w-full"&gt;
+  &lt;/div&gt;
+  &lt;div class="stack-sm flex-1"&gt;
+    &lt;label&gt;Date &amp; Time&lt;/label&gt;
+    &lt;input type="datetime-local" class="w-full"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+  &lt;div class="stack-sm flex-1"&gt;
+    &lt;label&gt;Time&lt;/label&gt;
+    &lt;input type="time" class="w-full"&gt;
+  &lt;/div&gt;
+  &lt;div class="stack-sm flex-1"&gt;
+    &lt;label&gt;Month&lt;/label&gt;
+    &lt;input type="month" class="w-full"&gt;
+  &lt;/div&gt;
+  &lt;div class="stack-sm flex-1"&gt;
+    &lt;label&gt;Week&lt;/label&gt;
+    &lt;input type="week" class="w-full"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- Native Controls -->
+    <section id="native-controls" class="demo-section stack">
+      <h2>Native Controls</h2>
+      <form>
+        <div class="row">
+          <div class="stack-sm flex-1">
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" placeholder="1" min="0" max="100" class="w-full">
+          </div>
+          <div class="stack-sm flex-1">
+            <label for="price">Price</label>
+            <input type="number" id="price" placeholder="9.99" step="0.01" min="0" class="w-full">
+          </div>
+        </div>
+        <div class="row">
+          <div class="stack-sm flex-1">
+            <label for="range">Range</label>
+            <input type="range" id="range" min="0" max="100" value="50" class="w-full">
+          </div>
+          <div class="stack-sm flex-1">
+            <label for="color">Color</label>
+            <input type="color" id="color" value="#4a9f4a" class="w-full">
+          </div>
+        </div>
+        <div class="row">
+          <div class="stack-sm flex-1">
+            <label for="file">File</label>
+            <input type="file" id="file" class="w-full">
+          </div>
+          <div class="stack-sm flex-1">
+            <label>Native button</label>
+            <button type="button" class="w-full">Native Button</button>
+          </div>
+        </div>
+      </form>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;div class="row"&gt;
+  &lt;div class="stack-sm flex-1"&gt;
+    &lt;label&gt;Quantity&lt;/label&gt;
+    &lt;input type="number" placeholder="1" min="0" max="100" class="w-full"&gt;
+  &lt;/div&gt;
+  &lt;div class="stack-sm flex-1"&gt;
+    &lt;label&gt;Price&lt;/label&gt;
+    &lt;input type="number" placeholder="9.99" step="0.01" min="0" class="w-full"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+  &lt;div class="stack-sm flex-1"&gt;
+    &lt;label&gt;Range&lt;/label&gt;
+    &lt;input type="range" min="0" max="100" value="50" class="w-full"&gt;
+  &lt;/div&gt;
+  &lt;div class="stack-sm flex-1"&gt;
+    &lt;label&gt;Color&lt;/label&gt;
+    &lt;input type="color" value="#4a9f4a" class="w-full"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+  &lt;div class="stack-sm flex-1"&gt;
+    &lt;label&gt;File&lt;/label&gt;
+    &lt;input type="file" class="w-full"&gt;
+  &lt;/div&gt;
+  &lt;div class="stack-sm flex-1"&gt;
+    &lt;label&gt;Native button&lt;/label&gt;
+    &lt;button type="button" class="w-full"&gt;Native Button&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
         </div>
       </details>
     </section>

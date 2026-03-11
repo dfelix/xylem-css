@@ -196,15 +196,19 @@ select:disabled {
   cursor: not-allowed;
 }
 
-/* Dark mode: switch color-scheme so native controls match */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-  }
+::file-selector-button {
+  background-color: var(--xy-color-bg-subtle);
+  border: 1px solid var(--xy-color-border);
+  border-radius: var(--xy-radius);
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
 }
 
-:root[data-theme="dark"] {
-  color-scheme: dark;
+::file-selector-button:hover {
+  background-color: var(--xy-color-border);
 }
 
 /* === Lists === */
