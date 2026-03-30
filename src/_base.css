@@ -101,13 +101,20 @@ button {
 ),
 textarea,
 select {
-  padding: 0.5rem 1.5rem;
-  background-color: transparent;
+  padding: 0.4rem 0.6rem;
+  background-color: var(--xy-color-bg);
   border: 1px solid var(--xy-color-border);
   border-radius: var(--xy-radius);
   box-shadow: none;
-  color: var(--xy-color-muted);
+  color: inherit;
   font-family: inherit;
+  font-size: inherit;
+}
+
+select {
+  padding: 0.5rem 1.5rem;
+  background-color: transparent;
+  color: var(--xy-color-muted);
   font-size: var(--xy-text-xs);
   font-weight: 600;
   line-height: 1.5;
