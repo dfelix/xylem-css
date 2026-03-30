@@ -101,14 +101,19 @@ button {
 ),
 textarea,
 select {
-  padding: 0.4rem 0.6rem;
-  background-color: var(--xy-color-bg);
+  padding: 0.5rem 1.5rem;
+  background-color: transparent;
   border: 1px solid var(--xy-color-border);
   border-radius: var(--xy-radius);
   box-shadow: none;
-  color: inherit;
+  color: var(--xy-color-muted);
   font-family: inherit;
-  font-size: inherit;
+  font-size: var(--xy-text-xs);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
 :is(
@@ -149,14 +154,19 @@ textarea {
   input[type="month"],
   input[type="week"]
 ):focus,
-textarea:focus,
-select:focus {
+textarea:focus {
   /* NOTE: :focus (not :focus-visible) is intentional for form fields —
      users need to see which field is active, even on mouse click. */
   border-color: var(--xy-color-primary);
   outline: 2px solid transparent;
   outline-offset: 2px;
   box-shadow: 0 0 0 2px var(--xy-color-primary);
+}
+
+select:hover,
+select:focus-visible {
+  color: var(--xy-color-text);
+  border-color: var(--xy-color-primary);
 }
 
 label,
