@@ -54,7 +54,7 @@
 
     .quantity-input {
       display: flex;
-      align-items: center;
+      align-items: stretch;
       gap: 0;
       border: 1px solid var(--xy-color-border);
       border-radius: var(--xy-radius);
@@ -68,9 +68,6 @@
       cursor: pointer;
       font-size: 1rem;
       color: var(--xy-color-text);
-      margin: 0;
-      text-transform: none;
-      letter-spacing: 0;
     }
 
     .quantity-input button:hover {
@@ -174,8 +171,8 @@
     <a class="navbar-brand" href="#">
       <img src="../assets/logo.svg" alt="Understory Supply" height="24"> Understory Supply
     </a>
-    <input type="checkbox" id="nav-toggle" class="navbar-toggle" aria-hidden="true">
-    <label for="nav-toggle" class="navbar-toggler" aria-label="Toggle navigation">
+    <input type="checkbox" id="nav-toggle" class="navbar-toggle" aria-label="Toggle navigation">
+    <label for="nav-toggle" class="navbar-toggler" aria-hidden="true">
       <span class="navbar-toggler-icon"></span>
     </label>
     <ul class="navbar-nav navbar-collapse">

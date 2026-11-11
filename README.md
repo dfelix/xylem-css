@@ -52,14 +52,14 @@ Via CDN:
 ### Layout
 
 - `.container` — centered, max-width 960px wrapper
-- `.row` — flex row with gap (`.row-nowrap`, `.row-center`, `.row-between`)
+- `.row` — flex row with gap (`.row-nowrap`, `.row-center`, `.row-between`); its children drop their bottom margin so form controls and buttons line up
 - `.stack` — vertical flex column (`.stack-sm`, `.stack-lg`)
 - `.grid` — responsive auto-fill grid (customize minimum column width with `--xy-grid-min`)
 
 ### Components
 
 - `.navbar` — flex navbar with brand, nav links, mobile toggle, and modifiers (`.navbar-bordered`, `.navbar-sticky`, `.navbar-collapse`, `.navbar-toggler`)
-- `.dropdown` — CSS-only dropdown menu (`.dropdown-toggle`, `.dropdown-menu`, `.dropdown-end`, `.dropdown-divider`)
+- `.dropdown` — CSS-only dropdown menu (`.dropdown-toggle`, `.dropdown-menu`, `.dropdown-end`, `.dropdown-divider`); as `<details class="dropdown">` with a `<summary>` toggle it opens on tap in every browser, including Safari
 - `.card` — bordered card with image, body, footer, and shadow variant (`.card-shadow`)
 - `.hero` — centered hero section (add `.hero-lg` for larger variant)
 - `.avatar` — circular avatar image (`.avatar-sm`, `.avatar-lg`, `.avatar-toggle`)
@@ -68,12 +68,15 @@ Via CDN:
 - `.pagination` — page navigation links with active state
 - `.badge` — inline pill badge (`.badge-primary`, `.badge-success`, `.badge-danger`, `.badge-warning`, `.badge-info`)
 - `.progress` — progress bar with color variants (`.progress-success`, `.progress-danger`, `.progress-warning`, `.progress-info`)
-- `.sidebar` — sticky sidebar navigation with sections (`.sidebar-brand`, `.sidebar-nav`, `.sidebar-section`)
+- `.sidebar` — sticky sidebar navigation with sections (`.sidebar-brand`, `.sidebar-nav`, `.sidebar-section`); below 768px it slides in over the page from a `.sidebar-toggle` checkbox or the `.sidebar-open` class, with an optional `.sidebar-backdrop`
 - `.footer` — page footer with dark variant (`.footer-dark`, `.footer-brand`, `.footer-divider`, `.footer-bottom`)
 
 ### Forms
 
-- Styled inputs, textareas, selects, checkboxes, radios
+- Styled inputs, textareas, selects, checkboxes, radios; an `<input>` without a `type` is styled as a text field
+- Selects look like text fields, with an arrow that follows dark mode
+- Text fields, selects and `.button` share one height (`--xy-control-height`); `.input-sm` matches `.button-sm`
+- On touch screens form text is at least 16px, so iPhone Safari doesn't zoom in on tap
 - Focus rings using the primary color
 - Disabled states for all form elements
 - Labels auto-detect inline context with checkboxes and radios
@@ -96,7 +99,7 @@ Via CDN:
 
 - CSS reset and box-sizing normalization
 - Typography with responsive heading scale
-- Styled links, buttons (`.button-primary`, `.button-success`, `.button-danger`, `.button-warning`, `.button-info`), lists, code, tables (`.table-striped`, `.table-hover`), `hr`
+- Styled links, buttons (`.button`, `.button-primary`, `.button-success`, `.button-danger`, `.button-warning`, `.button-info`), lists, code, tables (`.table-striped`, `.table-hover`, and `.table-scroll` to scroll a wide table sideways), `hr`
 - Button outline variants (`.button-outline-primary`, `.button-outline-success`, `.button-outline-danger`, `.button-outline-warning`, `.button-outline-info`)
 - Button modifiers: `.button-icon` (icon alignment), `.button-sq` (square icon-only), `.button-sm` (compact size)
 - `::selection` and `accent-color` themed to primary
@@ -106,7 +109,7 @@ Via CDN:
 
 Xylem uses `@layer` to organize styles into `base`, `components`, and `utilities`. This means any custom CSS you write will automatically override framework styles without specificity battles. Utilities always beat components within the framework.
 
-> **Note:** Bare `<button>` elements get a minimal reset (font, cursor). To apply the full styled look (uppercase, letter-spacing, border), add the `.button` class. Since the framework uses CSS layers, your own unlayered CSS will naturally override these defaults.
+> **Note:** Bare `<button>` elements get a minimal reset (font, cursor) and keep the browser's look, so icon buttons and custom controls start clean. To apply the full styled look (uppercase, letter-spacing, border), add the `.button` class. Buttons have no bottom margin; space them with `.row`, `.stack` or the spacing utilities. Since the framework uses CSS layers, your own unlayered CSS will naturally override these defaults.
 
 ## Theming
 
@@ -114,6 +117,8 @@ Override CSS custom properties to theme the framework:
 
 ```css
 :root {
+  --xy-font: system-ui, sans-serif;  /* any font, e.g. a web font */
+  --xy-font-numeric: normal;         /* e.g. lining-nums for Raleway */
   --xy-color-primary: #008080;
   --xy-color-primary-hover: #006666;
   --xy-color-text: #222;
@@ -123,6 +128,8 @@ Override CSS custom properties to theme the framework:
   --xy-color-border: #cfd8d8;
   --xy-color-border-light: #e6eeee;
   --xy-radius: 4px;
+  --xy-control-height: 2.5rem;     /* text fields, selects, buttons */
+  --xy-control-height-sm: 1.875rem; /* .input-sm, .button-sm */
 }
 ```
 

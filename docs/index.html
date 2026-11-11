@@ -92,9 +92,6 @@
       right: 0.5rem;
       padding: 0.25rem 0.6rem;
       font-size: 0.7rem;
-      letter-spacing: 0;
-      text-transform: none;
-      margin-bottom: 0;
       background: var(--xy-color-bg);
       color: var(--xy-color-muted);
       border: 1px solid var(--xy-color-border);
@@ -173,8 +170,8 @@
   <!-- Sticky Navbar with mobile toggle -->
   <nav class="navbar navbar-bordered navbar-sticky">
     <a class="navbar-brand" href="#"><img src="assets/logo.svg" alt="Xylem" height="28"> Xylem</a>
-    <input type="checkbox" id="nav-toggle" class="navbar-toggle" aria-hidden="true">
-    <label for="nav-toggle" class="navbar-toggler" aria-label="Toggle navigation">
+    <input type="checkbox" id="nav-toggle" class="navbar-toggle" aria-label="Toggle navigation">
+    <label for="nav-toggle" class="navbar-toggler" aria-hidden="true">
       <span class="navbar-toggler-icon"></span>
     </label>
     <ul class="navbar-nav navbar-collapse">
@@ -301,7 +298,12 @@
           <h4>Ordered</h4>
           <ol>
             <li>First</li>
-            <li>Second</li>
+            <li>Second
+              <ol>
+                <li>Nested item</li>
+                <li>Nested item</li>
+              </ol>
+            </li>
             <li>Third</li>
           </ol>
         </div>
@@ -322,7 +324,11 @@
 
 &lt;ol&gt;
   &lt;li&gt;First&lt;/li&gt;
-  &lt;li&gt;Second&lt;/li&gt;
+  &lt;li&gt;Second
+    &lt;ol&gt;
+      &lt;li&gt;Nested&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;!-- Unstyled --&gt;
@@ -390,6 +396,7 @@
     <!-- Tables -->
     <section id="tables" class="demo-section stack">
       <h2>Tables</h2>
+      <p>Wrap a wide table in <code>&lt;div class="table-scroll"&gt;</code> so it scrolls sideways on small screens instead of widening the page.</p>
       <table class="w-full">
         <thead>
           <tr>
@@ -1103,8 +1110,13 @@
             </select>
           </div>
           <div class="stack-sm flex-1">
-            <label>Native button</label>
-            <button type="button" class="w-full">Native Button</button>
+            <label>Button</label>
+            <button type="button" class="button w-full">Button</button>
+          </div>
+          <div class="stack-sm flex-1">
+            <label>Bare button (browser look)</label>
+            <button type="button" class="w-full">Bare button</button>
+            <small class="text-muted">Without <code>.button</code> it keeps the browser's look and size.</small>
           </div>
         </div>
       </form>
@@ -1147,9 +1159,45 @@
     &lt;/select&gt;
   &lt;/div&gt;
   &lt;div class="stack-sm flex-1"&gt;
-    &lt;label&gt;Native button&lt;/label&gt;
-    &lt;button type="button" class="w-full"&gt;Native Button&lt;/button&gt;
+    &lt;label&gt;Button&lt;/label&gt;
+    &lt;button type="button" class="button w-full"&gt;Button&lt;/button&gt;
   &lt;/div&gt;
+  &lt;div class="stack-sm flex-1"&gt;
+    &lt;label&gt;Bare button (browser look)&lt;/label&gt;
+    &lt;button type="button" class="w-full"&gt;Bare button&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+    
+      <h4>Controls in a row</h4>
+      <p>Text fields, selects and <code>.button</code> share one height (<code>--xy-control-height</code>), so they line up in a <code>.row</code>, which also drops the bottom margin form controls have in stacked forms. Add <code>.input-sm</code> to a field or select to match <code>.button-sm</code>. On touch screens, form text never goes below 16px, so iPhone Safari doesn't zoom in when a field is tapped.</p>
+      <div class="row items-center">
+        <input type="search" placeholder="Search" aria-label="Search">
+        <select aria-label="Status"><option>All</option><option>Active</option></select>
+        <button class="button button-primary">Filter</button>
+      </div>
+      <div class="row items-center">
+        <input type="search" class="input-sm" placeholder="Search" aria-label="Search (small)">
+        <select class="input-sm" aria-label="Status (small)"><option>All</option><option>Active</option></select>
+        <button class="button button-sm">Filter</button>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;div class="row items-center"&gt;
+  &lt;input type="search" placeholder="Search"&gt;
+  &lt;select&gt;&lt;option&gt;All&lt;/option&gt;&lt;/select&gt;
+  &lt;button class="button button-primary"&gt;Filter&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Small --&gt;
+&lt;div class="row items-center"&gt;
+  &lt;input type="search" class="input-sm" placeholder="Search"&gt;
+  &lt;select class="input-sm"&gt;&lt;option&gt;All&lt;/option&gt;&lt;/select&gt;
+  &lt;button class="button button-sm"&gt;Filter&lt;/button&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </details>
@@ -1294,11 +1342,11 @@
       </details>
 
       <h4>With mobile toggle</h4>
-      <p>Add a hidden checkbox + <code>.navbar-toggler</code> and wrap nav items in <code>.navbar-collapse</code>. Resize the browser to see it.</p>
+      <p>Add a hidden checkbox + <code>.navbar-toggler</code> and wrap nav items in <code>.navbar-collapse</code>. Resize the browser to see it. Give the checkbox an <code>aria-label</code>: on small screens it stays reachable by keyboard, and the toggler shows its focus ring. In a single-page app, untick the checkbox after navigating, or the menu stays open on the next page.</p>
       <nav class="navbar navbar-bordered demo-rounded">
         <a class="navbar-brand" href="#">Brand</a>
-        <input type="checkbox" id="demo-nav-toggle" class="navbar-toggle" aria-hidden="true">
-        <label for="demo-nav-toggle" class="navbar-toggler" aria-label="Toggle navigation">
+        <input type="checkbox" id="demo-nav-toggle" class="navbar-toggle" aria-label="Toggle navigation">
+        <label for="demo-nav-toggle" class="navbar-toggler" aria-hidden="true">
           <span class="navbar-toggler-icon"></span>
         </label>
         <ul class="navbar-nav navbar-collapse">
@@ -1314,8 +1362,8 @@
           <button class="copy-btn" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-html">&lt;nav class="navbar navbar-bordered"&gt;
   &lt;a class="navbar-brand" href="#"&gt;Brand&lt;/a&gt;
-  &lt;input type="checkbox" id="nav-toggle" class="navbar-toggle" aria-hidden="true"&gt;
-  &lt;label for="nav-toggle" class="navbar-toggler" aria-label="Toggle navigation"&gt;
+  &lt;input type="checkbox" id="nav-toggle" class="navbar-toggle" aria-label="Toggle navigation"&gt;
+  &lt;label for="nav-toggle" class="navbar-toggler" aria-hidden="true"&gt;
     &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
   &lt;/label&gt;
   &lt;ul class="navbar-nav navbar-collapse"&gt;
@@ -1513,13 +1561,47 @@
         </div>
       </details>
 
-      <p class="text-sm text-muted mt-2"><strong>Note:</strong> Dropdowns use <code>:focus-within</code> and close when focus leaves the container. Inside a navbar, the last dropdown automatically right-aligns to stay within the viewport. For keyboard <code>Escape</code> support and <code>aria-expanded</code> state, add JavaScript.</p>
+      <h4>Tap-safe (details)</h4>
+      <p>Build the dropdown from <code>&lt;details class="dropdown"&gt;</code> with a <code>&lt;summary class="dropdown-toggle"&gt;</code>. It opens and closes on click and tap in every browser, including Safari on iPhone and iPad, where a tapped <code>&lt;button&gt;</code> doesn't get focus and the <code>:focus-within</code> version may not open. Screen readers announce it as expanded or collapsed. Works with <code>.avatar-toggle</code> too.</p>
+      <details class="dropdown">
+        <summary class="dropdown-toggle">Options</summary>
+        <ul class="dropdown-menu">
+          <li><a href="#">Edit</a></li>
+          <li><a href="#">Duplicate</a></li>
+          <li><a href="#">Archive</a></li>
+        </ul>
+      </details>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;details class="dropdown"&gt;
+  &lt;summary class="dropdown-toggle"&gt;Options&lt;/summary&gt;
+  &lt;ul class="dropdown-menu"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Edit&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Duplicate&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Archive&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/details&gt;
+
+&lt;!-- Avatar menu --&gt;
+&lt;details class="dropdown dropdown-end"&gt;
+  &lt;summary class="avatar-toggle" aria-label="Account"&gt;
+    &lt;img class="avatar" src="avatar.jpg" alt=""&gt;
+  &lt;/summary&gt;
+  &lt;ul class="dropdown-menu"&gt;...&lt;/ul&gt;
+&lt;/details&gt;</code></pre>
+        </div>
+      </details>
+
+      <p class="text-sm text-muted mt-2"><strong>Note:</strong> The <code>:focus-within</code> dropdowns close when focus leaves the container. A details dropdown stays open until its summary is clicked again; to close it after choosing an item, on <code>Escape</code> or on a click outside, remove its <code>open</code> attribute with JavaScript. Inside a navbar, the last dropdown automatically right-aligns to stay within the viewport.</p>
     </section>
 
     <!-- Sidebar -->
     <section id="sidebar" class="demo-section stack">
       <h2>Sidebar</h2>
-      <p>A fixed-height sidebar with navigation groups. Hides automatically below 768px — pair with the navbar mobile toggle for responsive layouts. See the <a href="examples/dashboard.html">Dashboard example</a>.</p>
+      <p>A fixed-height sidebar with navigation groups. Below 768px it leaves the layout and slides in over the page when opened, so small screens get the same links. Open it with a <code>.sidebar-toggle</code> checkbox placed before the sidebar and a <code>.navbar-toggler</code> label anywhere on the page (no JavaScript), or by adding <code>.sidebar-open</code> to it from your app. A <code>.sidebar-backdrop</code> after the sidebar dims the page; as a <code>&lt;label&gt;</code> for the checkbox it closes the sidebar on tap. The page behind it doesn't scroll while it's open. See the <a href="examples/dashboard.html">Dashboard example</a> on a narrow window.</p>
 
       <div class="demo-preview d-flex demo-sidebar-wrap">
         <aside class="sidebar">
@@ -1549,6 +1631,7 @@
         <div class="code-block">
           <button class="copy-btn" onclick="copyCode(this)">Copy</button>
           <pre><code class="language-html">&lt;div style="display: flex; min-height: 100vh"&gt;
+  &lt;input type="checkbox" id="sidebar-toggle" class="sidebar-toggle" aria-label="Menu"&gt;
   &lt;aside class="sidebar"&gt;
     &lt;a class="sidebar-brand" href="#"&gt;Brand&lt;/a&gt;
 
@@ -1568,10 +1651,20 @@
       &lt;/ul&gt;
     &lt;/nav&gt;
   &lt;/aside&gt;
+  &lt;label for="sidebar-toggle" class="sidebar-backdrop" aria-hidden="true"&gt;&lt;/label&gt;
 
   &lt;main style="flex: 1"&gt;
+    &lt;!-- Shown below 768px only --&gt;
+    &lt;label for="sidebar-toggle" class="navbar-toggler" aria-hidden="true"&gt;
+      &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+    &lt;/label&gt;
     &lt;!-- Content --&gt;
   &lt;/main&gt;
+&lt;/div&gt;
+
+&lt;!-- Or from JavaScript, without the checkbox --&gt;
+&lt;aside class="sidebar sidebar-open"&gt;...&lt;/aside&gt;
+&lt;div class="sidebar-backdrop"&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </details>
@@ -2279,6 +2372,10 @@
           <tr><td><code>--xy-text-md</code></td><td>0.9rem</td></tr>
           <tr><td><code>--xy-text-base</code></td><td>1rem</td></tr>
           <tr><td><code>--xy-text-lg</code></td><td>1.15rem</td></tr>
+          <tr><td><code>--xy-font</code></td><td>system-ui and fallbacks; set to any font, e.g. a web font</td></tr>
+          <tr><td><code>--xy-font-numeric</code></td><td>normal; e.g. <code>lining-nums</code> for fonts whose digits rise and drop like lowercase (Raleway), or <code>tabular-nums</code> for equal-width digits. Applies to form controls too</td></tr>
+          <tr><td><code>--xy-control-height</code></td><td>2.5rem: text fields, selects and <code>.button</code></td></tr>
+          <tr><td><code>--xy-control-height-sm</code></td><td>1.875rem: <code>.input-sm</code> and <code>.button-sm</code></td></tr>
         </tbody>
       </table>
 
