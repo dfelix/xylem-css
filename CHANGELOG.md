@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1
+
+### Fixed
+- Inline `<code>` in a narrow table column no longer breaks into one character per line. 0.3.0 wrapped code with `overflow-wrap: anywhere`, which also lets table columns shrink below a word's width; `break-word` still wraps long code in text without that
+
 ## 0.3.0
 
 Fixes found using Xylem in a real app, so it needs fewer local workarounds. Some defaults change: see Changed.
