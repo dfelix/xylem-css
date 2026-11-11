@@ -16,5 +16,6 @@ jobs:
           node-version-file: '.nvmrc'
       - run: npm ci
       - run: npm run build
-      - name: Verify dist is up to date
-        run: git diff --exit-code dist/
+      # dist/ isn't committed (it's built on publish), so check the build wrote it
+      - name: Check the build output
+        run: test -s dist/xylem.css && test -s dist/xylem.min.css && test -s docs/dist/xylem.css

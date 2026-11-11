@@ -21,6 +21,7 @@ html {
 
 body {
   font-family: var(--xy-font);
+  font-variant-numeric: var(--xy-font-numeric);
   font-weight: 400;
   color: var(--xy-color-text);
   background-color: var(--xy-color-bg);
@@ -71,6 +72,14 @@ a:hover {
 
 /* === Buttons (bare element — minimal reset only) === */
 
+/* Browsers reset the digit style on form controls; they follow the page instead */
+input,
+select,
+textarea,
+button {
+  font-variant-numeric: inherit;
+}
+
 button {
   font-family: inherit;
   font-size: inherit;
@@ -86,6 +95,7 @@ button {
  * blocks below: base styles, appearance reset, and focus styles.
  */
 :is(
+  input:not([type]),
   input[type="email"],
   input[type="number"],
   input[type="search"],
@@ -109,21 +119,57 @@ select {
   color: inherit;
   font-family: inherit;
   font-size: inherit;
+  line-height: 1.5;
 }
 
+/* Text fields and selects share one height, and line up with .button */
+:is(
+  input:not([type]),
+  input[type="email"],
+  input[type="number"],
+  input[type="search"],
+  input[type="text"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="password"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="time"],
+  input[type="month"],
+  input[type="week"]
+),
 select {
-  padding: 0.5rem 1.5rem;
-  background-color: transparent;
-  color: var(--xy-color-muted);
-  font-size: var(--xy-text-xs);
-  font-weight: 600;
-  line-height: 1.5;
-  letter-spacing: 0.1rem;
-  text-transform: uppercase;
+  min-height: var(--xy-control-height);
+}
+
+/*
+ * Selects look like text fields: same text, padding, height and focus ring.
+ * The arrow is drawn in the text colour, so it follows dark mode.
+ */
+select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 2rem;
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    calc(100% - 1rem) 50%,
+    calc(100% - 0.7rem) 50%;
+  background-size: 0.3rem 0.3rem;
+  background-repeat: no-repeat;
   cursor: pointer;
 }
 
+/* A list box, not a drop-down: no arrow, any height */
+select:is([multiple], [size]:not([size="1"])) {
+  padding-right: 0.6rem;
+  background-image: none;
+  min-height: 0;
+}
+
 :is(
+  input:not([type]),
   input[type="email"],
   input[type="number"],
   input[type="search"],
@@ -148,6 +194,7 @@ textarea {
 }
 
 :is(
+  input:not([type]),
   input[type="email"],
   input[type="number"],
   input[type="search"],
@@ -161,19 +208,14 @@ textarea {
   input[type="month"],
   input[type="week"]
 ):focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   /* NOTE: :focus (not :focus-visible) is intentional for form fields —
      users need to see which field is active, even on mouse click. */
   border-color: var(--xy-color-primary);
   outline: 2px solid transparent;
   outline-offset: 2px;
   box-shadow: 0 0 0 2px var(--xy-color-primary);
-}
-
-select:hover,
-select:focus-visible {
-  color: var(--xy-color-text);
-  border-color: var(--xy-color-primary);
 }
 
 label,
@@ -233,15 +275,16 @@ select:disabled {
 ul { list-style: disc outside; }
 ol { list-style: decimal outside; }
 
+/* Room for the bullets and numbers inside the list's own box, so they aren't cut off */
 ol, ul {
-  padding-left: 0;
+  padding-left: 1.5rem;
 }
 
 ul ul,
 ul ol,
 ol ol,
 ol ul {
-  margin: var(--xy-space-3) 0 var(--xy-space-3) var(--xy-space-5);
+  margin: var(--xy-space-2) 0;
   font-size: 90%;
 }
 
@@ -256,7 +299,8 @@ code {
   margin: 0 0.1rem;
   font-size: 90%;
   font-family: var(--xy-font-mono);
-  white-space: nowrap;
+  /* Long identifiers wrap instead of widening the page on small screens */
+  overflow-wrap: anywhere;
   background: var(--xy-color-bg-subtle);
   border: 1px solid var(--xy-color-border-light);
   border-radius: var(--xy-radius);
