@@ -1,20 +1,33 @@
 name: Publish to npm
 
+# Trusted publishing: npm checks this workflow's identity with GitHub (OIDC), so no
+# token is stored. Set up on npmjs.com under xylem-css > Settings > Trusted publishing,
+# with this exact filename (npm-publish.yml). Only works on GitHub-hosted runners.
+
 on:
   release:
     types: [created]
+  # To publish by hand, for example a version whose release already exists
+  workflow_dispatch:
+
+permissions:
+  id-token: write # lets npm verify the workflow
+  contents: read
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # Trusted publishing needs Node 22.14+ and npm 11.5.1+. The build output is the
+      # same on the .nvmrc version, which CI keeps using.
       - uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
+          node-version: 24
           registry-url: https://registry.npmjs.org/
+      - run: npm install -g npm@11
+      - run: npm --version
       - run: npm ci
       - run: npm run build
+      # No token: npm uses the workflow's identity, and adds provenance automatically
       - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
