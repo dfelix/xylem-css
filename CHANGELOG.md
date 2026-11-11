@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.3.0
 
 Fixes found using Xylem in a real app, so it needs fewer local workarounds. Some defaults change: see Changed.
 
