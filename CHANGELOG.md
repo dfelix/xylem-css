@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.4.0
 
 Grid and digit features found using Xylem in a real app (a dashboard with a sidebar), so it needs no grid or digit workarounds.
 
