@@ -61,6 +61,7 @@ Both kinds follow the space the grid actually has (e.g. next to a sidebar), with
 
 - `.grid` — auto-fill: as many columns as fit, each at least `--xy-grid-min` (16rem), at most `--xy-grid-max`. For lists of similar items
 - `.grid-cols-2`, `.grid-cols-3`, `.grid-cols-4` — counted: that many columns when each can be `--xy-grid-min` (12rem) wide, stepping down so rows stay full (4 → 2 → 1, 3 → 1, 2 → 1). For fixed sets of cards, e.g. dashboards
+- `.grid-wide` — on a counted grid: 18rem columns, for cards with tables, lists or forms; spans still work
 - `.span-2`, `.span-3`, `.span-full` — wider items in counted grids
 - Gap: `.gap-*` utilities or `--xy-grid-gap` (not `gap` alone)
 

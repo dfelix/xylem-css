@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.1
+
+### Added
+- `.grid-wide` on a counted grid: columns at least 18rem, for cards with tables, lists or forms. `.span-2` and `.span-3` work with it; with a custom `--xy-grid-min` they could not, because their breakpoints are built in (container queries can't read custom properties)
+
 ## 0.4.0
 
 Grid and digit features found using Xylem in a real app (a dashboard with a sidebar), so it needs no grid or digit workarounds.
