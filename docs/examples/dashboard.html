@@ -65,9 +65,6 @@
 
     .sidebar-footer { margin-top: auto; }
     .sidebar-user   { font-weight: 600; }
-    .stat-min       { min-width: 10rem; }
-    .panel-wide     { flex: 2; min-width: 20rem; }
-    .panel          { min-width: 16rem; }
     .progress-cell  { min-width: 8rem; }
     .avatar-cell    { width: 2.5rem; }
 
@@ -146,35 +143,35 @@
       <!-- Dashboard content -->
       <div class="p-3 stack-lg">
 
-        <!-- Stat cards -->
-        <div class="row">
-          <div class="card stat-card flex-1 stat-min">
+        <!-- Stat cards: 4, 2 or 1 per row, by the space available -->
+        <div class="grid-cols-4">
+          <div class="card stat-card">
             <div class="section-label mb-1">Harvest Revenue</div>
             <div class="display-number stat-value">&euro;62.4k</div>
             <div class="stat-change stat-up">+9.3% from last season</div>
           </div>
-          <div class="card stat-card flex-1 stat-min">
+          <div class="card stat-card">
             <div class="section-label mb-1">Active Fields</div>
             <div class="display-number stat-value">24</div>
             <div class="stat-change stat-up">+3 from last season</div>
           </div>
-          <div class="card stat-card flex-1 stat-min">
+          <div class="card stat-card">
             <div class="section-label mb-1">Yield (tonnes)</div>
             <div class="display-number stat-value">1,280</div>
             <div class="stat-change stat-down">-4.1% from last season</div>
           </div>
-          <div class="card stat-card flex-1 stat-min">
+          <div class="card stat-card">
             <div class="section-label mb-1">Soil Health</div>
             <div class="display-number stat-value">82%</div>
             <div class="stat-change stat-up">+2.5% avg. improvement</div>
           </div>
         </div>
 
-        <!-- Two-column: Projects table + Activity -->
-        <div class="row items-start">
+        <!-- Projects table (2/3) + Activity (1/3); stacked when there is less room -->
+        <div class="grid-cols-3 items-start">
 
           <!-- Crop cycles table -->
-          <div class="card panel-wide">
+          <div class="card span-2">
             <div class="card-body">
               <div class="row row-between items-center mb-3">
                 <h4 class="mb-0">Crop Cycles</h4>
@@ -238,7 +235,7 @@
           </div>
 
           <!-- Activity feed -->
-          <div class="card flex-1 panel">
+          <div class="card">
             <div class="card-body">
               <div class="row row-between items-center mb-2">
                 <h4 class="mb-0">Farm Log</h4>
@@ -287,10 +284,11 @@
         </div>
 
         <!-- Team + Quick actions -->
-        <div class="row items-start">
+        <!-- Two content-heavy cards: side by side only when each can be 18rem wide -->
+        <div class="grid-cols-2 items-start" style="--xy-grid-min: 18rem;">
 
           <!-- Workers -->
-          <div class="card flex-1 panel">
+          <div class="card">
             <div class="card-body stack">
               <div class="row row-between items-center">
                 <h4 class="mb-0">Workers</h4>
@@ -341,7 +339,7 @@
           </div>
 
           <!-- Quick field task form -->
-          <div class="card flex-1 panel">
+          <div class="card">
             <div class="card-body stack">
               <h4>Log Field Task</h4>
               <form class="stack">

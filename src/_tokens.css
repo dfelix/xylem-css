@@ -19,9 +19,14 @@
   /* Typography */
   --xy-font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --xy-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-  /* Digit style, e.g. lining-nums for fonts whose default digits rise and drop like
-     lowercase (Raleway), or tabular-nums for digits of equal width */
-  --xy-font-numeric: normal;
+  /* Digit style for the page, form controls included. lining-nums keeps digits at cap
+     height in every font (Raleway's default digits rise and drop like lowercase; for
+     system fonts it changes nothing). font-variant-numeric replaces every digit
+     feature at once, so name all you want, e.g. "lining-nums slashed-zero" */
+  --xy-font-numeric: lining-nums;
+  /* Digit style for tables and .tabular-nums: lining and of equal width, so numbers
+     line up in columns */
+  --xy-font-numeric-table: lining-nums tabular-nums;
 
   /* Type scale */
   --xy-text-xs: 0.7rem;

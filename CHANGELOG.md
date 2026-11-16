@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased
+
+Grid and digit features found using Xylem in a real app (a dashboard with a sidebar), so it needs no grid or digit workarounds.
+
+### Added
+- **Counted grids** `.grid-cols-2`, `.grid-cols-3`, `.grid-cols-4`: that many columns when each can be at least `--xy-grid-min` wide (12rem), stepping down so rows stay full: 4 → 2 → 1, 3 → 1, 2 → 1, never 3 + 1. The step follows the grid's own width (e.g. next to a sidebar), not the screen's, computed with `clamp()` (no media or container queries; works in every supported browser). The grid is a size container
+- `.span-2`, `.span-3`, `.span-full` in counted grids. `.span-2` and `.span-3` apply only while the grid has that many columns, so they never push it wider than its container (container queries; in browsers without them, items stay one column wide)
+- `--xy-grid-max`: the most columns a `.grid` makes. Set it to the number of items and they fill the row on wide screens; `auto-fill` left empty columns there
+- `--xy-grid-gap`: the gap of `.grid` and the counted grids, which compute their columns from it. The `.gap-*` utilities set it too; set it (not just `gap`) when you change the gap in your own CSS
+- `--xy-font-numeric-table` (`lining-nums tabular-nums`) for tables, and `.tabular-nums` for the same elsewhere, e.g. stat values: numbers line up in columns
+
+### Fixed
+- A `--xy-grid-min` wider than the grid no longer overflows on small screens; the minimum is capped at the grid's width
+
+### Changed
+- **`--xy-font-numeric` defaults to `lining-nums`** instead of `normal`: digits at cap height in every font. No change for system fonts; fonts like Raleway, whose default digits rise and drop like lowercase, no longer need the override
+- Tables use equal-width digits (`--xy-font-numeric-table`)
+
 ## 0.3.1
 
 ### Fixed

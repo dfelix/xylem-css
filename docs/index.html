@@ -18,6 +18,7 @@
 
     /* Reusable demo helpers */
     .demo-bg { background: var(--xy-color-bg-subtle); }
+    .demo-box { padding: var(--xy-space-3); background: var(--xy-color-bg-subtle); border-radius: var(--xy-radius); text-align: center; }
     .demo-rounded { border-radius: var(--xy-radius); }
     .demo-swatch { flex: 1; min-width: 6rem; }
     .demo-swatch-lg { flex: 1; min-width: 10rem; }
@@ -200,7 +201,6 @@
           <li><a href="#dropdown">Dropdown</a></li>
           <li><a href="#sidebar">Sidebar</a></li>
           <li><a href="#progress">Progress</a></li>
-          <li><a href="#switch">Switch</a></li>
           <li><a href="#avatar">Avatar</a></li>
           <li><a href="#footer">Footer</a></li>
           <li><a href="#divider">Divider</a></li>
@@ -211,6 +211,7 @@
         <button class="dropdown-toggle">Utilities</button>
         <ul class="dropdown-menu">
           <li><a href="#layout">Layout</a></li>
+          <li><a href="#grid">Grid</a></li>
           <li><a href="#spacing">Spacing</a></li>
           <li><a href="#display">Display</a></li>
           <li><a href="#flex">Flex</a></li>
@@ -1968,6 +1969,7 @@
       </details>
 
       <h4>Row (flex, with gap)</h4>
+      <p>For toolbars, button groups and inline items. For rows of cards, use a <a href="#grid-counted">counted grid</a>: it keeps rows full and their edges aligned.</p>
       <div class="row">
         <div class="p-3 demo-bg">One</div>
         <div class="p-3 demo-bg">Two</div>
@@ -2008,25 +2010,7 @@
         </div>
       </details>
 
-      <h4>Grid (auto-fill)</h4>
-      <p>Responsive grid that auto-fills columns. Override <code>--xy-grid-min</code> to change minimum column width (default 16rem).</p>
-      <div class="grid">
-        <div class="p-3 demo-bg text-center">A</div>
-        <div class="p-3 demo-bg text-center">B</div>
-        <div class="p-3 demo-bg text-center">C</div>
-        <div class="p-3 demo-bg text-center">D</div>
-      </div>
-
-      <details class="code-toggle">
-        <summary>Show code</summary>
-        <div class="code-block">
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-          <pre><code class="language-html">&lt;div class="grid"&gt;...&lt;/div&gt;
-
-&lt;!-- Custom column width --&gt;
-&lt;div class="grid" style="--xy-grid-min: 10rem;"&gt;...&lt;/div&gt;</code></pre>
-        </div>
-      </details>
+      <p>For grids (auto-fill and counted, spans, gap), see <a href="#grid">Grid</a>.</p>
 
       <h4>Stack (vertical, with gap)</h4>
       <div class="stack-sm">
@@ -2045,6 +2029,666 @@
         </div>
       </details>
     </section>
+
+    <!-- Grid -->
+    <section id="grid" class="demo-section stack">
+      <h2>Grid</h2>
+      <p>Two kinds of grid. Both are responsive without media queries, and their columns follow the space the grid actually has (for example next to a sidebar), not the screen width.</p>
+
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th>You want</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td>A list of similar items (cards, products, photos), as many per row as fit</td><td><a href="#grid-auto"><code>.grid</code></a></td></tr>
+          <tr><td>A fixed set of items that stays in full rows: 4&nbsp;&rarr;&nbsp;2&nbsp;&rarr;&nbsp;1, never 3&nbsp;+&nbsp;1 (stat cards, dashboards)</td><td><a href="#grid-counted"><code>.grid-cols-2</code>, <code>.grid-cols-3</code>, <code>.grid-cols-4</code></a></td></tr>
+          <tr><td>One item wider than the others (a chart beside a list, main content and an aside)</td><td>a counted grid with <a href="#grid-spans"><code>.span-2</code>, <code>.span-3</code>, <code>.span-full</code></a></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h4 id="grid-auto">Auto-fill grid</h4>
+      <p><code>.grid</code> fits as many columns as it can, each at least <code>--xy-grid-min</code> wide (16rem), so the last row may be shorter. The minimum never exceeds the grid's width, so it can't overflow a phone.</p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Card A</h5>
+            <p class="text-sm text-muted mb-0">As many per row as fit.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Card B</h5>
+            <p class="text-sm text-muted mb-0">As many per row as fit.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Card C</h5>
+            <p class="text-sm text-muted mb-0">As many per row as fit.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Card D</h5>
+            <p class="text-sm text-muted mb-0">As many per row as fit.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Card E</h5>
+            <p class="text-sm text-muted mb-0">As many per row as fit.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Card F</h5>
+            <p class="text-sm text-muted mb-0">As many per row as fit.</p>
+          </div>
+        </div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;!-- As many 16rem+ columns as fit --&gt;
+      &lt;div class="grid"&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Card A&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;As many per row as fit.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Card B&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;As many per row as fit.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Card C&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;As many per row as fit.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Card D&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;As many per row as fit.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Card E&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;As many per row as fit.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Card F&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;As many per row as fit.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <p><strong>Smaller items</strong>, such as tiles or thumbnails: a smaller minimum.</p>
+
+      <div class="grid" style="--xy-grid-min: 8rem;">
+        <div class="demo-box">1</div>
+        <div class="demo-box">2</div>
+        <div class="demo-box">3</div>
+        <div class="demo-box">4</div>
+        <div class="demo-box">5</div>
+        <div class="demo-box">6</div>
+        <div class="demo-box">7</div>
+        <div class="demo-box">8</div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;!-- 8rem+ columns --&gt;
+      &lt;div class="grid" style="--xy-grid-min: 8rem;"&gt;
+        &lt;div&gt;1&lt;/div&gt;
+        &lt;div&gt;2&lt;/div&gt;
+        &lt;div&gt;3&lt;/div&gt;
+        &lt;div&gt;4&lt;/div&gt;
+        &lt;div&gt;5&lt;/div&gt;
+        &lt;div&gt;6&lt;/div&gt;
+        &lt;div&gt;7&lt;/div&gt;
+        &lt;div&gt;8&lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <p><strong>At most N per row</strong>: <code>--xy-grid-max</code> caps the number of columns, for long lists that shouldn't spread too thin on wide screens. Narrower, the list still uses every column that fits (4&nbsp;&rarr;&nbsp;3&nbsp;&rarr;&nbsp;2&nbsp;&rarr;&nbsp;1), so the last row may be short. For a fixed set of items in full rows, use a <a href="#grid-counted">counted grid</a> instead.</p>
+      <div class="grid" style="--xy-grid-min: 10rem; --xy-grid-max: 4;">
+        <div class="demo-box">1</div>
+        <div class="demo-box">2</div>
+        <div class="demo-box">3</div>
+        <div class="demo-box">4</div>
+        <div class="demo-box">5</div>
+        <div class="demo-box">6</div>
+        <div class="demo-box">7</div>
+        <div class="demo-box">8</div>
+        <div class="demo-box">9</div>
+        <div class="demo-box">10</div>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;!-- A long list: 10rem+ columns, but never more than 4 per row --&gt;
+&lt;div class="grid" style="--xy-grid-min: 10rem; --xy-grid-max: 4;"&gt;
+  &lt;div&gt;1&lt;/div&gt;
+  &lt;div&gt;2&lt;/div&gt;
+  &lt;div&gt;3&lt;/div&gt;
+  &lt;div&gt;4&lt;/div&gt;
+  &lt;div&gt;5&lt;/div&gt;
+  &lt;div&gt;6&lt;/div&gt;
+  &lt;div&gt;7&lt;/div&gt;
+  &lt;div&gt;8&lt;/div&gt;
+  &lt;div&gt;9&lt;/div&gt;
+  &lt;div&gt;10&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+
+      <h4 id="grid-counted">Counted grids</h4>
+      <p><code>.grid-cols-2</code>, <code>.grid-cols-3</code> and <code>.grid-cols-4</code> have that many columns when each can be at least <code>--xy-grid-min</code> wide (12rem here), and step down so rows stay full: 4&nbsp;&rarr;&nbsp;2&nbsp;&rarr;&nbsp;1, 3&nbsp;&rarr;&nbsp;1, 2&nbsp;&rarr;&nbsp;1. Resize the window to see it.</p>
+      <p><strong>Stat cards</strong>: 4 per row, 2 per row, then 1.</p>
+
+      <div class="grid-cols-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="text-xs text-muted">Revenue</div>
+            <div class="text-lg tabular-nums">€62.4k</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="text-xs text-muted">Fields</div>
+            <div class="text-lg tabular-nums">24</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="text-xs text-muted">Yield (t)</div>
+            <div class="text-lg tabular-nums">1,280</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="text-xs text-muted">Soil health</div>
+            <div class="text-lg tabular-nums">82%</div>
+          </div>
+        </div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;div class="grid-cols-4"&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;div class="text-xs text-muted"&gt;Revenue&lt;/div&gt;
+            &lt;div class="text-lg tabular-nums"&gt;€62.4k&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;div class="text-xs text-muted"&gt;Fields&lt;/div&gt;
+            &lt;div class="text-lg tabular-nums"&gt;24&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;div class="text-xs text-muted"&gt;Yield (t)&lt;/div&gt;
+            &lt;div class="text-lg tabular-nums"&gt;1,280&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;div class="text-xs text-muted"&gt;Soil health&lt;/div&gt;
+            &lt;div class="text-lg tabular-nums"&gt;82%&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <p><strong>Two panels</strong>: side by side, or stacked.</p>
+
+      <div class="grid-cols-2">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Left panel</h5>
+            <p class="text-sm text-muted mb-0">Half the row, or the full row when narrow.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Right panel</h5>
+            <p class="text-sm text-muted mb-0">Half the row, or the full row when narrow.</p>
+          </div>
+        </div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;div class="grid-cols-2"&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Left panel&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;Half the row, or the full row when narrow.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Right panel&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;Half the row, or the full row when narrow.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <p><strong>Three features</strong>: three across, or stacked.</p>
+
+      <div class="grid-cols-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Light</h5>
+            <p class="text-sm text-muted mb-0">One small CSS file.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Simple</h5>
+            <p class="text-sm text-muted mb-0">Plain HTML classes.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Themeable</h5>
+            <p class="text-sm text-muted mb-0">CSS custom properties.</p>
+          </div>
+        </div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;div class="grid-cols-3"&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Light&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;One small CSS file.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Simple&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;Plain HTML classes.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Themeable&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;CSS custom properties.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <h4 id="grid-spans">Spans</h4>
+      <p>In a counted grid, <code>.span-2</code> and <code>.span-3</code> make an item that many columns wide while the grid has that many columns, and one column wide otherwise, so the grid never overflows. <code>.span-full</code> takes the whole row at any width.</p>
+      <p><strong>Two thirds and one third</strong>, e.g. a chart beside a list.</p>
+
+      <div class="grid-cols-3">
+        <div class="demo-box span-2">Chart (.span-2)</div>
+        <div class="demo-box">List</div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;div class="grid-cols-3"&gt;
+        &lt;div class="span-2"&gt;Chart (.span-2)&lt;/div&gt;
+        &lt;div&gt;List&lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <p><strong>Main content and an aside</strong>: three quarters and one quarter.</p>
+
+      <div class="grid-cols-4">
+        <div class="demo-box span-3">Main (.span-3)</div>
+        <div class="demo-box">Aside</div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;div class="grid-cols-4"&gt;
+        &lt;div class="span-3"&gt;Main (.span-3)&lt;/div&gt;
+        &lt;div&gt;Aside&lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <p><strong>A full-width row</strong> inside a grid, e.g. a heading or a banner between rows of cards.</p>
+
+      <div class="grid-cols-3">
+        <div class="demo-box span-full">Heading (.span-full)</div>
+        <div class="demo-box">1</div>
+        <div class="demo-box">2</div>
+        <div class="demo-box">3</div>
+        <div class="demo-box span-full">Banner (.span-full)</div>
+        <div class="demo-box">4</div>
+        <div class="demo-box">5</div>
+        <div class="demo-box">6</div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;div class="grid-cols-3"&gt;
+        &lt;div class="span-full"&gt;Heading (.span-full)&lt;/div&gt;
+        &lt;div&gt;1&lt;/div&gt;
+        &lt;div&gt;2&lt;/div&gt;
+        &lt;div&gt;3&lt;/div&gt;
+        &lt;div class="span-full"&gt;Banner (.span-full)&lt;/div&gt;
+        &lt;div&gt;4&lt;/div&gt;
+        &lt;div&gt;5&lt;/div&gt;
+        &lt;div&gt;6&lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <h4>A dashboard</h4>
+      <p>Rows of counted grids share their column edges: four stat cards, a wide chart beside a narrow card, then three cards. See also the <a href="examples/dashboard.html">dashboard example</a>.</p>
+
+      <div class="stack">
+        <div class="grid-cols-4">
+          <div class="demo-box">Stat</div>
+          <div class="demo-box">Stat</div>
+          <div class="demo-box">Stat</div>
+          <div class="demo-box">Stat</div>
+        </div>
+        <div class="grid-cols-3">
+          <div class="demo-box span-2">Chart (.span-2)</div>
+          <div class="demo-box">Services</div>
+        </div>
+        <div class="grid-cols-3">
+          <div class="demo-box">Processing</div>
+          <div class="demo-box">Storage</div>
+          <div class="demo-box">Errors</div>
+        </div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;div class="stack"&gt;
+        &lt;div class="grid-cols-4"&gt;
+          &lt;div&gt;Stat&lt;/div&gt;
+          &lt;div&gt;Stat&lt;/div&gt;
+          &lt;div&gt;Stat&lt;/div&gt;
+          &lt;div&gt;Stat&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="grid-cols-3"&gt;
+          &lt;div class="span-2"&gt;Chart (.span-2)&lt;/div&gt;
+          &lt;div&gt;Services&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="grid-cols-3"&gt;
+          &lt;div&gt;Processing&lt;/div&gt;
+          &lt;div&gt;Storage&lt;/div&gt;
+          &lt;div&gt;Errors&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <h4>Alignment</h4>
+      <p>Items in a row stretch to the same height, so cards line up. Add <code>.items-start</code> to keep each item as tall as its content.</p>
+
+      <div class="grid-cols-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Short</h5>
+            <p class="text-sm text-muted mb-0">One line.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Tall</h5>
+            <p class="text-sm text-muted mb-0">Several lines of text make this card taller than its neighbours in the row.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Short</h5>
+            <p class="text-sm text-muted mb-0">One line.</p>
+          </div>
+        </div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;!-- Default: equal heights --&gt;
+      &lt;div class="grid-cols-3"&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Short&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;One line.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Tall&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;Several lines of text make this card taller than its neighbours in the row.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Short&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;One line.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <div class="grid-cols-3 items-start">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Short</h5>
+            <p class="text-sm text-muted mb-0">One line.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Tall</h5>
+            <p class="text-sm text-muted mb-0">Several lines of text make this card taller than its neighbours in the row.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Short</h5>
+            <p class="text-sm text-muted mb-0">One line.</p>
+          </div>
+        </div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;!-- Each item as tall as its content --&gt;
+      &lt;div class="grid-cols-3 items-start"&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Short&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;One line.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Tall&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;Several lines of text make this card taller than its neighbours in the row.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Short&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;One line.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <h4>Gap</h4>
+      <p>The gap is 1rem. Change it with a <code>.gap-*</code> utility or <code>--xy-grid-gap</code>, not <code>gap</code> alone: the columns are computed from <code>--xy-grid-gap</code>, so a wider <code>gap</code> on its own would make rows wrap early.</p>
+
+      <div class="grid-cols-4 gap-1">
+        <div class="demo-box">1</div>
+        <div class="demo-box">2</div>
+        <div class="demo-box">3</div>
+        <div class="demo-box">4</div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;!-- Small gap: .gap-1 (0.25rem) --&gt;
+      &lt;div class="grid-cols-4 gap-1"&gt;
+        &lt;div&gt;1&lt;/div&gt;
+        &lt;div&gt;2&lt;/div&gt;
+        &lt;div&gt;3&lt;/div&gt;
+        &lt;div&gt;4&lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <div class="grid-cols-4" style="--xy-grid-gap: 2rem;">
+        <div class="demo-box">1</div>
+        <div class="demo-box">2</div>
+        <div class="demo-box">3</div>
+        <div class="demo-box">4</div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;!-- Any gap: --xy-grid-gap --&gt;
+      &lt;div class="grid-cols-4" style="--xy-grid-gap: 2rem;"&gt;
+        &lt;div&gt;1&lt;/div&gt;
+        &lt;div&gt;2&lt;/div&gt;
+        &lt;div&gt;3&lt;/div&gt;
+        &lt;div&gt;4&lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <h4>Content-heavy cards</h4>
+      <p>12rem suits short cards. For cards with tables, forms or long text, raise <code>--xy-grid-min</code> so they stack before they get cramped. With a custom minimum, use <code>.span-full</code> rather than <code>.span-2</code> and <code>.span-3</code>, whose widths assume 12rem.</p>
+
+      <div class="grid-cols-2" style="--xy-grid-min: 18rem;">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Workers</h5>
+            <p class="text-sm text-muted mb-0">A list with names, roles and status badges.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="mb-1">Log a task</h5>
+            <p class="text-sm text-muted mb-0">A form with several fields.</p>
+          </div>
+        </div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;!-- Side by side only when each can be 18rem wide --&gt;
+      &lt;div class="grid-cols-2" style="--xy-grid-min: 18rem;"&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Workers&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;A list with names, roles and status badges.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="mb-1"&gt;Log a task&lt;/h5&gt;
+            &lt;p class="text-sm text-muted mb-0"&gt;A form with several fields.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <h4>Inside a flex row</h4>
+      <p>A counted grid is a size container: its width comes from its parent, not its content. As a child of a <code>.row</code> (or any flex container), give it <code>.flex-1</code> so it takes the space.</p>
+
+      <div class="row items-start">
+        <div class="demo-box" style="width: 10rem;">Fixed</div>
+        <div class="grid-cols-2 flex-1">
+          <div class="demo-box">A</div>
+          <div class="demo-box">B</div>
+        </div>
+      </div>
+
+            <details class="code-toggle">
+              <summary>Show code</summary>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code class="language-html">&lt;div class="row items-start"&gt;
+        &lt;div style="width: 10rem;"&gt;Fixed&lt;/div&gt;
+        &lt;div class="grid-cols-2 flex-1"&gt;
+          &lt;div&gt;A&lt;/div&gt;
+          &lt;div&gt;B&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+              </div>
+            </details>
+
+      <h4>Tokens</h4>
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th>Token</th><th>Default</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td><code>--xy-grid-min</code></td><td>16rem (<code>.grid</code>), 12rem (counted grids)</td><td>Minimum column width</td></tr>
+          <tr><td><code>--xy-grid-max</code></td><td>no limit</td><td>Most columns <code>.grid</code> makes</td></tr>
+          <tr><td><code>--xy-grid-gap</code></td><td>1rem (<code>--xy-space-3</code>)</td><td>Gap; also set by <code>.gap-*</code></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="text-sm text-muted"><strong>Notes:</strong> set the tokens on the grid itself; like any custom property they also apply to grids nested inside it, so set them again there if needed. Spans use container queries; browsers without them (Safari 15) show the items one column wide, which is safe. Everything else works in every supported browser.</p>
+    </section>
+
 
     <!-- Spacing -->
     <section id="spacing" class="demo-section stack">
@@ -2272,6 +2916,13 @@
         <p class="text-right">.text-right</p>
       </div>
 
+      <h4>Digits</h4>
+      <p>Digits are lining (at cap height) everywhere, and also of equal width in tables, so numbers line up in columns. Use <code>.tabular-nums</code> for the same outside tables, e.g. for stat values. Set the styles with <code>--xy-font-numeric</code> and <code>--xy-font-numeric-table</code>; <code>font-variant-numeric</code> replaces every digit feature at once, so name all you want (<code>lining-nums tabular-nums</code>, not just <code>tabular-nums</code>).</p>
+      <div class="stack-sm demo-bg p-3">
+        <p class="m-0">1,280 &middot; 62.4k &middot; 82%</p>
+        <p class="m-0 tabular-nums">1,280 &middot; 62.4k &middot; 82% <span class="text-muted text-sm">(.tabular-nums)</span></p>
+      </div>
+
       <h4>Width</h4>
       <p>Use <code>.w-full</code> for <code>width: 100%</code> and <code>.max-w-full</code> for <code>max-width: 100%</code>.</p>
 
@@ -2373,7 +3024,11 @@
           <tr><td><code>--xy-text-base</code></td><td>1rem</td></tr>
           <tr><td><code>--xy-text-lg</code></td><td>1.15rem</td></tr>
           <tr><td><code>--xy-font</code></td><td>system-ui and fallbacks; set to any font, e.g. a web font</td></tr>
-          <tr><td><code>--xy-font-numeric</code></td><td>normal; e.g. <code>lining-nums</code> for fonts whose digits rise and drop like lowercase (Raleway), or <code>tabular-nums</code> for equal-width digits. Applies to form controls too</td></tr>
+          <tr><td><code>--xy-font-numeric</code></td><td><code>lining-nums</code>: digits at cap height in every font (Raleway's default digits rise and drop like lowercase). Applies to form controls too</td></tr>
+          <tr><td><code>--xy-grid-min</code></td><td>16rem for <code>.grid</code>, 12rem for counted grids: minimum column width (see <a href="#grid">Grid</a>)</td></tr>
+          <tr><td><code>--xy-grid-max</code></td><td>no limit: most columns <code>.grid</code> makes</td></tr>
+          <tr><td><code>--xy-grid-gap</code></td><td>1rem: grid gap, also set by <code>.gap-*</code></td></tr>
+          <tr><td><code>--xy-font-numeric-table</code></td><td><code>lining-nums tabular-nums</code>: tables and <code>.tabular-nums</code>, so numbers line up in columns</td></tr>
           <tr><td><code>--xy-control-height</code></td><td>2.5rem: text fields, selects and <code>.button</code></td></tr>
           <tr><td><code>--xy-control-height-sm</code></td><td>1.875rem: <code>.input-sm</code> and <code>.button-sm</code></td></tr>
         </tbody>

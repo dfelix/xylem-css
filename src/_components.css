@@ -819,10 +819,86 @@ details.dropdown[open] > .dropdown-toggle::after {
 
 /* === Grid (auto-fill) === */
 
+/*
+ * As many columns as fit, each at least --xy-grid-min wide (16rem), never more than
+ * --xy-grid-max (no limit by default). With --xy-grid-max set to the number of items,
+ * they fill the row on wide screens instead of leaving empty columns. The minimum is
+ * capped at the grid's width, so it never overflows a phone. --xy-grid-gap: the gap.
+ */
 .grid {
+  --_gap: var(--xy-grid-gap, var(--xy-space-3));
+  --_max: var(--xy-grid-max, 999);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--xy-grid-min, 16rem), 1fr));
-  gap: var(--xy-space-3);
+  grid-template-columns: repeat(auto-fill, minmax(
+    max(min(var(--xy-grid-min, 16rem), 100%), (100% - (var(--_max) - 1) * var(--_gap)) / var(--_max)),
+    1fr));
+  gap: var(--_gap);
+}
+
+/*
+ * Counted grids: .grid-cols-2, .grid-cols-3 and .grid-cols-4 have that many columns
+ * when each can be at least --xy-grid-min wide (12rem here), and step down so rows
+ * stay full: 4 -> 2 -> 1, 3 -> 1, 2 -> 1. Never 3 + 1.
+ *
+ * The step is computed from the grid's own width (the space it actually has, e.g.
+ * next to a sidebar), not the screen's, with no media or container queries. Each
+ * clamp() is 0 while N columns fit and jumps to the wider fallback track once they
+ * don't: (threshold - 100%) * 999 is negative above the threshold, huge below it.
+ *
+ * The grid is also a size container, for .span-2 and .span-3 (container queries; in
+ * browsers without them items don't span, which is safe). Its width comes from its
+ * parent, not its content: inside a flex row, give it flex: 1.
+ */
+.grid-cols-2,
+.grid-cols-3,
+.grid-cols-4 {
+  --_gap: var(--xy-grid-gap, var(--xy-space-3));
+  --_min: var(--xy-grid-min, 12rem);
+  display: grid;
+  gap: var(--_gap);
+  container-type: inline-size;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(auto-fill, minmax(max(
+    (100% - var(--_gap)) / 2,
+    clamp(0px, (2 * var(--_min) + var(--_gap) - 100%) * 999, 100%)), 1fr));
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(auto-fill, minmax(max(
+    (100% - 2 * var(--_gap)) / 3,
+    clamp(0px, (3 * var(--_min) + 2 * var(--_gap) - 100%) * 999, 100%)), 1fr));
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(auto-fill, minmax(max(
+    (100% - 3 * var(--_gap)) / 4,
+    clamp(0px, (4 * var(--_min) + 3 * var(--_gap) - 100%) * 999, (100% - var(--_gap)) / 2),
+    clamp(0px, (2 * var(--_min) + var(--_gap) - 100%) * 999, 100%)), 1fr));
+}
+
+/*
+ * Spans in counted grids. .span-full takes the whole row at any width. .span-2 and
+ * .span-3 apply only while the grid has that many columns (otherwise the item takes
+ * one), so they never push the grid wider than its container. The widths below are
+ * those column thresholds for the default 12rem minimum and 1rem gap; with other
+ * values, use .span-full or your own rule.
+ */
+.span-full {
+  grid-column: 1 / -1;
+}
+
+@container (min-width: 25rem) {
+  .grid-cols-4 > .span-2 { grid-column: span 2; }
+}
+
+@container (min-width: 38rem) {
+  .grid-cols-3 > .span-2 { grid-column: span 2; }
+}
+
+@container (min-width: 51rem) {
+  .grid-cols-4 > .span-3 { grid-column: span 3; }
 }
 
 .stack    { gap: var(--xy-space-3); }
