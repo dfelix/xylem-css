@@ -107,6 +107,9 @@
 .text-warning { color: var(--xy-color-warning-text); }
 .text-info    { color: var(--xy-color-info); }
 
+/* Digits of equal width (lining), e.g. stat values and counters outside tables */
+.tabular-nums { font-variant-numeric: var(--xy-font-numeric-table); }
+
 /* === Font Weight Utilities === */
 
 .font-light    { font-weight: 300; }
@@ -231,12 +234,14 @@
 .justify-end     { justify-content: flex-end; }
 .justify-between { justify-content: space-between; }
 
-.gap-0 { gap: 0; }
-.gap-1 { gap: var(--xy-space-1); }
-.gap-2 { gap: var(--xy-space-2); }
-.gap-3 { gap: var(--xy-space-3); }
-.gap-4 { gap: var(--xy-space-4); }
-.gap-5 { gap: var(--xy-space-5); }
+/* Also set --xy-grid-gap: .grid (with --xy-grid-max) and the counted grids compute
+   their columns from it, so a gap set only with `gap` would make them wrap early */
+.gap-0 { gap: 0; --xy-grid-gap: 0px; }
+.gap-1 { gap: var(--xy-space-1); --xy-grid-gap: var(--xy-space-1); }
+.gap-2 { gap: var(--xy-space-2); --xy-grid-gap: var(--xy-space-2); }
+.gap-3 { gap: var(--xy-space-3); --xy-grid-gap: var(--xy-space-3); }
+.gap-4 { gap: var(--xy-space-4); --xy-grid-gap: var(--xy-space-4); }
+.gap-5 { gap: var(--xy-space-5); --xy-grid-gap: var(--xy-space-5); }
 
 /* === List Utilities === */
 

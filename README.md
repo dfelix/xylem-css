@@ -52,9 +52,17 @@ Via CDN:
 ### Layout
 
 - `.container` — centered, max-width 960px wrapper
-- `.row` — flex row with gap (`.row-nowrap`, `.row-center`, `.row-between`); its children drop their bottom margin so form controls and buttons line up
+- `.row` — flex row with gap (`.row-nowrap`, `.row-center`, `.row-between`); its children drop their bottom margin so form controls and buttons line up. For toolbars, button groups and inline items; for rows of cards, use a counted grid (see Grid)
 - `.stack` — vertical flex column (`.stack-sm`, `.stack-lg`)
-- `.grid` — responsive auto-fill grid (customize minimum column width with `--xy-grid-min`)
+
+### Grid
+
+Both kinds follow the space the grid actually has (e.g. next to a sidebar), without media queries.
+
+- `.grid` — auto-fill: as many columns as fit, each at least `--xy-grid-min` (16rem), at most `--xy-grid-max`. For lists of similar items
+- `.grid-cols-2`, `.grid-cols-3`, `.grid-cols-4` — counted: that many columns when each can be `--xy-grid-min` (12rem) wide, stepping down so rows stay full (4 → 2 → 1, 3 → 1, 2 → 1). For fixed sets of cards, e.g. dashboards
+- `.span-2`, `.span-3`, `.span-full` — wider items in counted grids
+- Gap: `.gap-*` utilities or `--xy-grid-gap` (not `gap` alone)
 
 ### Components
 
@@ -86,7 +94,7 @@ Via CDN:
 - Spacing — `.m-{0-5}`, `.p-{0-5}`, `.mt-{0-5}`, `.mb-{0-5}`, `.ml-{0-5}`, `.mr-{0-5}`, `.pt-{0-5}`, `.pb-{0-5}`, `.pl-{0-5}`, `.pr-{0-5}`, `.mx-auto`
 - Flex — `.flex-1`, `.flex-auto`, `.flex-none`, `.items-{start,center,end,stretch}`, `.justify-{start,center,end,between}`, `.gap-{0-5}`
 - Width — `.w-full`, `.max-w-full`
-- Text — `.text-left`, `.text-center`, `.text-right`, `.text-xs`, `.text-sm`, `.text-md`, `.text-base`, `.text-lg`, `.text-muted`, `.text-primary`, `.text-success`, `.text-danger`, `.text-warning`, `.text-info`
+- Text — `.text-left`, `.text-center`, `.text-right`, `.text-xs`, `.text-sm`, `.text-md`, `.text-base`, `.text-lg`, `.text-muted`, `.text-primary`, `.text-success`, `.text-danger`, `.text-warning`, `.text-info`, `.tabular-nums`
 - Font weight — `.font-light`, `.font-semibold`
 - Typography — `.section-label` / `.overline` (uppercase muted label), `.display-number` (large light stat number), `.list-unstyled`, `.list-divided` (separator borders between items)
 - Background — `.bg-subtle` (subtle background with border-radius)
@@ -118,7 +126,8 @@ Override CSS custom properties to theme the framework:
 ```css
 :root {
   --xy-font: system-ui, sans-serif;  /* any font, e.g. a web font */
-  --xy-font-numeric: normal;         /* e.g. lining-nums for Raleway */
+  --xy-font-numeric: lining-nums;               /* digit style for the page */
+  --xy-font-numeric-table: lining-nums tabular-nums;  /* tables, .tabular-nums */
   --xy-color-primary: #008080;
   --xy-color-primary-hover: #006666;
   --xy-color-text: #222;
