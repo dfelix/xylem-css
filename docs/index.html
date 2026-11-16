@@ -2041,6 +2041,7 @@
         <tbody>
           <tr><td>A list of similar items (cards, products, photos), as many per row as fit</td><td><a href="#grid-auto"><code>.grid</code></a></td></tr>
           <tr><td>A fixed set of items that stays in full rows: 4&nbsp;&rarr;&nbsp;2&nbsp;&rarr;&nbsp;1, never 3&nbsp;+&nbsp;1 (stat cards, dashboards)</td><td><a href="#grid-counted"><code>.grid-cols-2</code>, <code>.grid-cols-3</code>, <code>.grid-cols-4</code></a></td></tr>
+          <tr><td>The same, for cards with tables, lists or forms</td><td>a counted grid with <a href="#grid-wide"><code>.grid-wide</code></a></td></tr>
           <tr><td>One item wider than the others (a chart beside a list, main content and an aside)</td><td>a counted grid with <a href="#grid-spans"><code>.span-2</code>, <code>.span-3</code>, <code>.span-full</code></a></td></tr>
         </tbody>
       </table>
@@ -2610,10 +2611,9 @@
               </div>
             </details>
 
-      <h4>Content-heavy cards</h4>
-      <p>12rem suits short cards. For cards with tables, forms or long text, raise <code>--xy-grid-min</code> so they stack before they get cramped. With a custom minimum, use <code>.span-full</code> rather than <code>.span-2</code> and <code>.span-3</code>, whose widths assume 12rem.</p>
-
-      <div class="grid-cols-2" style="--xy-grid-min: 18rem;">
+      <h4 id="grid-wide">Wider columns</h4>
+      <p>12rem suits short cards such as stats. For cards with tables, lists, forms or long text, add <code>.grid-wide</code> to a counted grid: its columns are at least 18rem, so the cards stack before they get cramped, and <code>.span-2</code> and <code>.span-3</code> still work. <code>.grid-cols-2.grid-wide</code> goes to 2 columns at 37rem, <code>.grid-cols-3.grid-wide</code> to 3 at 56rem, <code>.grid-cols-4.grid-wide</code> to 2 at 37rem and 4 at 75rem.</p>
+      <div class="grid-cols-2 grid-wide">
         <div class="card">
           <div class="card-body">
             <h5 class="mb-1">Workers</h5>
@@ -2628,27 +2628,111 @@
         </div>
       </div>
 
-            <details class="code-toggle">
-              <summary>Show code</summary>
-              <div class="code-block">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <pre><code class="language-html">&lt;!-- Side by side only when each can be 18rem wide --&gt;
-      &lt;div class="grid-cols-2" style="--xy-grid-min: 18rem;"&gt;
-        &lt;div class="card"&gt;
-          &lt;div class="card-body"&gt;
-            &lt;h5 class="mb-1"&gt;Workers&lt;/h5&gt;
-            &lt;p class="text-sm text-muted mb-0"&gt;A list with names, roles and status badges.&lt;/p&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="card"&gt;
-          &lt;div class="card-body"&gt;
-            &lt;h5 class="mb-1"&gt;Log a task&lt;/h5&gt;
-            &lt;p class="text-sm text-muted mb-0"&gt;A form with several fields.&lt;/p&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;</code></pre>
-              </div>
-            </details>
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;!-- Side by side only when each can be 18rem wide --&gt;
+&lt;div class="grid-cols-2 grid-wide"&gt;
+  &lt;div class="card"&gt;
+    &lt;div class="card-body"&gt;
+      &lt;h5 class="mb-1"&gt;Workers&lt;/h5&gt;
+      &lt;p class="text-sm text-muted mb-0"&gt;A list with names, roles and status badges.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="card"&gt;
+    &lt;div class="card-body"&gt;
+      &lt;h5 class="mb-1"&gt;Log a task&lt;/h5&gt;
+      &lt;p class="text-sm text-muted mb-0"&gt;A form with several fields.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+
+      <p>A dashboard of content-heavy cards: three per row, with the chart two columns wide, once each column can be 18rem; one per row below that.</p>
+      <div class="stack">
+        <div class="grid-cols-3 grid-wide">
+          <div class="card span-2">
+            <div class="card-body">
+              <h5 class="mb-1">Yield (t)</h5>
+              <p class="text-sm text-muted mb-0">A chart, two columns wide.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="mb-1">Services</h5>
+              <p class="text-sm text-muted mb-0">Names, times and status badges.</p>
+            </div>
+          </div>
+        </div>
+        <div class="grid-cols-3 grid-wide">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="mb-1">Processing</h5>
+              <p class="text-sm text-muted mb-0">Current job and its steps.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="mb-1">Storage</h5>
+              <p class="text-sm text-muted mb-0">Sizes per store.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="mb-1">Errors</h5>
+              <p class="text-sm text-muted mb-0">The latest messages.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <details class="code-toggle">
+        <summary>Show code</summary>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code class="language-html">&lt;!-- Three columns, and the chart two wide, once each column can be 18rem --&gt;
+&lt;div class="stack"&gt;
+  &lt;div class="grid-cols-3 grid-wide"&gt;
+    &lt;div class="card span-2"&gt;
+      &lt;div class="card-body"&gt;
+        &lt;h5 class="mb-1"&gt;Yield (t)&lt;/h5&gt;
+        &lt;p class="text-sm text-muted mb-0"&gt;A chart, two columns wide.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="card"&gt;
+      &lt;div class="card-body"&gt;
+        &lt;h5 class="mb-1"&gt;Services&lt;/h5&gt;
+        &lt;p class="text-sm text-muted mb-0"&gt;Names, times and status badges.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="grid-cols-3 grid-wide"&gt;
+    &lt;div class="card"&gt;
+      &lt;div class="card-body"&gt;
+        &lt;h5 class="mb-1"&gt;Processing&lt;/h5&gt;
+        &lt;p class="text-sm text-muted mb-0"&gt;Current job and its steps.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="card"&gt;
+      &lt;div class="card-body"&gt;
+        &lt;h5 class="mb-1"&gt;Storage&lt;/h5&gt;
+        &lt;p class="text-sm text-muted mb-0"&gt;Sizes per store.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="card"&gt;
+      &lt;div class="card-body"&gt;
+        &lt;h5 class="mb-1"&gt;Errors&lt;/h5&gt;
+        &lt;p class="text-sm text-muted mb-0"&gt;The latest messages.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </details>
+
+      <p>Any other minimum: set <code>--xy-grid-min</code> on the grid. The spans' widths are built in for 12rem and 18rem only, so with another value use <code>.span-full</code> instead of <code>.span-2</code> and <code>.span-3</code>.</p>
 
       <h4>Inside a flex row</h4>
       <p>A counted grid is a size container: its width comes from its parent, not its content. As a child of a <code>.row</code> (or any flex container), give it <code>.flex-1</code> so it takes the space.</p>
@@ -2680,7 +2764,7 @@
       <table>
         <thead><tr><th>Token</th><th>Default</th><th>Effect</th></tr></thead>
         <tbody>
-          <tr><td><code>--xy-grid-min</code></td><td>16rem (<code>.grid</code>), 12rem (counted grids)</td><td>Minimum column width</td></tr>
+          <tr><td><code>--xy-grid-min</code></td><td>16rem (<code>.grid</code>), 12rem (counted grids), 18rem (<code>.grid-wide</code>, fixed)</td><td>Minimum column width</td></tr>
           <tr><td><code>--xy-grid-max</code></td><td>no limit</td><td>Most columns <code>.grid</code> makes</td></tr>
           <tr><td><code>--xy-grid-gap</code></td><td>1rem (<code>--xy-space-3</code>)</td><td>Gap; also set by <code>.gap-*</code></td></tr>
         </tbody>

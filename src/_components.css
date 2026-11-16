@@ -879,26 +879,49 @@ details.dropdown[open] > .dropdown-toggle::after {
 }
 
 /*
+ * .grid-wide: 18rem columns, for cards holding tables, lists or forms. A fixed value
+ * (not --xy-grid-min) so .span-2 and .span-3 below know when the columns exist.
+ */
+.grid-cols-2.grid-wide,
+.grid-cols-3.grid-wide,
+.grid-cols-4.grid-wide {
+  --_min: 18rem;
+}
+
+/*
  * Spans in counted grids. .span-full takes the whole row at any width. .span-2 and
  * .span-3 apply only while the grid has that many columns (otherwise the item takes
  * one), so they never push the grid wider than its container. The widths below are
- * those column thresholds for the default 12rem minimum and 1rem gap; with other
- * values, use .span-full or your own rule.
+ * those column thresholds (N * minimum + (N - 1) * gap) for the default 12rem
+ * minimum, .grid-wide's 18rem, and the 1rem gap; with other values, use .span-full
+ * or your own rule.
  */
 .span-full {
   grid-column: 1 / -1;
 }
 
 @container (min-width: 25rem) {
-  .grid-cols-4 > .span-2 { grid-column: span 2; }
+  .grid-cols-4:not(.grid-wide) > .span-2 { grid-column: span 2; }
+}
+
+@container (min-width: 37rem) {
+  .grid-cols-4.grid-wide > .span-2 { grid-column: span 2; }
 }
 
 @container (min-width: 38rem) {
-  .grid-cols-3 > .span-2 { grid-column: span 2; }
+  .grid-cols-3:not(.grid-wide) > .span-2 { grid-column: span 2; }
 }
 
 @container (min-width: 51rem) {
-  .grid-cols-4 > .span-3 { grid-column: span 3; }
+  .grid-cols-4:not(.grid-wide) > .span-3 { grid-column: span 3; }
+}
+
+@container (min-width: 56rem) {
+  .grid-cols-3.grid-wide > .span-2 { grid-column: span 2; }
+}
+
+@container (min-width: 75rem) {
+  .grid-cols-4.grid-wide > .span-3 { grid-column: span 3; }
 }
 
 .stack    { gap: var(--xy-space-3); }
