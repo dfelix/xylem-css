@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.2
+
+### Fixed
+- A checkbox or radio label too long for one line keeps its text beside the box, wrapping there. It used to drop the whole text below the box (`flex-wrap: wrap` on the label)
+
 ## 0.4.1
 
 ### Added
