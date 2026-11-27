@@ -231,7 +231,7 @@ label:has(input[type="checkbox"]),
 label:has(input[type="radio"]) {
   display: inline-flex;
   align-items: baseline;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: var(--xy-space-1);
   margin-bottom: 0;
   font-weight: normal;
